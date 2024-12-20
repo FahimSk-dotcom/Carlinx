@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../Redux/counter/counterSlice';
 import { HiOutlineShoppingCart } from "react-icons/hi";
+import { FaRegEye } from 'react-icons/fa6';
+import Link from 'next/link';
 import part1 from '../../../public/jpgs/parts-1.jpg';
 import part2 from '../../../public/jpgs/parts-2.jpg';
 import part3 from '../../../public/jpgs/parts-3.jpg';
@@ -15,8 +17,6 @@ import part6 from '../../../public/jpgs/parts-6.jpg';
 import part7 from '../../../public/jpgs/parts-7.jpg';
 import part8 from '../../../public/jpgs/parts-8.jpg';
 import part9 from '../../../public/jpgs/parts-9.jpg';
-import { FaRegEye } from 'react-icons/fa6';
-import Link from 'next/link';
 
 const Shop = () => {
   const dispatch = useDispatch();
@@ -37,13 +37,16 @@ const Shop = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleAddToCart = (item) => {
-    dispatch(addToCart(item));
+    dispatch(addToCart({ item, type: "increase" }));
   };
 
   const handlePriceChange = (e) => {
     const value = Number(e.target.value);
-    if (e.target.name === 'min') setMinValue(value);
-    else setMaxValue(value);
+    if (e.target.name === "min") {
+      setMinValue(Math.min(value, maxValue));
+    } else {
+      setMaxValue(Math.max(value, minValue));
+    }
   };
 
   const handleSearch = (e) => {
