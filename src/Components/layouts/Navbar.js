@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link'; 
-import Cart from'../../../public/svgs/Cart.svg'
+import Link from 'next/link';
+import Cart from '../../../public/svgs/Cart.svg';
 import mail from '../../../public/svgs/mail-icon.svg';
 import phone from '../../../public/svgs/phone-icon.svg';
 import clock from '../../../public/svgs/Alaramclock-icon.svg';
@@ -11,42 +11,34 @@ import facebookicon from '../../../public/svgs/facebook-icon.svg';
 import instaicon from '../../../public/svgs/insta-icon.svg';
 import linkedicon from '../../../public/svgs/linkedin-icon.svg';
 import logo from '../../../public/jpgs/logo-navbar.jpg';
-import { LuLogOut } from "react-icons/lu";
+import { LuLogOut } from 'react-icons/lu';
+
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
-    const [isLoggedIn, setisLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 48) {
-                setIsScrolled(true);
-            } else {
-                setIsScrolled(false);
-            }
+            setIsScrolled(window.scrollY > 48);
         };
 
         window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     useEffect(() => {
-        const storedLoginStatus = localStorage.getItem('isLoggedIn');
-        if (storedLoginStatus === 'true') {
-            setisLoggedIn(true);
-        }
+        const storedLoginStatus = sessionStorage.getItem('isLoggedIn');
+        setIsLoggedIn(storedLoginStatus === 'true'); // Respect stored login status
     }, []);
 
     const handleLogin = () => {
-        setisLoggedIn(false);
-        localStorage.setItem('isLoggedIn', 'true');
+        setIsLoggedIn(true);
+        sessionStorage.setItem('isLoggedIn', 'true'); // Persist login status
     };
 
     const handleLogout = () => {
-        setisLoggedIn(false);
-        localStorage.setItem('isLoggedIn', 'false');
+        setIsLoggedIn(false);
+        sessionStorage.setItem('isLoggedIn', 'false'); // Clear login status
     };
 
     return (
@@ -80,7 +72,6 @@ const Navbar = () => {
                             <>
                                 <span className="transition-opacity duration-300 hover:opacity-40 flex justify-center">
                                     <LuLogOut className="text-white h-8 w-5 ml-10 z-10 mr-1" />
-
                                     <button onClick={handleLogout}>
                                         <Link className="text-white cursor-pointer z-10 ml-1" href="login">Logout</Link>
                                     </button>
@@ -118,7 +109,7 @@ const Navbar = () => {
                     <div className="flex hover:text-[#EF1D26]">
                         <Link href="/cart" className="flex items-center text-black font-semibold cursor-pointer hover:text-[#EF1D26]">
                             Cart
-                            <Image height={24} src={Cart} alt="cart icon"/>
+                            <Image height={24} src={Cart} alt="cart icon" />
                         </Link>
                         <span className="inline-flex mr-40 items-center justify-center bg-red-50 w-6 h-6 ml-2 rounded-full text-xs font-medium text-red-600 ring-1 shadow-[0_0_15px_1px_rgba(220,38,38)] ring-inset ring-red-600/10">
                             0

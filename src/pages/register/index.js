@@ -70,8 +70,8 @@ const RegistrationForm = () => {
       const timer = setInterval(() => {
         setCountdown((prev) => {
           if (prev === 1) {
-            clearInterval(timer);
             router.push("/login");
+            clearInterval(timer);
           }
           return prev - 1;
         });

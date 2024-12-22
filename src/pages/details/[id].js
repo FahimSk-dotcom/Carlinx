@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { useState } from "react"; // Import useState
-
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../Redux/counter/counterSlice';
 // Importing images
 import part1 from '../../../public/jpgs/parts-1.jpg'
 import part2 from '../../../public/jpgs/parts-2.jpg'
@@ -29,7 +30,7 @@ const partsdata = [
   {
     id: 2,
     name: 'Alternator',
-    Description:'An alternator generates electrical power in a car, charging the battery and supplying power to the electrical system when the engine is running.',
+    Description: 'An alternator generates electrical power in a car, charging the battery and supplying power to the electrical system when the engine is running.',
     stock: "Available",
     price: 50000, // Convert to number
     img: part2,
@@ -40,7 +41,7 @@ const partsdata = [
     Description:
       'The brake rotor (disc) is a critical part of the braking system. It provides a surface for the brake pads to clamp down on, generating friction that slows the vehicle.',
     stock: "Available",
-      price: 7000, // Convert to number
+    price: 7000, // Convert to number
     img: part1,
   },
   {
@@ -94,6 +95,7 @@ const partsdata = [
 ];
 
 export default function ProductDetails() {
+  const dispatch = useDispatch();
   const router = useRouter();
   const { id } = router.query;
 
@@ -106,67 +108,71 @@ export default function ProductDetails() {
   // Handlers for increment and decrement
   const handleIncrement = () => setQuantity((prev) => prev + 1);
   const handleDecrement = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
-
+  const handleAddToCart = (item) => {
+    dispatch(addToCart({ item, type: "increase" }));
+  };
   return (
     <>
-    <div className="p-6 max-w-screen-lg mx-auto mt-32">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Product Image */}
-        <Image
-          src={product.img}
-          alt={product.name}
-          width={500}
-          height={400}
-          className="rounded mt-[-80px]"
-        />
+      <div className="p-6 max-w-screen-lg mx-auto mt-32">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Product Image */}
+          <Image
+            src={product.img}
+            alt={product.name}
+            width={500}
+            height={400}
+            className="rounded mt-[-80px]"
+          />
 
-        {/* Product Details */}
-        <div>
-          <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
-          <p className="text-gray-600 mb-4">{product.Description}</p>
-
-          <div className="text-2xl font-bold flex items-center text-red-500 mb-4">
-            <FaRupeeSign />
-            {product.price}
-          </div>
-
+          {/* Product Details */}
           <div>
-            <span className="font-semibold">Stock: </span>
-            {product.stock}
-          </div>
+            <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
+            <p className="text-gray-600 mb-4">{product.Description}</p>
 
-          {/* Quantity Selector */}
-          <div className="flex items-center mt-4">
-            <span className="font-semibold">Quantity:</span>
-            <div className="flex items-center border rounded ml-4">
+            <div className="text-2xl font-bold flex items-center text-red-500 mb-4">
+              <FaRupeeSign />
+              {product.price}
+            </div>
+
+            <div>
+              <span className="font-semibold">Stock: </span>
+              {product.stock}
+            </div>
+
+            {/* Quantity Selector */}
+            <div className="flex items-center mt-4">
+              <span className="font-semibold">Quantity:</span>
+              <div className="flex items-center border rounded ml-4">
+                <button
+                  className="px-2 py-1 bg-gray-200 hover:bg-gray-300"
+                  onClick={handleDecrement}
+                >
+                  -
+                </button>
+                <span className="px-4 py-1">{quantity}</span>
+                <button
+                  className="px-2 py-1 bg-gray-200 hover:bg-gray-300"
+                  onClick={handleIncrement}
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            {/* Add to Cart Button */}
+            <div className="button flex gap-2 mt-3">
               <button
-                className="px-2 py-1 bg-gray-200 hover:bg-gray-300"
-                onClick={handleDecrement}
-              >
-                -
+                onClick={() => handleAddToCart(product)}
+                className="theme-btn max-w-64 h-9 mt-2 flex items-center justify-center">
+                <HiOutlineShoppingCart className='text-xl' /> Add to Cart
               </button>
-              <span className="px-4 py-1">{quantity}</span>
-              <button
-                className="px-2 py-1 bg-gray-200 hover:bg-gray-300"
-                onClick={handleIncrement}
-              >
-                +
+              <button className="theme-btn max-w-64 h-9 mt-2 flex items-center justify-center">
+                <HiOutlineShoppingCart className="text-xl" /> Buy Now
               </button>
             </div>
           </div>
-
-          {/* Add to Cart Button */}
-          <div className="button flex gap-2 mt-3">
-          <Link href='/cart' className="theme-btn max-w-64 h-9 mt-2 flex items-center justify-center">
-            <HiOutlineShoppingCart className="text-xl" /> Add to Cart
-          </Link>
-          <button className="theme-btn max-w-64 h-9 mt-2 flex items-center justify-center">
-            <HiOutlineShoppingCart className="text-xl" /> Buy Now
-          </button>
-          </div>
         </div>
       </div>
-    </div>
     </>
   );
 }

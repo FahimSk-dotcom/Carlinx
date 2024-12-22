@@ -60,66 +60,10 @@ const Home = () => {
   const [isEntered, setIsEntered] = useState(false);
   return (
     <>
-      <EmblaCarousel />
-      <div key={"Search"} className="Search bg-white shadow-lg ">
-        <p className='text-black font-semibold text-2xl pt-5 pl-6 pb-3 tracking-widest'>Let's Find Your Perfect Car</p>
-        <hr className='border-solid ml-6 mr-6 ' />
-        <div className='Form-search grid grid-cols-3'>
-          <form className="Car Condition max-w-64 ml-10">
-            <label htmlFor="Condition" className="block mb-2 mt-10 text-sm font-medium text-gray-900 dark:text-white">Car Condition</label>
-            <select id="Condition" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-accent block w-full p-2.5 dark:bg-red-400 dark:border-accent dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-400 dark:focus:border-red-500">
-              <option defaultValue className='text-accent'>All Status</option>
-              <option defaultValue="NC">New Car</option>
-              <option defaultValue="UC">Used Car</option>
-            </select>
-          </form>
-          <form className="Brand max-w-64 ml-3">
-            <label htmlFor="Brand-Name" className="block mb-2 mt-10 text-sm font-medium text-gray-900 dark:text-white">Brand Name</label>
-            <select id="Brand-Name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-accent block w-full p-2.5 dark:bg-red-400 dark:border-accent dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-400 dark:focus:border-red-500">
-              <option defaultValue className='text-accent'>All Brands</option>
-              <option defaultValue="BMW">BMW</option>
-              <option defaultValue="Ferrari">Ferrari</option>
-              <option defaultValue="MD">Mercedes-Benz</option>
-              <option defaultValue="Hyundai">Hyundai</option>
-              <option defaultValue="Nisan">Nisan</option>
-            </select>
-          </form>
-          <form className="Brand max-w-64 ml-3">
-            <label htmlFor="Car-Model" className="block mb-2 mt-10 text-sm font-medium text-gray-900 dark:text-white">Car Model</label>
-            <select id="Car-Model" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-accent block w-full p-2.5 dark:bg-red-400 dark:border-accent dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-400 dark:focus:border-red-500">
-              <option defaultValue className='text-accent'>All Model</option>
-              <option defaultValue="3Series">3Series</option>
-              <option defaultValue="G-TR">G-TR</option>
-              <option defaultValue="Maccan">Maccan</option>
-              <option defaultValue="Hyundai">Hyundai</option>
-              <option defaultValue="N-Series">N-Series</option>
-            </select>
-          </form>
-          <form className="Brand max-w-64 ml-10 ">
-            <label htmlFor="Choose-Year" className="block mb-2 mt-10 text-sm font-medium text-gray-900 dark:text-white">Choose Year</label>
-            <select id="Choose-Year" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-accent block w-full p-2.5 dark:bg-red-400 dark:border-accent dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-400 dark:focus:border-red-500">
-              <option defaultValue className='text-accent'>All Year</option>
-              <option defaultValue="2023">2023</option>
-              <option defaultValue="2022">2022</option>
-              <option defaultValue="2021">2021</option>
-              <option defaultValue="2020">2020</option>
-            </select>
-          </form>
-          <form className="Brand max-w-64 ml-3">
-            <label htmlFor="Choose-Year" className="block mb-2 mt-10 text-sm font-medium text-gray-900 dark:text-white">Choose Year</label>
-            <select id="Choose-Year" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-accent block w-full p-2.5 dark:bg-red-400 dark:border-accent dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-400 dark:focus:border-red-500">
-              <option defaultValue className='text-accent'>All Year</option>
-              <option defaultValue="$1-$5">$1000-$5000</option>
-              <option defaultValue="$5-$10">$5000-$10000</option>
-              <option defaultValue="$10-$15">$10000-$15000</option>
-              <option defaultValue="$15-$20">$15000-$20000</option>
-            </select>
-          </form>
-          <button className=' theme-btn max-w-64  mt-16 ml-4 h-15 flex items-center justify-center gap-1 '><Image src={search} alt='Search icon' ></Image>Find Your Car</button>
-        </div>
-      </div>
+      <EmblaCarousel  />
+      
       <ScrollTrigger onEnter={() => setIsEntered(true)} onExit={() => setIsEntered(false)}>
-        <div className="about-experience h-3/4 flex mb-48" >
+        <div className="about-experience mt-10 h-3/4 flex mb-32" >
           <div className={`about-exp-left ml-[170px] top-8 ${isEntered ? 'animate-fadeinleft' : ''}`}>
             <div className="qualityexp bg-black flex items-center gap-1 border-none rounded-xl h-16  w-60 absolute">
               <p className='bg-accent h-14 w-14 border-none rounded-xl m-2 flex items-center justify-center'><Image alt="after" src={carrepairicon} className='h-10 w-10 '></Image></p>

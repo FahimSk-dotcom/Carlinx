@@ -4,15 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCart, clearCart, addToCart } from '../../Redux/counter/counterSlice';
 import { FaRupeeSign } from "react-icons/fa";
 import Image from 'next/image';
-import part1 from '../../../public/jpgs/parts-1.jpg';
-import part2 from '../../../public/jpgs/parts-2.jpg';
-import part3 from '../../../public/jpgs/parts-3.jpg';
-import part4 from '../../../public/jpgs/parts-4.jpg';
-import part5 from '../../../public/jpgs/parts-5.jpg';
-import part6 from '../../../public/jpgs/parts-6.jpg';
-import part7 from '../../../public/jpgs/parts-7.jpg';
-import part8 from '../../../public/jpgs/parts-8.jpg';
-import part9 from '../../../public/jpgs/parts-9.jpg';
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -42,7 +33,7 @@ const Cart = () => {
       <h1 className="text-white mx-auto text-center top-60 text-5xl font-bold">Cart</h1>
       <Breadcrumb />
       <div className="cartdetails mt-20 border rounded-lg p-5 bg-white shadow-lg">
-        <div className="details bg-accent grid grid-cols-5 gap-4 text-white text-xl font-bold p-3">
+        <div className="details bg-accent grid grid-cols-5 gap-4 text-white text-xl font-bold p-3 border rounded-lg">
           <p>IMAGE</p>
           <p>PRODUCT NAME</p>
           <p>PRICE</p>
