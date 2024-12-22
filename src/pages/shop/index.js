@@ -21,7 +21,7 @@ import part9 from '../../../public/jpgs/parts-9.jpg';
 const Shop = () => {
   const dispatch = useDispatch();
   const partsdata = [
-    { id: 1, name: 'Engine Assembly', Description: 'Description', price: 70000, img: part9 },
+    { id: 1, name: 'Engine Assembly', Description: 'Description', price: 10000, img: part9 },
     { id: 2, name: 'Alternator', Description: 'Description', price: 50000, img: part2 },
     { id: 3, name: 'Brake Rotor', Description: 'Description', price: 7000, img: part1 },
     { id: 4, name: 'Shock Absorbers', Description: 'Description', price: 6000, img: part7 },
