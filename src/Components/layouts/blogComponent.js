@@ -44,7 +44,7 @@ const blogComponent = () => {
                     {
                         authordata.map((data) => (
                             <ul key={data.id} className='Card h-[500px]  m-4 shadow-white shadow-xl w-80  flex flex-col border-none rounded'>
-                                <li className='m-2 hover:scale-110 transition-all p-2 '><Image src={data.img} height={200} width={280} className='border-none rounded' ></Image></li>
+                                <li className='m-2 hover:scale-110 transition-all p-2 '><Image src={data.img} height={200} width={280} className='border-none rounded' alt='image' ></Image></li>
                                 <li className='flex items-center gap-2 mt-2 ml-2'><span className='text-accent'><FaRegCircleUser /></span>{data.Name}<span className='text-accent'><SlCalender /></span>{data.date}</li>
                                 <li className='mt-2  font-medium text-xl ml-2 hover:text-accent'>{data.desc}</li>
                                 <hr className='mt-2 ' />
