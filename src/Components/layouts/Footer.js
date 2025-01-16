@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { FiPhone } from "react-icons/fi"
 import { MdOutlineLocationOn } from "react-icons/md"
 import { MdOutlineEmail } from "react-icons/md";
-import logo from '../../../public/jpgs/logo-footer.jpg'
+import logo from '../../../Assets/jpgs/logo-footer.jpg'
 import { MdArrowRight } from "react-icons/md"
 import Link from 'next/link';
 import { SlSocialFacebook } from "react-icons/sl";

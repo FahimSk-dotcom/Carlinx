@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Breadcrumb from '@/Components/layouts/BreadCrumb';
 import { IoIosSearch } from "react-icons/io";
 import { FaRupeeSign } from "react-icons/fa";
@@ -8,33 +8,30 @@ import { addToCart } from '../../Redux/counter/counterSlice';
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { FaRegEye } from 'react-icons/fa6';
 import Link from 'next/link';
-import part1 from '../../../public/jpgs/parts-1.jpg';
-import part2 from '../../../public/jpgs/parts-2.jpg';
-import part3 from '../../../public/jpgs/parts-3.jpg';
-import part4 from '../../../public/jpgs/parts-4.jpg';
-import part5 from '../../../public/jpgs/parts-5.jpg';
-import part6 from '../../../public/jpgs/parts-6.jpg';
-import part7 from '../../../public/jpgs/parts-7.jpg';
-import part8 from '../../../public/jpgs/parts-8.jpg';
-import part9 from '../../../public/jpgs/parts-9.jpg';
+import axios from 'axios';
 
 const Shop = () => {
   const dispatch = useDispatch();
-  const partsdata = [
-    { id: 1, name: 'Engine Assembly', Description: 'Description', price: 10000, img: part9 },
-    { id: 2, name: 'Alternator', Description: 'Description', price: 50000, img: part2 },
-    { id: 3, name: 'Brake Rotor', Description: 'Description', price: 7000, img: part1 },
-    { id: 4, name: 'Shock Absorbers', Description: 'Description', price: 6000, img: part7 },
-    { id: 5, name: 'Oil Filter', Description: 'Description', price: 700, img: part6 },
-    { id: 6, name: 'Engine Oil', Description: 'Description', price: 400, img: part5 },
-    { id: 7, name: 'Car Tires (Set of 4)', Description: 'Description', price: 10000, img: part3 },
-    { id: 8, name: 'Spark Plugs', Description: 'Description', price: 800, img: part4 },
-    { id: 9, name: 'Car Suspension Parts', Description: 'Description', price: 20000, img: part8 },
-  ];
-
+  const [partsData, setPartsData] = useState([]);
   const [minValue, setMinValue] = useState(400);
   const [maxValue, setMaxValue] = useState(100000);
   const [searchTerm, setSearchTerm] = useState('');
+
+  // Fetch parts data from the API
+  useEffect(() => {
+    const fetchParts = async () => {
+      try {
+        const response = await axios.get('/api/parts', {
+          params: { search: searchTerm, minPrice: minValue, maxPrice: maxValue },
+        });
+        setPartsData(response.data);
+      } catch (error) {
+        console.error('Error fetching parts data:', error);
+      }
+    };
+
+    fetchParts();
+  }, [searchTerm, minValue, maxValue]);
 
   const handleAddToCart = (item) => {
     dispatch(addToCart({ item, type: "increase" }));
@@ -52,14 +49,6 @@ const Shop = () => {
   const handleSearch = (e) => {
     setSearchTerm(e.target.value.toLowerCase());
   };
-
-  const filteredData = partsdata.filter((item) => {
-    return (
-      item.price >= minValue &&
-      item.price <= maxValue &&
-      item.name.toLowerCase().includes(searchTerm)
-    );
-  });
 
   return (
     <>
@@ -108,7 +97,7 @@ const Shop = () => {
         {/* Product Cards */}
         <div className="card w-3/5 flex flex-wrap">
           <div className="cards grid grid-cols-3">
-            {filteredData.map((data) => (
+            {partsData.map((data) => (
               <div key={data.id} className="Card h-[350px] m-4 shadow-xl w-72 bg-white flex justify-center border-none rounded">
                 <div className='card ml-4'>
                   <Image src={data.img} width={250} height={100} className='border-none rounded hover:scale-105 transition-all' />
@@ -133,8 +122,8 @@ const Shop = () => {
                 </div>
               </div>
             ))}
-            {filteredData.length === 0 && (
-              <p className='text-2xl text-center col-span-3'>No products found</p>
+            {partsData.length === 0 && (
+              <p className='col-span-3 text-center mt-10'>No products found.</p>
             )}
           </div>
         </div>

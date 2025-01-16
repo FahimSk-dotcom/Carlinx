@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import testcover from '../../../public/jpgs/testcover.webp';
+import testcover from '../../../Assets/jpgs/testcover.webp';
 import { FaHome } from "react-icons/fa";
 import { BiSolidCarGarage } from "react-icons/bi";
 import Breadcrumb from '@/Components/layouts/BreadCrumb';

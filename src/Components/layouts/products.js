@@ -10,14 +10,15 @@ import { TbSteeringWheel } from "react-icons/tb";
 import { LuFuel } from "react-icons/lu";
 import { FaRegEye } from "react-icons/fa";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import car1 from '../../../public/jpgs/car01.jpg';
-import car2 from '../../../public/jpgs/car02.jpg';
-import car3 from '../../../public/jpgs/car03.jpg';
-import car4 from '../../../public/jpgs/car04.jpg';
-import car5 from '../../../public/jpgs/car05.jpg';
-import car6 from '../../../public/jpgs/car06.jpg';
-import car7 from '../../../public/jpgs/car07.jpg';
-import car8 from '../../../public/jpgs/car08.jpg';
+
+import car1 from '../../../Assets/jpgs/car01.jpg';
+import car2 from '../../../Assets/jpgs/car02.jpg';
+import car3 from '../../../Assets/jpgs/car03.jpg';
+import car4 from '../../../Assets/jpgs/car04.jpg';
+import car5 from '../../../Assets/jpgs/car05.jpg';
+import car6 from '../../../Assets/jpgs/car06.jpg';
+import car7 from '../../../Assets/jpgs/car07.jpg';
+import car8 from '../../../Assets/jpgs/car08.jpg';
 const DefaultData = [
   {
     id: 1,
@@ -26,6 +27,7 @@ const DefaultData = [
     image: car1,
     rating: 5.0,
     reviews: '58.5k',
+    condition:'Used',
     transmission: 'Automatic',
     mileage: '10.15km / 1-litre',
     model: '2023',
@@ -34,10 +36,11 @@ const DefaultData = [
   {
     id: 2,
     name: 'Yellow Ferrari 458',
-    price: '$90,250',
+    price: '$90,000',
     image: car2,
     rating: 5.0,
     reviews: '58.5k',
+    condition:'Used',
     transmission: 'Automatic',
     mileage: '8.15km / 1-litre',
     model: '2022',
@@ -50,6 +53,7 @@ const DefaultData = [
     image: car3,
     rating: 4.0,
     reviews: '50.5k',
+    condition:'New',
     transmission: 'Manual',
     mileage: '12.15km / 1-litre',
     model: '2020',
@@ -62,6 +66,7 @@ const DefaultData = [
     image: car4,
     rating: 4.5,
     reviews: '50.5k',
+    condition:'Used',
     transmission: 'Manual',
     mileage: '11.15km / 1-litre',
     model: '2021',
@@ -74,6 +79,7 @@ const DefaultData = [
     image: car5,
     rating: 5.0,
     reviews: '58.5k',
+    condition:'New',
     transmission: 'Manual',
     mileage: '7.15km / 1-litre',
     model: '2023',
@@ -86,6 +92,7 @@ const DefaultData = [
     image: car6,
     rating: 3.5,
     reviews: '35.5k',
+    condition:'Used',
     transmission: 'Manual',
     mileage: '9.15km / 1-litre',
     model: '2019',
@@ -98,6 +105,7 @@ const DefaultData = [
     image: car7,
     rating: 3.5,
     reviews: '35.5k',
+    condition:'New',
     transmission: 'Automatic',
     mileage: '10.15km / 1-litre',
     model: '2021',
@@ -110,6 +118,7 @@ const DefaultData = [
     image: car8,
     rating: 5.0,
     reviews: '70.2k',
+    condition:'Used',
     transmission: 'Automatic',
     mileage: '9.5km / 1-litre',
     model: '2023',
@@ -117,49 +126,71 @@ const DefaultData = [
   }
 ];
 
-const Products = (carsdata) => {
+const Products = ({ filteredData = DefaultData }) => {
   const [isHovered, setIsHovered] = useState(null);
   const [isEntered, setIsEntered] = useState(false);
+
   const handleMouseEnter = (CardID) => {
     setIsHovered(CardID);
   };
+
   const handleMouseLeave = () => {
     setIsHovered(null);
   };
-
+  
   return (
     <ScrollTrigger onEnter={() => setIsEntered(true)} onExit={() => setIsEntered(false)}>
-      
       <div className={`container flex flex-wrap justify-center ${isEntered ? 'animate-fadeup' : ''}`}>
-        {DefaultData.map((car) => (
+        {filteredData.map((car) => (
           <div key={car.id} className="Card h-[400px] m-4 shadow-white shadow-xl w-72 bg-white flex justify-center border-none rounded">
-            <div className='card ml-4'>
-              <div onMouseEnter={() => { handleMouseEnter(car.id) }} onMouseLeave={handleMouseLeave}>
-                <div className='flex '>
-                  <p className='text-white font-semibold inline p-1 border-none rounded relative bg-accent top-10 left-2 z-10'>Used</p>
-                  <div className={`text-white font-semibold bg-accent h-8 w-8 flex justify-center items-center border-none rounded-full relative top-10 opacity-0 z-10 hover:text-white hover:bg-black ${isHovered === car.id ? 'left-[69%] z-10 opacity-100 animate-fadein' : 'opacity-0 z-0 '} `}>
+            <div className="card ml-4">
+              <div onMouseEnter={() => handleMouseEnter(car.id)} onMouseLeave={handleMouseLeave}>
+                <div className="flex">
+                  <p className="text-white font-semibold inline p-1 border-none rounded relative bg-accent top-10 left-2 z-10">{car.condition}</p>
+                  <div
+                    className={`text-white font-semibold bg-accent h-8 w-8 flex justify-center items-center border-none rounded-full relative top-10 opacity-0 z-10 hover:text-white hover:bg-black ${
+                      isHovered === car.id ? 'left-[69%] z-10 opacity-100 animate-fadein' : 'opacity-0 z-0'
+                    }`}
+                  >
                     <FavoriteBorderOutlinedIcon />
                   </div>
                 </div>
-                <Image src={car.image} width={250} height={100} className='border-none rounded hover:scale-105 transition-all' />
+                <Image src={car.image} width={250} height={100} className="border-none rounded hover:scale-105 transition-all" />
               </div>
-              <p className='text-xl font-semibold mt-2 hover:text-accent'>{car.name}</p>
-              <p className='text-yellow-400 flex items-center gap-1 mt-2'>
-                {[...Array(Math.floor(car.rating))].map((_, i) => <RiStarFill key={i} />)}
+              <p className="text-xl font-semibold mt-2 hover:text-accent">{car.name}</p>
+              <p className="text-yellow-400 flex items-center gap-1 mt-2">
+                {[...Array(Math.floor(car.rating))].map((_, i) => (
+                  <RiStarFill key={i} />
+                ))}
                 {car.rating % 1 !== 0 && <IoStarHalfSharp />}
-                <span className='text-bodytextcolor'>{car.rating} ({car.reviews} Review)</span>
+                <span className="text-bodytextcolor">
+                  {car.rating} ({car.reviews} Review)
+                </span>
               </p>
-              <ul className='grid grid-cols-2'>
-                <li className='text-accent mt-2 flex gap-2 items-center'><TbSteeringWheel /><span className='text-bodytextcolor'>{car.transmission}</span></li>
-                <li className='text-accent mt-2 flex ml-[-1rem] items-center'><GiRoad /><span className='text-bodytextcolor'>{car.mileage}</span></li>
-                <li className='text-accent mt-2 flex gap-2 items-center'><IoIosCar /><span className='text-bodytextcolor'>Model: {car.model}</span></li>
-                <li className='text-accent mt-2 flex gap-2 items-center'><LuFuel /><span className='text-bodytextcolor'>{car.fuel}</span></li>
+              <ul className="grid grid-cols-2">
+                <li className="text-accent mt-2 flex gap-2 items-center">
+                  <TbSteeringWheel />
+                  <span className="text-bodytextcolor">{car.transmission}</span>
+                </li>
+                <li className="text-accent mt-2 flex ml-[-1rem] items-center">
+                  <GiRoad />
+                  <span className="text-bodytextcolor">{car.mileage}</span>
+                </li>
+                <li className="text-accent mt-2 flex gap-2 items-center">
+                  <IoIosCar />
+                  <span className="text-bodytextcolor">Model: {car.model}</span>
+                </li>
+                <li className="text-accent mt-2 flex gap-2 items-center">
+                  <LuFuel />
+                  <span className="text-bodytextcolor">{car.fuel}</span>
+                </li>
               </ul>
-              <hr className='mt-4' />
+              <hr className="mt-4" />
               <div className="price-details flex gap-10">
-                <p className='price text-accent font-bold text-xl mt-4'>{car.price}</p>
-                <button className='theme-btn max-w-64 h-10 mt-2 flex items-center justify-center gap-1'>
-                  <FaRegEye />Details
+                <p className="price text-accent font-bold text-xl mt-4">{car.price}</p>
+                <button className="theme-btn max-w-64 h-10 mt-2 flex items-center justify-center gap-1">
+                  <FaRegEye />
+                  Details
                 </button>
               </div>
             </div>
@@ -167,10 +198,12 @@ const Products = (carsdata) => {
         ))}
       </div>
       <div className="loadmore h-20 w-screen justify-center flex mt-10">
-        <button  className=' theme-btn max-w-64 h-12  flex items-center justify-center gap-1 '>Load More<FaArrowRotateRight /></button></div>
+       
+      </div>
     </ScrollTrigger>
-  )
+  );
 };
+
 
 export default Products;
 

@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Breadcrumb from '@/Components/layouts/BreadCrumb';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCart, clearCart, addToCart } from '../../Redux/counter/counterSlice';
 import { FaRupeeSign } from "react-icons/fa";
 import Image from 'next/image';
-
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
-
+  const [messages, setMessages] = useState({}); // Store messages and positions by item id
   const handleRemove = (id) => {
     dispatch(removeFromCart(id));
   };
@@ -16,11 +15,47 @@ const Cart = () => {
   const handleClearCart = () => {
     dispatch(clearCart());
   };
-
   const handleQuantityChange = (id, type) => {
     const item = cartItems.find((item) => item.id === id);
     if (item) {
-      dispatch(addToCart({ item, type }));
+
+
+      if (type === "increase") {
+        if (item.quantity+1 < item.Stock) {
+          // Increase the quantity and clear the StockMessage
+          dispatch(addToCart({ item: { ...item, quantity: item.quantity + 1 }, type }));
+
+          // Clear message if not exceeding stock
+          setMessages((prevMessages) => {
+            const updatedMessages = { ...prevMessages };
+            delete updatedMessages[id]; // Remove message for this item
+            return updatedMessages;
+          });
+        } else {
+          // Set the StockMessage if quantity exceeds stock
+
+          dispatch(addToCart({ item: { ...item, quantity: item.quantity + 1 }, type }));
+          setMessages((prevMessages) => {
+            const updatedMessages = { ...prevMessages };
+            updatedMessages[id] = {
+              message: `Only ${item.Stock} items are available in Stock.`,
+              position: { left: 105 }, // Adjust position for the message
+            };
+            return updatedMessages;
+          });
+        }
+      } else if (type === "decrease" && item.quantity > 1) {
+        // Decrease the quantity and clear the StockMessage
+        dispatch(addToCart({ item: { ...item, quantity: item.quantity - 1 }, type }));
+
+        // Log before clearing the message state
+        
+        setMessages((prevMessages) => {
+          const updatedMessages = { ...prevMessages };
+          delete updatedMessages[id]; // Remove message for this item
+          return updatedMessages;
+        });
+      }
     }
   };
 
@@ -46,10 +81,33 @@ const Cart = () => {
             <Image src={item.img || '/jpgs/default.jpg'} alt={item.name} width={100} height={80} className="rounded" />
             <p className="truncate">{item.name}</p>
             <p className="flex items-center gap-1"><FaRupeeSign /> {item.price}</p>
-            <div className="flex gap-2 items-center">
-              <button onClick={() => handleQuantityChange(item.id, "decrease")} className="px-2 py-1 bg-gray-300 rounded">-</button>
+            <div className="flex gap-2 items-center relative">
+              <button
+                onClick={() => handleQuantityChange(item.id, "decrease")}
+                className="px-2 py-1 bg-gray-300 rounded"
+              >
+                -
+              </button>
               <p>{item.quantity}</p>
-              <button onClick={() => handleQuantityChange(item.id, "increase")} className="px-2 py-1 bg-gray-300 rounded">+</button>
+              <button
+                onClick={() => handleQuantityChange(item.id, "increase")}
+                className={`px-2 py-1 rounded ${item.quantity >= item.Stock ? "bg-gray-400 cursor-not-allowed" : "bg-gray-300"}`}
+                disabled={item.quantity >= item.Stock}
+              >
+                +
+              </button>
+
+              {/* Popup Message */}
+              {messages[item.id] && (
+                <div
+                  className="popup-message absolute bg-red-500 text-white p-2 rounded-md shadow-md z-50"
+                  style={{ left: `${messages[item.id].position.left}px` }}
+                >
+                  {/* Arrow */}
+                  <div className="arrow absolute left-1/2 -translate-x-1/2 bottom-[-10px] w-0 h-0 border-l-10 border-r-10 border-t-10 border-transparent border-t-red-500"></div>
+                  <p>{messages[item.id].message}</p>
+                </div>
+              )}
             </div>
             <p className="flex items-center gap-1"><FaRupeeSign /> {item.quantity * item.price}</p>
             <button onClick={() => handleRemove(item.id)} className="text-red-500 text-right col-span-1">Remove</button>
@@ -66,5 +124,4 @@ const Cart = () => {
     </div>
   );
 };
-
 export default Cart;

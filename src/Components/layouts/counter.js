@@ -4,8 +4,8 @@ import ScrollTrigger from 'react-scroll-trigger';
 import Image from 'next/image';
 import { GiAutoRepair } from "react-icons/gi";
 import { IoCarSport } from "react-icons/io5";
-import smile from '../../../public/pngs/happy-client.png'
-import usercount from '../../../public/jpgs/user-counter.jpg'
+import smile from '../../../Assets/pngs/happy-client.png'
+import usercount from '../../../Assets/jpgs/user-counter.jpg'
 const counter = () => {
     const [counterOn, setCounterOn] = useState(false);
     return (

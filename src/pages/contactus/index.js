@@ -6,7 +6,7 @@ import { MdOutlineMarkEmailRead } from "react-icons/md";
 import { IoAlarmOutline } from "react-icons/io5";
 import { IoIosSend } from "react-icons/io";
 import Image from 'next/image';
-import FormCover from '../../../public/jpgs/ContactFormCover.jpg';
+import FormCover from '../../../Assets/jpgs/ContactFormCover.jpg';
 
 const Contactus = () => {
   const [formData, setFormData] = useState({

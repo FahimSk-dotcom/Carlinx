@@ -4,14 +4,14 @@ import ScrollTrigger from 'react-scroll-trigger'
 import { FiPhone } from "react-icons/fi";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoIosCar } from "react-icons/io"
-import dealer1 from '../../../public/pngs/01-dealer.png'
-import dealer2 from '../../../public/pngs/02-dealer.png'
-import dealer3 from '../../../public/pngs/03-dealer.png'
-import dealer4 from '../../../public/pngs/04-dealer.png'
-import dealer5 from '../../../public/pngs/05-dealer.png'
-import dealer6 from '../../../public/pngs/06-dealer.png'
-import dealer7 from '../../../public/pngs/07-dealer.png'
-import dealer8 from '../../../public/pngs/08-dealer.png'
+import dealer1 from '../../../Assets/pngs/01-dealer.png'
+import dealer2 from '../../../Assets/pngs/02-dealer.png'
+import dealer3 from '../../../Assets/pngs/03-dealer.png'
+import dealer4 from '../../../Assets/pngs/04-dealer.png'
+import dealer5 from '../../../Assets/pngs/05-dealer.png'
+import dealer6 from '../../../Assets/pngs/06-dealer.png'
+import dealer7 from '../../../Assets/pngs/07-dealer.png'
+import dealer8 from '../../../Assets/pngs/08-dealer.png'
 const dealers = () => {
   const [isHovered, setIsHovered] = useState(null)
   const [isEntered, setIsEntered] = useState(false);
@@ -33,7 +33,7 @@ const dealers = () => {
       id: 2,
       name: 'Keithson Car',
       image: dealer2,
-      addr: ' 28/B B.h.complex,, Delhi',
+      addr: ' 28/B B.h.complex, Delhi',
       con: ' +91 24 662 981'
     },
     {

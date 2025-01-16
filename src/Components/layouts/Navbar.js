@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Cart from '../../../public/svgs/Cart.svg';
-import mail from '../../../public/svgs/mail-icon.svg';
-import phone from '../../../public/svgs/phone-icon.svg';
-import clock from '../../../public/svgs/Alaramclock-icon.svg';
-import loginicon from '../../../public/svgs/login-icon.svg';
-import usericon from '../../../public/svgs/user-icon.svg';
-import facebookicon from '../../../public/svgs/facebook-icon.svg';
-import instaicon from '../../../public/svgs/insta-icon.svg';
-import linkedicon from '../../../public/svgs/linkedin-icon.svg';
-import logo from '../../../public/jpgs/logo-navbar.jpg';
+import Cart from '../../../Assets/svgs/Cart.svg';
+import mail from '../../../Assets/svgs/mail-icon.svg';
+import phone from '../../../Assets/svgs/phone-icon.svg';
+import clock from '../../../Assets/svgs/Alaramclock-icon.svg';
+import loginicon from '../../../Assets/svgs/login-icon.svg';
+import usericon from '../../../Assets/svgs/user-icon.svg';
+import facebookicon from '../../../Assets/svgs/facebook-icon.svg';
+import instaicon from '../../../Assets/svgs/insta-icon.svg';
+import linkedicon from '../../../Assets/svgs/linkedin-icon.svg';
+import logo from '../../../Assets/jpgs/logo-navbar.jpg';
 import { LuLogOut } from 'react-icons/lu';
-
+import { useSelector } from 'react-redux';
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+    const totalCount = useSelector((state) => state.cart.totalCount);
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 48);
@@ -112,7 +112,7 @@ const Navbar = () => {
                             <Image height={24} src={Cart} alt="cart icon" />
                         </Link>
                         <span className="inline-flex mr-40 items-center justify-center bg-red-50 w-6 h-6 ml-2 rounded-full text-xs font-medium text-red-600 ring-1 shadow-[0_0_15px_1px_rgba(220,38,38)] ring-inset ring-red-600/10">
-                            0
+                           {totalCount}
                         </span>
                     </div>
                 </div>

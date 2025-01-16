@@ -88,7 +88,7 @@ body {
 }
 
 .hero-single {
-  background-image: url('/jpgs/slider-1bg.jpg');
+  background-image: url('/slider-1bg.jpg');
   object-fit: cover;
   overflow: hidden;
   z-index: 10;
@@ -151,7 +151,7 @@ body {
 
 /* Slide2 */
 .hero-single1 {
-  background-image: url('/jpgs/slider-2bg.jpg') !important;
+  background-image: url('/slider-2bg.jpg') !important;
   overflow: hidden;
   z-index: -2;
 }
@@ -216,12 +216,10 @@ body {
 
 /* Search section */
 .Search {
-  position: relative;
   height: 340px;
   width: 80vw;
   margin: auto;
   z-index: 10;
-  top: -80px;
   border-radius: 10px;
 }
 
@@ -266,7 +264,7 @@ body {
 .container-counter::before {
   content: "";
   position: relative;
-  background-image: url('/pngs/url-shape.png') !important;
+  background-image: url('/url-shape.png') !important;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -394,7 +392,7 @@ Image {
 }
 /* breadcrumbbackgroundimage */
 .breadcrumb{
-  background-image: url('/jpgs/breadcrumbbg.jpg');
+  background-image: url('/breadcrumbbg.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

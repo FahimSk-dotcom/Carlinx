@@ -3,11 +3,11 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination, Autoplay } from 'swiper/modules';
 import { TbStarFilled } from "react-icons/tb";
-import testimonal1 from '../../../public/jpgs/testimonal1.jpg';
-import testimonal2 from '../../../public/jpgs/testimonal2.jpg';
-import testimonal3 from '../../../public/jpgs/testimonal3.jpg';
-import testimonal4 from '../../../public/jpgs/testimonal4.jpg';
-import testimonal5 from '../../../public/jpgs/testimonal5.jpg';
+import testimonal1 from '../../../Assets/jpgs/testimonal1.jpg';
+import testimonal2 from '../../../Assets/jpgs/testimonal2.jpg';
+import testimonal3 from '../../../Assets/jpgs/testimonal3.jpg';
+import testimonal4 from '../../../Assets/jpgs/testimonal4.jpg';
+import testimonal5 from '../../../Assets/jpgs/testimonal5.jpg';
 import Image from 'next/image';
 import { AiOutlineCar } from 'react-icons/ai';
 const swiper = () => {

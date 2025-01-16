@@ -4,9 +4,9 @@ import { FaRegCircleUser } from "react-icons/fa6"
 import { SlCalender } from "react-icons/sl";
 import { FaArrowRightLong } from "react-icons/fa6";
 import Image from 'next/image';
-import poster3 from '../../../public/jpgs/blogposter2.jpg'
-import poster1 from '../../../public/jpgs/blogposter1.jpg'
-import poster2 from '../../../public/jpgs/blogposter3.jpg'
+import poster3 from '../../../Assets/jpgs/blogposter2.jpg'
+import poster1 from '../../../Assets/jpgs/blogposter1.jpg'
+import poster2 from '../../../Assets/jpgs/blogposter3.jpg'
 
 const blogComponent = () => {
     const authordata = [

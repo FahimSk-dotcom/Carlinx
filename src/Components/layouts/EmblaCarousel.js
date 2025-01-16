@@ -2,8 +2,8 @@
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import Image from 'next/image'
-import heroimg1 from '../../../public/pngs/heroimg-1.png'
-import heroimg2 from '../../../public/pngs/heroimg-2.png'
+import heroimg1 from '../../../Assets/pngs/heroimg-1.png'
+import heroimg2 from '../../../Assets/pngs/heroimg-2.png'
 
 
 const EmblaCarousel = () => {

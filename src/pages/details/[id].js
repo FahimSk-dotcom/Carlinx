@@ -1,145 +1,103 @@
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import Image from "next/image";
-import { useState } from "react"; // Import useState
-import { useDispatch } from 'react-redux';
-import { addToCart } from '../../Redux/counter/counterSlice';
-// Importing images
-import part1 from '../../../public/jpgs/parts-1.jpg'
-import part2 from '../../../public/jpgs/parts-2.jpg'
-import part3 from '../../../public/jpgs/parts-3.jpg'
-import part4 from '../../../public/jpgs/parts-4.jpg'
-import part5 from '../../../public/jpgs/parts-5.jpg'
-import part6 from '../../../public/jpgs/parts-6.jpg'
-import part7 from '../../../public/jpgs/parts-7.jpg'
-import part8 from '../../../public/jpgs/parts-8.jpg'
-import part9 from '../../../public/jpgs/parts-9.jpg'
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../Redux/counter/counterSlice";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { FaRupeeSign } from "react-icons/fa";
-import Link from "next/link";
-
-// Sample product data
-const partsdata = [
-  {
-    id: 1,
-    name: 'Engine Assembly',
-    Description: 'The engine is the heart of the car, converting fuel into mechanical energy to propel the vehicle.',
-    stock: "Available",
-    price: 70000, // Convert to number
-    img: part9,
-  },
-  {
-    id: 2,
-    name: 'Alternator',
-    Description: 'An alternator generates electrical power in a car, charging the battery and supplying power to the electrical system when the engine is running.',
-    stock: "Available",
-    price: 50000, // Convert to number
-    img: part2,
-  },
-  {
-    id: 3,
-    name: 'Brake Rotor',
-    Description:
-      'The brake rotor (disc) is a critical part of the braking system. It provides a surface for the brake pads to clamp down on, generating friction that slows the vehicle.',
-    stock: "Available",
-    price: 7000, // Convert to number
-    img: part1,
-  },
-  {
-    id: 4,
-    name: 'Shock Absorbers',
-    Description: 'Shock absorbers reduce the impact of road irregularities, improving ride comfort and handling.',
-    stock: "Available",
-    price: 6000,
-    img: part7,
-  },
-  {
-    id: 5,
-    name: 'Oil Filter',
-    Description: 'The oil filter removes impurities and particles from engine oil.',
-    stock: "Available",
-    price: 700,
-    img: part6,
-  },
-  {
-    id: 6,
-    name: 'Engine Oil',
-    Description: 'Engine oil lubricates the internal components of the engine.',
-    stock: "Available",
-    price: 400,
-    img: part5,
-  },
-  {
-    id: 7,
-    name: 'Car Tires (Set of 4)',
-    Description: 'Tires provide traction, handling, and ride comfort.',
-    stock: "Available",
-    price: 10000,
-    img: part3,
-  },
-  {
-    id: 8,
-    name: 'Spark Plugs',
-    Description: 'Spark plugs ignite the air-fuel mixture in the engine.',
-    stock: "Available",
-    price: 800,
-    img: part4,
-  },
-  {
-    id: 9,
-    name: 'Car Suspension Parts',
-    Description: 'This suspension system is responsible for controlling wheel movement.',
-    stock: "Available",
-    price: 20000,
-    img: part8,
-  },
-];
 
 export default function ProductDetails() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { id } = router.query;
+  const [product, setProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Find product by ID
-  const product = partsdata.find((item) => item.id === Number(id));
-  const [quantity, setQuantity] = useState(1); // State for quantity
+  useEffect(() => {
+    if (id) {
+      axios
+        .get(`/api/parts`, { params: { id } })
+        .then((response) => {
+          if (response.data && response.data.length > 0) {
+            setProduct(response.data[0]);
+          } else {
+            setError("Product not found.");
+          }
+        })
+        .catch(() => setError("Failed to fetch product details."))
+        .finally(() => setLoading(false));
+    }
+  }, [id]);
 
-  if (!product) return <p className="text-center mt-10">Product not found</p>;
-
-  // Handlers for increment and decrement
-  const handleIncrement = () => setQuantity((prev) => prev + 1);
-  const handleDecrement = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
-  const handleAddToCart = (item) => {
-    dispatch(addToCart({ item, type: "increase" }));
+  const handleIncrement = () => {
+    if (quantity < Math.min(product.stock, 10)) {
+      setQuantity((prev) => prev + 1);
+    }
   };
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity((prev) => prev - 1);
+    }
+  };
+
+  const handleAddToCart = () => {
+    if (product) {
+      dispatch(addToCart({ item: product, quantity, type: "set" }));
+    }
+  };
+
+  const renderStockStatus = () => {
+    if (product.Stock > 3) {
+      return <p className="text-green-600 font-semibold">Stock: Available</p>;
+    } else if (product.Stock > 0) {
+      return (
+        <p className="text-red-600 font-bold">
+          Stock: Only {product.Stock} left!
+        </p>
+      );
+    } else {
+      return <p className="text-red-600 font-bold">Out of Stock</p>;
+    }
+  };
+
+  if (loading) return <p className="text-center mt-10">Loading product details...</p>;
+  if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
+  console.log("Product stock:", product.Stock);
+
   return (
-    <>
-      <div className="p-6 max-w-screen-lg mx-auto mt-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Product Image */}
+    <div className="p-6 max-w-screen-lg mx-auto mt-32">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {product.img ? (
           <Image
             src={product.img}
             alt={product.name}
             width={500}
             height={400}
-            className="rounded mt-[-80px]"
+            className="rounded"
           />
+        ) : (
+          <div className="bg-gray-100 w-full h-64 flex items-center justify-center">
+            <p className="text-gray-500">Image not available</p>
+          </div>
+        )}
 
-          {/* Product Details */}
-          <div>
-            <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
-            <p className="text-gray-600 mb-4">{product.Description}</p>
+        <div>
+          <h1 className="text-3xl font-bold mb-2">{product.name || "Product Name"}</h1>
+          <p className="text-gray-600 mb-4">{product.Description || "No description available."}</p>
+          <div className="text-2xl font-bold flex items-center text-red-500 mb-4">
+            <FaRupeeSign />
+            {product.price || "0.00"}
+          </div>
 
-            <div className="text-2xl font-bold flex items-center text-red-500 mb-4">
-              <FaRupeeSign />
-              {product.price}
-            </div>
+          <div className="mt-4">
+            {product.Stock !== undefined ? renderStockStatus() : <p>Loading stock status...</p>}
+          </div>
 
-            <div>
-              <span className="font-semibold">Stock: </span>
-              {product.stock}
-            </div>
-
-            {/* Quantity Selector */}
+          {product.stock > 0 && (
             <div className="flex items-center mt-4">
               <span className="font-semibold">Quantity:</span>
               <div className="flex items-center border rounded ml-4">
@@ -158,21 +116,19 @@ export default function ProductDetails() {
                 </button>
               </div>
             </div>
+          )}
 
-            {/* Add to Cart Button */}
-            <div className="button flex gap-2 mt-3">
-              <button
-                onClick={() => handleAddToCart(product)}
-                className="theme-btn max-w-64 h-9 mt-2 flex items-center justify-center">
-                <HiOutlineShoppingCart className='text-xl' /> Add to Cart
-              </button>
-              <button className="theme-btn max-w-64 h-9 mt-2 flex items-center justify-center">
-                <HiOutlineShoppingCart className="text-xl" /> Buy Now
-              </button>
-            </div>
-          </div>
+          <button
+            onClick={handleAddToCart}
+            disabled={product.Stock === 0}
+            className={`theme-btn max-w-64 h-9 mt-4 flex items-center justify-center ${
+              product.Stock === 0 ? "bg-gray-400 cursor-not-allowed" : ""
+            }`}
+          >
+            <HiOutlineShoppingCart className="text-xl" /> Add to Cart
+          </button>
         </div>
       </div>
-    </>
+    </div>
   );
 }

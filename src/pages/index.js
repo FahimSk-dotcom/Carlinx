@@ -6,7 +6,7 @@ import Product from '@/Components/layouts/products'
 import Dealer from '@/Components/layouts/dealers'
 import Testimonals from '@/Components/layouts/testimonal'
 import BlogComponet from '@/Components/layouts/blogComponent'
-import search from '../../public//svgs/search-iconw.svg'
+import search from '../../Assets/svgs/search-iconw.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 import { IoCarSportSharp } from "react-icons/io5";
@@ -15,15 +15,15 @@ import { IoIosCar } from "react-icons/io"
 import { FaArrowRightLong, FaUserGraduate } from "react-icons/fa6";
 import { TbBrandStackshare } from "react-icons/tb";
 import { MdOutlinePriceChange } from "react-icons/md";
-import aftaboutcar from '../../public//pngs/01-aftabout.png'
-import carrepairicon from '../../public//pngs/car-repair.png'
-import choosecar from '../../public//pngs/chooseus-car.png'
-import brand1img from '../../public//pngs/1-brandimg.png'
-import brand2img from '../../public//pngs/2-brandimg.png'
-import brand3img from '../../public//pngs/3-brandimg.png'
-import brand4img from '../../public//pngs/4-brandimg.png'
-import brand5img from '../../public//pngs/5-brandimg.png'
-import brand6img from '../../public//pngs/6-brandimg.png'
+import aftaboutcar from '../../Assets/pngs/01-aftabout.png'
+import carrepairicon from '../../Assets/pngs/car-repair.png'
+import choosecar from '../../Assets/pngs/chooseus-car.png'
+import brand1img from '../../Assets/pngs/1-brandimg.png'
+import brand2img from '../../Assets/pngs/2-brandimg.png'
+import brand3img from '../../Assets/pngs/3-brandimg.png'
+import brand4img from '../../Assets/pngs/4-brandimg.png'
+import brand5img from '../../Assets/pngs/5-brandimg.png'
+import brand6img from '../../Assets/pngs/6-brandimg.png'
 const index = () => {
   const branddata = [
     {

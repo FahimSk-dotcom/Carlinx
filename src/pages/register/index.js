@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../../../public/jpgs/logo-navbar.jpg";
+import logo from "../../../Assets/jpgs/logo-navbar.jpg";
 import { useRouter } from "next/router";
 
 const RegistrationForm = () => {
