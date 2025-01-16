@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next export" 
+    "export": "next export"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -16,6 +16,7 @@
     "@mui/icons-material": "^6.0.2",
     "@mui/material": "^6.0.2",
     "@reduxjs/toolkit": "^2.5.0",
+    "@vercel/speed-insights": "^1.1.0",
     "axios": "^1.7.7",
     "bcryptjs": "^2.4.3",
     "embla-carousel-autoplay": "^8.2.0",

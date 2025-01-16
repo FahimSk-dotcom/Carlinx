@@ -91,7 +91,7 @@ const Dealers = () => {
           <div key={data.id} className="Card h-[300px] m-4 shadow-white shadow-xl w-72 bg-white flex justify-center border-none rounded">
             <div className='card ml-4'>
               <div onMouseEnter={() => { handleMouseEnter(data.id) }} onMouseLeave={handleMouseLeave}>
-                <Image src={data.image} width={250} height={100} className='border-none rounded hover:scale-105 transition-all' />
+                <Image src={data.image} width={250} height={100} className='border-none rounded hover:scale-105 transition-all' alt='' />
               </div>
               <div className="content flex flex-col">
                 <p className='text-xl font-bold mt-2 ml-2 hover:text-accent'>{data.name}</p>

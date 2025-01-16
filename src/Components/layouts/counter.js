@@ -17,7 +17,7 @@ const Counter = () => {
                 <p className='absolute mt-44 z-10 left-[12rem] text-2xl text-white font-semibold'>+Available Car</p>
                 {/* 2 icon */}
                 <span className='flex justify-center item-center text-white h-28 w-28  border-4 border-white rounded-full  absolute bg-black pt-2 z-10 left-[550px] mb-28'>
-                    <Image src={smile} className=' mt-2 h-16 w-16 border-none rounded-xl'></Image>
+                    <Image src={smile} className=' mt-2 h-16 w-16 border-none rounded-xl' alt=''></Image>
                     <p className='absolute mt-24 z-10  text-6xl text-white font-semibold'>{counterOn && <CountUp start={0} end={900} duration={2} />}</p>
                 </span>
                 <p className='absolute mt-44 z-10 left-[530px] text-2xl text-white font-semibold'>+Happy Clients</p>
@@ -28,7 +28,7 @@ const Counter = () => {
                 <p className='absolute mt-44 z-10 right-[520px] text-2xl text-white font-semibold'>+Team Workers</p>
                 {/* 4 icon */}
                 <span className='flex justify-center item-center text-white h-28 w-28  border-4 border-white rounded-full text-[80px] absolute bg-black pt-2 right-56 z-10  mb-28'>
-                    <Image src={usercount} className=' mt-2 h-16 w-16 border-none rounded-xl'></Image>
+                    <Image src={usercount} className=' mt-2 h-16 w-16 border-none rounded-xl' alt=''></Image>
                     <p className='absolute mt-24 z-10  text-6xl text-white font-semibold'>{counterOn && <CountUp start={0} end={30} duration={4} />}</p>
                 </span>
                 <p className='absolute mt-44 z-10 right-[150px] text-2xl text-white font-semibold'>+Years of Experience</p>

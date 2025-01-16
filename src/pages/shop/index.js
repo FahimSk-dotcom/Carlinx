@@ -100,7 +100,7 @@ const Shop = () => {
             {partsData.map((data) => (
               <div key={data.id} className="Card h-[350px] m-4 shadow-xl w-72 bg-white flex justify-center border-none rounded">
                 <div className='card ml-4'>
-                  <Image src={data.img} width={250} height={100} className='border-none rounded hover:scale-105 transition-all' />
+                  <Image src={data.img} width={250} height={100} className='border-none rounded hover:scale-105 transition-all' alt='' />
                   <div className="content flex flex-col items-center">
                     <p className='text-xl font-bold mt-2 hover:text-accent'>{data.name}</p>
                     <p className='text-bold text-xl flex items-center gap-2 font-semibold mt-1 text-accent'>
