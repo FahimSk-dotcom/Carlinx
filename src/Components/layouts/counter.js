@@ -6,7 +6,7 @@ import { GiAutoRepair } from "react-icons/gi";
 import { IoCarSport } from "react-icons/io5";
 import smile from '../../../Assets/pngs/happy-client.png'
 import usercount from '../../../Assets/jpgs/user-counter.jpg'
-const counter = () => {
+const Counter = () => {
     const [counterOn, setCounterOn] = useState(false);
     return (
         <ScrollTrigger onEnter={() => setCounterOn(true)} onExit={() => setCounterOn(false)}>
@@ -37,4 +37,4 @@ const counter = () => {
     )
 }
 
-export default counter
+export default Counter

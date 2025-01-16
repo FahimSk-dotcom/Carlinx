@@ -88,7 +88,7 @@ const Inventory = () => {
               >
                 {filterOptions[filterName].map((option) => (
                   <option key={option} value={option}>
-                    {option}
+                    {option.replace(/'/g, '&apos;')} {/* Replacing ' with &apos; */}
                   </option>
                 ))}
               </select>

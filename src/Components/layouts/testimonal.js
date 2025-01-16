@@ -50,7 +50,8 @@ const swiper = () => {
                 <div className="heading1 flex mt-5 items-center font-semibold text-accent text-2xl tracking-widest">
                     <AiOutlineCar />Testimonals
                 </div>
-                <div className="heading2 mt-2 mb-3 text-5xl font-bold">What Our Client <span className='text-accent'>Say's</span></div>
+                <div className="heading2 mt-2 mb-3 text-5xl font-bold">What Our Client <span className='text-accent'>Say&apos;s</span>
+                </div>
                 <div className="divider mb-10"></div>
             <Swiper
                 slidesPerView={4}

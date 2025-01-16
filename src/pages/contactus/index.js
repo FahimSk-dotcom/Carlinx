@@ -86,7 +86,7 @@ const Contactus = () => {
         <div className='flex flex-col'>
           <h1 className='text-4xl font-bold mt-6 ml-5'>Get In Touch</h1>
           <p className='text text-balance mt-5 ml-5'>
-            Have any questions or need assistance? We're here to help! Feel free to reach out, and our team will get back to you as soon as possible.
+            Have any questions or need assistance? We&apos;re here to help! Feel free to reach out, and our team will get back to you as soon as possible.
           </p>
           <form onSubmit={handleSubmit}>
             {['name', 'email', 'subject', 'message'].map((field, index) => (
@@ -126,7 +126,7 @@ const Contactus = () => {
               {isSubmitting ? 'Sending...' : 'Send Message'}
               <IoIosSend className='text-white' />
             </button>
-          {feedback && <p className=" text-xl mt-[-40px] ml-60 text-red-500">{feedback}</p>}
+            {feedback && <p className=" text-xl mt-[-40px] ml-60 text-red-500">{feedback}</p>}
           </form>
         </div>
       </div>

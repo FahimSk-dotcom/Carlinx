@@ -12,7 +12,7 @@ import dealer5 from '../../../Assets/pngs/05-dealer.png'
 import dealer6 from '../../../Assets/pngs/06-dealer.png'
 import dealer7 from '../../../Assets/pngs/07-dealer.png'
 import dealer8 from '../../../Assets/pngs/08-dealer.png'
-const dealers = () => {
+const Dealers = () => {
   const [isHovered, setIsHovered] = useState(null)
   const [isEntered, setIsEntered] = useState(false);
   const handleMouseEnter = (DealerID) => {
@@ -104,4 +104,4 @@ const dealers = () => {
     </ScrollTrigger>
   )
 }
-export default dealers
+export default Dealers
