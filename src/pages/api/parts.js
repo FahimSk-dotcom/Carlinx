@@ -27,6 +27,7 @@ export default async function handler(req, res) {
         query.id = parseInt(req.query.id, 10);
       }
 
+
       // Fetch filtered data
       const parts = await partsCollection.find(query).toArray();
 
