@@ -104,7 +104,7 @@ const About = () => {
               World Largest <span className='text-accent'> Car Dealer</span> Marketplace.
             </p>
             <p className='text-bodytextcolor'>
-              The world's largest car dealer marketplace offers a vast selection of new <br /> and used vehicles, connecting buyers with dealerships globally.
+              The world&#8217;s largest car dealer marketplace offers a vast selection of new <br /> and used vehicles, connecting buyers with dealerships globally.
             </p>
             <p className='text-accent flex text-center font-semibold text-base mt-4 gap-2'>
               <span className='mt-1'><FaCheckCircle /></span>
@@ -140,7 +140,7 @@ const About = () => {
         <div className="cards flex gap-10">
           {teamdata.map((data) => (
             <div key={data.id} className="Card h-[25rem] w-72 border-none rounded-xl">
-              <Image src={data.img} height={300} width={260} className='border-none rounded-xl ml-4 mt-4' alt={`${data.Name}'s photo`} />
+              <Image src={data.img} height={300} width={260} className='border-none rounded-xl ml-4 mt-4' alt={`${data.Name}&apos;s photo`} />
               <p className='text-2xl font-semibold ml-4 text-center mt-2 hover:text-accent'>{data.Name}</p>
               <p className='text-accent ml-4 text-xl mb-2 text-center tracking-wider'>{data.role}</p>
             </div>
@@ -168,4 +168,4 @@ const About = () => {
   )
 }
 
-export default About
+export default About;

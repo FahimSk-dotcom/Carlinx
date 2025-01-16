@@ -59,7 +59,7 @@ const Home = () => {
               World Largest <span className='text-accent'>Car Dealer</span> Marketplace.
             </p>
             <p className='text-bodytextcolor'>
-              The world's largest car dealer marketplace offers a vast selection of new
+              The world&#8217;s largest car dealer marketplace offers a vast selection of new
               <br /> and used vehicles, connecting buyers with dealerships globally.
             </p>
             <p className='text-accent flex text-center font-semibold text-base mt-4 gap-2'>
@@ -96,7 +96,7 @@ const Home = () => {
           <IoIosCar /> NEW ARRIVALS
         </span>
         <span className='text-5xl font-bold tracking-wide'>
-          Let's Check Latest <span className='text-accent'>Cars</span>
+          Let&#8217;s Check Latest <span className='text-accent'>Cars</span>
         </span>
         <div className="divider"></div>
       </div>

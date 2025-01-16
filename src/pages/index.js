@@ -63,7 +63,7 @@ const Index = () => {
     <>
       <EmblaCarousel />
       <div key={"Search"} className="Search bg-white shadow-lg ">
-        <p className='text-black font-semibold text-2xl pt-5 pl-6 pb-3 tracking-widest'>Let's Find Your Perfect Car</p>
+        <p className='text-black font-semibold text-2xl pt-5 pl-6 pb-3 tracking-widest'>Let&#8217;s Find Your Perfect Car</p>
         <hr className='border-solid ml-6 mr-6 ' />
         <div className='Form-search grid grid-cols-3'>
           {/* Other form elements */}
@@ -91,7 +91,7 @@ const Index = () => {
       </div>
       <div className="new-arrival h-[120px] w-screen flex flex-col items-center mt-32">
         <span className='text-accent text-xl flex items-center gap-2 font-bold tracking-widest'> <IoIosCar />NEW ARRIVALS</span>
-        <span className='text-5xl font-bold tracking-wide'>Let's Check Latest <span className='text-accent'>Cars</span></span>
+        <span className='text-5xl font-bold tracking-wide'>Let&#8217;s Check Latest <span className='text-accent'>Cars</span></span>
         <div className="divider"></div>
       </div>
       <Product />

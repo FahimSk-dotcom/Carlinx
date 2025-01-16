@@ -72,7 +72,7 @@ const Inventory = () => {
         </p>
       </div>
       <div key={"Search"} className="Search bg-white shadow-lg mt-10">
-        <p className='text-black font-semibold text-2xl pt-5 pl-6 pb-3 tracking-widest'>Let's Find Your Perfect Car</p>
+        <p className='text-black font-semibold text-2xl pt-5 pl-6 pb-3 tracking-widest'>Let&#8217;s Find Your Perfect Car</p>
         <hr className='border-solid ml-6 mr-6' />
         <div className='Form-search grid grid-cols-3'>
           {Object.keys(filterOptions).map((filterName) => (
