@@ -1,6 +1,6 @@
 import Layout from "@/Components/layouts/Layout";
 import { useRouter } from 'next/router';
-import "@/styles/globals.css";
+import '../styles/globals.css'
 import store from '../Redux/store';
 import { Provider } from 'react-redux';
 
