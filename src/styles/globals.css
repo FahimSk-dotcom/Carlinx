@@ -408,6 +408,9 @@ Image {
     opacity: 0.7;
     z-index: 1;
 }
+.content{
+  height: 384px;
+}
 /* Contact */
 .ContactFrom{
   border-radius: 15px 50% 50% 15px;

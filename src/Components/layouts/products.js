@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ScrollTrigger from 'react-scroll-trigger';
 import Image from 'next/image';
+
 import { RiStarFill } from "react-icons/ri";
 import { IoStarHalfSharp } from "react-icons/io5";
 import { GiRoad } from "react-icons/gi";
@@ -19,6 +20,7 @@ import car5 from '../../../Assets/jpgs/car05.jpg';
 import car6 from '../../../Assets/jpgs/car06.jpg';
 import car7 from '../../../Assets/jpgs/car07.jpg';
 import car8 from '../../../Assets/jpgs/car08.jpg';
+import Link from 'next/link';
 const DefaultData = [
   {
     id: 1,
@@ -137,7 +139,6 @@ const Products = ({ filteredData = DefaultData }) => {
   const handleMouseLeave = () => {
     setIsHovered(null);
   };
-  
   return (
     <ScrollTrigger onEnter={() => setIsEntered(true)} onExit={() => setIsEntered(false)}>
       <div className={`container flex flex-wrap justify-center ${isEntered ? 'animate-fadeup' : ''}`}>
@@ -188,10 +189,11 @@ const Products = ({ filteredData = DefaultData }) => {
               <hr className="mt-4" />
               <div className="price-details flex gap-10">
                 <p className="price text-accent font-bold text-xl mt-4">{car.price}</p>
-                <button className="theme-btn max-w-64 h-10 mt-2 flex items-center justify-center gap-1">
+                <Link href={`/detailsCar/${car.id}`}>
+                <button  className="theme-btn max-w-64 h-10 mt-2 flex items-center justify-center gap-1">
                   <FaRegEye />
                   Details
-                </button>
+                </button></Link>
               </div>
             </div>
           </div>

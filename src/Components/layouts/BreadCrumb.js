@@ -20,7 +20,7 @@ const Breadcrumb = () => {
   });
 
   return (
-    <nav className='breadcrumb w-screen h-[384px] text-white  mt-20 '>
+    <nav className='breadcrumb w-screen  text-white  mt-20 '>
     <div className="content flex relative justify-center items-center h-full font-bold text-xl z-10">
       <Link prefetch={true} href="/" className=' hover:text-accent'>Home</Link>
       {' >> '}
