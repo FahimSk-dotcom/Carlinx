@@ -103,7 +103,7 @@ const Home = () => {
       <Product />
       <Dealer />
 
-      <div className="Choose-us bg-black h-[90vh] flex justify-between">
+      <div className="Choose-us bg-black h-[650px] flex justify-between">
         <div className="left-choose ml-32">
           <div className="heading-top text-white mt-6 text-2xl flex gap-1 items-center">
             <IoIosCar /> Why Choose Us
@@ -113,8 +113,8 @@ const Home = () => {
           </p>
           <p className='description text-white text-base mt-3 mb-3'>
             We are committed to delivering exceptional quality in every service we provide,
-            ensuring customer satisfaction and trust. Our goal is to exceed expectations with
-            reliable and professional solutions tailored to your needs.
+            <br />ensuring customer satisfaction and trust. Our goal is to exceed expectations with
+            <br />reliable and professional solutions tailored to your needs.
           </p>
           <Image src={choosecar} height={300} width={600} alt='car-img' />
         </div>

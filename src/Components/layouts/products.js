@@ -156,7 +156,7 @@ const Products = ({ filteredData = DefaultData }) => {
                     <FavoriteBorderOutlinedIcon />
                   </div>
                 </div>
-                <Image src={car.image} width={250} height={100} className="border-none rounded hover:scale-105 transition-all" alt='' />
+                <Image src={car.image} width={250} height={100} className="border-none rounded hover:scale-105 transition-all ml-[-8px]" alt='' />
               </div>
               <p className="text-xl font-semibold mt-2 hover:text-accent">{car.name}</p>
               <p className="text-yellow-400 flex items-center gap-1 mt-2">

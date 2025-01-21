@@ -66,7 +66,6 @@ export default function ProductDetails() {
 
   if (loading) return <p className="text-center mt-10">Loading product details...</p>;
   if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
-  console.log("Product stock:", product.Stock);
 
   return (
     <div className="p-6 max-w-screen-lg mx-auto mt-32">

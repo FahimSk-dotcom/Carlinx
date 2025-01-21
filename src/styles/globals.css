@@ -227,7 +227,6 @@ body {
   content: "";
   height: 300px;
   width: 300px;
-  background: var(--color-dark);
   border-radius: 50%;
   position: absolute;
   top: 50%;

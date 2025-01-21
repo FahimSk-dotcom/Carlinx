@@ -28,7 +28,6 @@ export default function ProductDetails() {
 
   if (loading) return <p className="text-center mt-10">Loading product details...</p>;
   if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
-  console.log(product)
   return (
     <div className="p-6 max-w-screen-lg mx-auto mt-32">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
