@@ -31,11 +31,6 @@ const upload = multer({
   },
 });
 
-// Create the router
-// const MONGODB_URI =
-//   'mongodb://Carlinx:fahim123@cluster0-shard-00-00.yrbw4.mongodb.net:27017,cluster0-shard-00-01.yrbw4.mongodb.net:27017,cluster0-shard-00-02.yrbw4.mongodb.net:27017/Carlinx?replicaSet=atlas-x5gevz-shard-0&ssl=true&authSource=admin';
-
-// Create the router
 const router = createRouter();
 
 // Configure mongoose schema
@@ -44,20 +39,20 @@ const vehicleSchema = new mongoose.Schema(
     name: { type: String, required: true },
     email: { type: String, required: true },
     mobile: { type: String, required: true },
-    rtoLocation: String,
-    mtgYear: String,
-    brand: String,
-    model: String,
-    variant: String,
-    kmDriven: String,
-    fuelType: String,
-    owner: String,
+    rtoLocation: { type: String, required: true },
+    mtgYear:{ type: String, required: true },
+    brand: { type: String, required: true },
+    model: { type: String, required: true },
+    variant: { type: String, required: true },
+    kmDriven: { type: String, required: true },
+    fuelType:{ type: String, required: true },
+    owner: { type: String, required: true },
     description: String,
-    imagePath: String,
+    imagePath:{ type: String, required: true },
     createdAt: { type: Date, default: Date.now },
   },
   {
-    collection: 'VehicleSellRequests', // Explicitly set the collection name
+    collection: 'VehicleSellRequests', 
   }
 );
 

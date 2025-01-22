@@ -21,9 +21,9 @@ const Footer = () => {
             <p className=' mt-8 '>Carlinx simplifies the buying and selling of Cars and Auto parts with a seamless, userfriendly platform.
               Explore, trade, and manage your automotive needs with ease through our comprehensive service</p>
             <ul className='flex flex-col text-white mt-4 text-lg'>
-              <li className='flex gap-2 mt-4 items-center'><span className='flex items-center justify-center h-8 w-8 bg-accent boredr-none rounded-xl font-bold'><FiPhone /></span>+91 12 6405 7898</li>
+              <li className='flex gap-2 mt-4 items-center'><span className='flex items-center justify-center h-8 w-8 bg-accent boredr-none rounded-xl font-bold'><FiPhone /></span><a href="tel:+918976946230">+91 12 6405 7898</a></li>
               <li className='flex gap-2 mt-4 items-center'><span className='flex items-center justify-center h-8 w-8 bg-accent boredr-none rounded-xl font-b'><MdOutlineLocationOn /></span>Located at 178 Cst Road, Mumbai, India</li>
-              <li className='flex gap-2 mt-4 items-center'><span className='flex items-center justify-center h-8 w-8 bg-accent boredr-none rounded-xl font-bold'><MdOutlineEmail /></span>info@example.com</li>
+              <li className='flex gap-2 mt-4 items-center'><span className='flex items-center justify-center h-8 w-8 bg-accent boredr-none rounded-xl font-bold'><MdOutlineEmail /></span> <a href="mailto:skfahim0504@gmail.com">info@Carlinx.com</a></li>
             </ul>
           </div>
           <div className="QuickLinks relative left-[140px]">
