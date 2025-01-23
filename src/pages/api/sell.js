@@ -60,9 +60,9 @@ const vehicleSchema = new mongoose.Schema(
 router.use(async (req, res, next) => {
   try {
     if (mongoose.connections[0].readyState === 0) {
-      await mongoose.connect(process.env.MONGODB_URI1, {
+     await  mongoose.connect(process.env.MONGODB_URI, {
         useNewUrlParser: true,
-        useUnifiedTopology: true,
+        useUnifiedTopology: true
       });
       console.log('Connected to MongoDB');
     }
