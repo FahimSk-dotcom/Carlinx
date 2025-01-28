@@ -116,9 +116,14 @@ const Cart = () => {
 
         <div className="flex justify-between mt-4 p-4 bg-gray-200 rounded-lg">
           <button onClick={handleClearCart} className="bg-red-500 text-white px-4 py-2 rounded">Clear Cart</button>
-          <div className="text-xl font-bold">
-            Total: <FaRupeeSign /> {cartItems.reduce((total, item) => total + item.price * (item.quantity || 1), 0)}
+         <div className="buycart flex w-2/12 justify-around items-center">
+         <button className="text-xl font-bold theme-btn">
+            Buy Now
+          </button>
+          <div className="text-xl font-bold ">
+            Total: <p className='flex items-center'> <FaRupeeSign /> {cartItems.reduce((total, item) => total + item.price * (item.quantity || 1), 0)}</p>
           </div>
+        </div>
         </div>
       </div>
     </div>

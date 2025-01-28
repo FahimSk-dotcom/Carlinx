@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { RiStarFill } from "react-icons/ri";
 import { IoStarHalfSharp } from "react-icons/io5";
 import { GiRoad } from "react-icons/gi";
-import { FaArrowRotateRight } from "react-icons/fa6";
 import { IoIosCar } from "react-icons/io";
 import { TbSteeringWheel } from "react-icons/tb";
 import { LuFuel } from "react-icons/lu";

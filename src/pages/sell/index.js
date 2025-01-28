@@ -189,7 +189,7 @@ const Sell = () => {
 
       const result = await response.json();
       showCustomAlert('Vehicle details submitted successfully!');
-      router.push('/sellsuccess');
+      router.push('/successpage');
 
     } catch (error) {
       console.error('Error during submission:', error);

@@ -21,128 +21,159 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+  limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
     if (!allowedTypes.includes(file.mimetype)) {
-      cb(new Error('Only image files are allowed!'));
+      return cb(new Error('Only image files are allowed!'), false);
     }
     cb(null, true);
   },
 });
 
-const router = createRouter();
+// MongoDB connection URI
+// const MONGODB_URI =
+//   'mongodb://Carlinx:fahim123@cluster0-shard-00-00.yrbw4.mongodb.net:27017,cluster0-shard-00-01.yrbw4.mongodb.net:27017,cluster0-shard-00-02.yrbw4.mongodb.net:27017/Carlinx?replicaSet=atlas-x5gevz-shard-0&ssl=true&authSource=admin';
 
-// Configure mongoose schema
+// Connect to MongoDB
+const connectDB = async () => {
+  if (mongoose.connections[0].readyState !== 1) {
+    console.log('Connecting to MongoDB...');
+    await mongoose.connect(process.env.MONGODB_URI1, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('MongoDB Connected Successfully');
+  }
+};
+
+// Define the schema
 const vehicleSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     email: { type: String, required: true },
     mobile: { type: String, required: true },
     rtoLocation: { type: String, required: true },
-    mtgYear:{ type: String, required: true },
+    mtgYear: { type: String, required: true },
     brand: { type: String, required: true },
     model: { type: String, required: true },
     variant: { type: String, required: true },
     kmDriven: { type: String, required: true },
-    fuelType:{ type: String, required: true },
+    fuelType: { type: String, required: true },
     owner: { type: String, required: true },
-    description: String,
-    imagePath:{ type: String, required: true },
-    createdAt: { type: Date, default: Date.now },
+    description: { type: String },
+    imagePath: { type: String, required: true },
   },
   {
-    collection: 'VehicleSellRequests', 
+    collection: 'VehicleSellRequests',
+    timestamps: true,
   }
 );
 
-// Middleware to connect to MongoDB
+// Create or reuse the model
+const Vehicle = mongoose.models.Vehicle || mongoose.model('Vehicle', vehicleSchema);
+
+const router = createRouter();
+
+// Middleware to ensure MongoDB is connected
 router.use(async (req, res, next) => {
   try {
-    if (mongoose.connections[0].readyState === 0) {
-     await  mongoose.connect(process.env.MONGODB_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-      });
-      console.log('Connected to MongoDB');
-    }
+    await connectDB();
     next();
   } catch (error) {
-    console.error('MongoDB connection error:', error.message);
+    console.error('MongoDB Connection Error:', error);
     res.status(500).json({ error: 'Database connection failed' });
   }
 });
 
-// POST route to upload vehicle details
+// Promisify multer middleware
+const runMiddleware = (req, res, fn) => {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result);
+      }
+      resolve(result);
+    });
+  });
+};
+
+// POST route to handle file upload and data storage
 router.post(async (req, res) => {
   try {
-    upload.single('image')(req, res, async (err) => {
-      if (err) {
-        console.error('Upload error:', err);
-        return res.status(400).json({ error: err.message });
-      }
+    await runMiddleware(req, res, upload.single('image'));
 
-      const {
-        name,
-        email,
-        mobile,
-        rtoLocation,
-        mtgYear,
-        brand,
-        model,
-        variant,
-        kmDriven,
-        fuelType,
-        owner,
-        description,
-      } = req.body;
+    if (!req.file) {
+      return res.status(400).json({ error: 'Image file is required' });
+    }
 
-      if (!name || !email || !mobile) {
-        return res.status(400).json({ error: 'Required fields missing' });
-      }
+    const {
+      name,
+      email,
+      mobile,
+      rtoLocation,
+      mtgYear,
+      brand,
+      model,
+      variant,
+      kmDriven,
+      fuelType,
+      owner,
+      description,
+    } = req.body;
 
-      try {
-        const Vehicle =
-          mongoose.models.Vehicle || mongoose.model('Vehicle', vehicleSchema);
+    // Validate required fields
+    if (
+      !name ||
+      !email ||
+      !mobile ||
+      !rtoLocation ||
+      !mtgYear ||
+      !brand ||
+      !model ||
+      !variant ||
+      !kmDriven ||
+      !fuelType ||
+      !owner
+    ) {
+      return res.status(400).json({ error: 'All required fields must be filled' });
+    }
 
-        const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
+    const vehicleData = {
+      name,
+      email,
+      mobile,
+      rtoLocation,
+      mtgYear,
+      brand,
+      model,
+      variant,
+      kmDriven,
+      fuelType,
+      owner,
+      description,
+      imagePath: `/uploads/${req.file.filename}`,
+    };
 
-        const newVehicle = new Vehicle({
-          name,
-          email,
-          mobile,
-          rtoLocation,
-          mtgYear,
-          brand,
-          model,
-          variant,
-          kmDriven,
-          fuelType,
-          owner,
-          description,
-          imagePath,
-        });
+    // Insert into database
+    const newVehicle = new Vehicle(vehicleData);
+    const savedVehicle = await newVehicle.save();
 
-        await newVehicle.save();
-
-        res.status(200).json({
-          success: true,
-          data: newVehicle,
-        });
-      } catch (dbError) {
-        console.error('Database error:', dbError);
-        res.status(500).json({ error: 'Failed to save to database' });
-      }
+    return res.status(201).json({
+      success: true,
+      message: 'Vehicle details saved successfully',
+      data: savedVehicle,
     });
   } catch (error) {
-    console.error('Server error:', error);
+    console.error('Error saving vehicle details:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
+// Export configuration
 export const config = {
   api: {
-    bodyParser: false,
+    bodyParser: false, // Disable Next.js default body parser for multer
   },
 };
 

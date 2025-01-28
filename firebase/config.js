@@ -10,9 +10,7 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
-
-// Initialize Firebase only if there are no existing apps
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
 
-// Export the auth instance
+
 export const auth = getAuth(app);
