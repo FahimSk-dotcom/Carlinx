@@ -31,19 +31,13 @@ const upload = multer({
   },
 });
 
-// MongoDB connection URI
-// const MONGODB_URI =
-//   'mongodb://Carlinx:fahim123@cluster0-shard-00-00.yrbw4.mongodb.net:27017,cluster0-shard-00-01.yrbw4.mongodb.net:27017,cluster0-shard-00-02.yrbw4.mongodb.net:27017/Carlinx?replicaSet=atlas-x5gevz-shard-0&ssl=true&authSource=admin';
 
-// Connect to MongoDB
 const connectDB = async () => {
   if (mongoose.connections[0].readyState !== 1) {
-    console.log('Connecting to MongoDB...');
     await mongoose.connect(process.env.MONGODB_URI1, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log('MongoDB Connected Successfully');
   }
 };
 

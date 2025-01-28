@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCart, clearCart, addToCart } from '../../Redux/counter/counterSlice';
 import { FaRupeeSign } from "react-icons/fa";
 import Image from 'next/image';
+import RazorpayPayment from '@/Components/layouts/RazorpayPayment';
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const Cart = () => {
 
 
       if (type === "increase") {
-        if (item.quantity+1 < item.Stock) {
+        if (item.quantity + 1 < item.Stock) {
           // Increase the quantity and clear the StockMessage
           dispatch(addToCart({ item: { ...item, quantity: item.quantity + 1 }, type }));
 
@@ -49,7 +50,7 @@ const Cart = () => {
         dispatch(addToCart({ item: { ...item, quantity: item.quantity - 1 }, type }));
 
         // Log before clearing the message state
-        
+
         setMessages((prevMessages) => {
           const updatedMessages = { ...prevMessages };
           delete updatedMessages[id]; // Remove message for this item
@@ -116,14 +117,15 @@ const Cart = () => {
 
         <div className="flex justify-between mt-4 p-4 bg-gray-200 rounded-lg">
           <button onClick={handleClearCart} className="bg-red-500 text-white px-4 py-2 rounded">Clear Cart</button>
-         <div className="buycart flex w-2/12 justify-around items-center">
-         <button className="text-xl font-bold theme-btn">
-            Buy Now
-          </button>
-          <div className="text-xl font-bold ">
-            Total: <p className='flex items-center'> <FaRupeeSign /> {cartItems.reduce((total, item) => total + item.price * (item.quantity || 1), 0)}</p>
+          <div className="buycart flex w-2/12 justify-around items-center">
+            <RazorpayPayment />
+            <div className="text-xl font-bold ">
+              Total: <p className='flex items-center'>
+                <FaRupeeSign />
+                {cartItems.reduce((total, item) => total + item.price * (item.quantity || 1), 0)}
+              </p>
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
