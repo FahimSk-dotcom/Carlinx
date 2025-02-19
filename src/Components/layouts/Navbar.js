@@ -36,11 +36,11 @@ const Navbar = () => {
         sessionStorage.setItem('isLoggedIn', 'true'); // Persist login status
     };
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
         setIsLoggedIn(false);
-        sessionStorage.setItem('isLoggedIn', 'false'); // Clear login status
-    };
-
+        sessionStorage.setItem('isLoggedIn', 'false'); 
+        await fetch('/api/auth/logout', { method: 'POST' });
+      };
     return (
         <div>
             <div className="header">

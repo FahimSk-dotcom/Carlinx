@@ -1,12 +1,12 @@
 // pages/api/create-order.js
 import Razorpay from 'razorpay';
-
+import { MongoClient } from 'mongodb';
 // Initialize Razorpay
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
-
+const client = new MongoClient(process.env.MONGODB_URI);
 export default async function handler(req, res) {
   // Only allow POST method
   if (req.method !== 'POST') {
@@ -44,11 +44,19 @@ export default async function handler(req, res) {
 
     // You might want to save order details to your database here
     // await saveOrderToDatabase({ ...order, items, userDetails });
+    await client.connect();
+    const db = client.db(process.env.DB_NAME);
+    const usersCollection = db.collection('Orders');
+    const result = await usersCollection.insertOne({
+     items,
+     userDetails
+    });
 
     res.status(200).json({
       id: order.id,
       currency: order.currency,
       amount: order.amount,
+      message:"Order saved sucessfully", order:result
     });
   } catch (error) {
     console.error('Error creating order:', error);

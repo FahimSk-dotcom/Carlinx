@@ -259,6 +259,26 @@ body {
   transform: translateY(-50%) translateX(-50%) scale(1);
 }
 
+.arrow-navigate{
+  position: fixed;
+  right: 1%;
+  bottom: 14%;
+  font-size: 16px;
+  color: #ffffff;
+  padding: 12px 20px;
+  transition: all 0.5s;
+  text-transform: capitalize;
+  border-radius: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  overflow: hidden;
+  border: none;
+  background: var(--theme-color);
+  box-shadow: 0 0 40px 5px rgb(0 0 0 / 5%);
+  z-index: 1;
+}
+
 /* counter */
 
 .container-counter::before {

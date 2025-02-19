@@ -1,4 +1,3 @@
-// components/RazorpayPayment.js
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -56,6 +55,7 @@ const RazorpayPayment = () => {
 
     if (!res) {
       alert('Razorpay SDK failed to load');
+      router.push('/payment-failed');
       return;
     }
 
@@ -75,13 +75,21 @@ const RazorpayPayment = () => {
         body: JSON.stringify(orderData),
       });
 
+      if (!response.ok) {
+        throw new Error('Order creation failed');
+      }
+
       const order = await response.json();
+
+      if (!order || !order.id) {
+        throw new Error('Invalid order response');
+      }
 
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         amount: totalAmount * 100,
         currency: 'INR',
-        name: 'Your Store Name',
+        name: 'Carlinx',
         description: 'Purchase Description',
         order_id: order.id,
         handler: async function (response) {
@@ -90,7 +98,9 @@ const RazorpayPayment = () => {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
-              userDetails: userDetails
+              userDetails: userDetails,
+              amount: totalAmount * 100,
+              items: cartItems
             };
 
             const verifyResponse = await fetch('/api/verify-payment', {
@@ -104,15 +114,12 @@ const RazorpayPayment = () => {
             const verifyResult = await verifyResponse.json();
 
             if (verifyResult.success) {
-              alert('Payment successful!');
               router.push('/payment-success');
             } else {
-              alert('Payment verification failed');
               router.push('/payment-failed');
             }
           } catch (error) {
             console.error('Verification error:', error);
-            alert('Payment verification failed');
             router.push('/payment-failed');
           }
         },
@@ -131,7 +138,7 @@ const RazorpayPayment = () => {
 
     } catch (error) {
       console.error('Payment error:', error);
-      alert('Something went wrong!');
+      router.push('/payment-failed');
     }
   };
 

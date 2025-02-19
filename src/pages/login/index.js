@@ -28,11 +28,11 @@ const Login = () => {
     const data = await res.json();
     if (res.ok) {
       setfeedback('Login successful');
-      setCountdown(5);
+      setCountdown(3);
       setSubmited(true);
       const timer = setInterval(() => {
         setCountdown((prev) => {
-          if (prev === 1) {
+          if (prev === 2) {
             router.push('/home');// Redirect to homepage after countdown
             clearInterval(timer);
           }

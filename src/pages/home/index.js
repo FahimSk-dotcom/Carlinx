@@ -9,7 +9,7 @@ import BlogComponet from '@/Components/layouts/blogComponent'
 import Image from 'next/image'
 import Link from 'next/link'
 import { IoCarSportSharp } from "react-icons/io5";
-import { FaCheckCircle, FaUserPlus } from "react-icons/fa";
+import { FaCheckCircle,  FaArrowUp  } from "react-icons/fa";
 import { IoIosCar } from "react-icons/io"
 import { FaArrowRightLong, FaUserGraduate } from "react-icons/fa6";
 import { TbBrandStackshare } from "react-icons/tb";
@@ -34,13 +34,26 @@ const Home = () => {
     { id: 6, img: brand6img, text: 'Nissan' },
   ];
 
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isEntered, setIsEntered] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+        setIsScrolled(window.scrollY > 150);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+}, []);
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
 
   return (
     <>
       <EmblaCarousel />
-
+      <button onClick={scrollToTop} className={` arrow-navigate ${isScrolled ? '':'hidden'}`}><FaArrowUp  className='text-white'/></button>
       <ScrollTrigger onEnter={() => setIsEntered(true)} onExit={() => setIsEntered(false)}>
+      
         <div className="about-experience mt-10 h-3/4 flex mb-32">
           <div className={`about-exp-left ml-[170px] top-8 ${isEntered ? 'animate-fadeinleft' : ''}`}>
             <div className="qualityexp bg-black flex items-center gap-1 border-none rounded-xl h-16  w-60 absolute">

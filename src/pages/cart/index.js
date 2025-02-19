@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCart, clearCart, addToCart } from '../../Redux/counter/counterSlice';
 import { FaRupeeSign } from "react-icons/fa";
 import Image from 'next/image';
-import RazorpayPayment from '@/Components/layouts/RazorpayPayment';
+import RazorpayForm from '@/Components/layouts/RazorpayPayment';
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
   const [messages, setMessages] = useState({}); // Store messages and positions by item id
+  const [showPaymentForm, setShowPaymentForm] = useState(false);
   const handleRemove = (id) => {
     dispatch(removeFromCart(id));
   };
-
   const handleClearCart = () => {
     dispatch(clearCart());
   };
@@ -59,7 +59,9 @@ const Cart = () => {
       }
     }
   };
-
+  const handleBuyNow = () => {
+    setShowPaymentForm(true);
+  };
   if (cartItems.length === 0) {
     return <p className="text-center mt-32 mb-20 text-5xl font-bold">Your cart is empty</p>;
   }
@@ -118,7 +120,7 @@ const Cart = () => {
         <div className="flex justify-between mt-4 p-4 bg-gray-200 rounded-lg">
           <button onClick={handleClearCart} className="bg-red-500 text-white px-4 py-2 rounded">Clear Cart</button>
           <div className="buycart flex w-2/12 justify-around items-center">
-            <RazorpayPayment />
+            <RazorpayForm/>
             <div className="text-xl font-bold ">
               Total: <p className='flex items-center'>
                 <FaRupeeSign />
