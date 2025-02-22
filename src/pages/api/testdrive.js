@@ -26,7 +26,8 @@ export default async function handler(req, res) {
         carModel,
         transmission,
         TestDriveLocation,
-        selectedDate
+        selectedDate,
+        status:"Pending"
       });
 
       res.status(201).json({ message: 'TestDrive Booked successfully', user: result });

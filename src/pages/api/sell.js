@@ -1,27 +1,14 @@
 import { createRouter } from 'next-connect';
 import multer from 'multer';
 import mongoose from 'mongoose';
-import path from 'path';
-import fs from 'fs';
+import cloudinary from '@/config/cloudinary';
+import { Readable } from 'stream';  
 
-// Ensure uploads directory exists
-const uploadDir = './public/uploads';
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
-
-// Configure multer
-const storage = multer.diskStorage({
-  destination: uploadDir,
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + path.extname(file.originalname));
-  },
-});
-
+// Multer configuration (store in memory instead of disk)
+const storage = multer.memoryStorage();
 const upload = multer({
-  storage: storage,
-  limits: { fileSize: 5 * 1024 * 1024 },
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
   fileFilter: (req, file, cb) => {
     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
     if (!allowedTypes.includes(file.mimetype)) {
@@ -30,7 +17,6 @@ const upload = multer({
     cb(null, true);
   },
 });
-
 
 const connectDB = async () => {
   if (mongoose.connections[0].readyState !== 1) {
@@ -56,7 +42,7 @@ const vehicleSchema = new mongoose.Schema(
     fuelType: { type: String, required: true },
     owner: { type: String, required: true },
     description: { type: String },
-    imagePath: { type: String, required: true },
+    imagePath: { type: String, required: true }, // Now stores Cloudinary URL
   },
   {
     collection: 'VehicleSellRequests',
@@ -64,12 +50,9 @@ const vehicleSchema = new mongoose.Schema(
   }
 );
 
-// Create or reuse the model
 const Vehicle = mongoose.models.Vehicle || mongoose.model('Vehicle', vehicleSchema);
 
 const router = createRouter();
-
-// Middleware to ensure MongoDB is connected
 router.use(async (req, res, next) => {
   try {
     await connectDB();
@@ -80,7 +63,6 @@ router.use(async (req, res, next) => {
   }
 });
 
-// Promisify multer middleware
 const runMiddleware = (req, res, fn) => {
   return new Promise((resolve, reject) => {
     fn(req, res, (result) => {
@@ -92,7 +74,21 @@ const runMiddleware = (req, res, fn) => {
   });
 };
 
-// POST route to handle file upload and data storage
+// Function to upload image buffer to Cloudinary
+const uploadToCloudinary = async (buffer) => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: 'uploads' },
+      (error, result) => {
+        if (error) return reject(error);
+        resolve(result.secure_url); // Get the Cloudinary URL
+      }
+    );
+    Readable.from(buffer).pipe(stream);
+  });
+};
+
+// POST route to upload image & save data
 router.post(async (req, res) => {
   try {
     await runMiddleware(req, res, upload.single('image'));
@@ -100,6 +96,9 @@ router.post(async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ error: 'Image file is required' });
     }
+
+    // Upload file to Cloudinary
+    const cloudinaryUrl = await uploadToCloudinary(req.file.buffer);
 
     const {
       name,
@@ -116,7 +115,6 @@ router.post(async (req, res) => {
       description,
     } = req.body;
 
-    // Validate required fields
     if (
       !name ||
       !email ||
@@ -133,6 +131,7 @@ router.post(async (req, res) => {
       return res.status(400).json({ error: 'All required fields must be filled' });
     }
 
+    // Save to MongoDB
     const vehicleData = {
       name,
       email,
@@ -146,10 +145,9 @@ router.post(async (req, res) => {
       fuelType,
       owner,
       description,
-      imagePath: `/uploads/${req.file.filename}`,
+      imagePath: cloudinaryUrl, // Store Cloudinary URL in database
     };
 
-    // Insert into database
     const newVehicle = new Vehicle(vehicleData);
     const savedVehicle = await newVehicle.save();
 
@@ -164,10 +162,9 @@ router.post(async (req, res) => {
   }
 });
 
-// Export configuration
 export const config = {
   api: {
-    bodyParser: false, // Disable Next.js default body parser for multer
+    bodyParser: false,
   },
 };
 

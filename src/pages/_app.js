@@ -8,7 +8,7 @@ import Loader from "@/Components/layouts/loader";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
-  const noLayoutRoutes = ["/login", "/register"]; // Add other routes if needed
+  const noLayoutRoutes = ["/login", "/register" ,"/dashboard"]; // Add other routes if needed
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

@@ -16,10 +16,11 @@ const Shop = () => {
   const [minValue, setMinValue] = useState(400);
   const [maxValue, setMaxValue] = useState(100000);
   const [searchTerm, setSearchTerm] = useState('');
-
+  const [loading, setLoading] = useState(true);
   // Fetch parts data from the API
   useEffect(() => {
     const fetchParts = async () => {
+      setLoading(true);
       try {
         const response = await axios.get('/api/parts', {
           params: { search: searchTerm, minPrice: minValue, maxPrice: maxValue },
@@ -28,6 +29,7 @@ const Shop = () => {
       } catch (error) {
         console.error('Error fetching parts data:', error);
       }
+      setLoading(false);
     };
 
     fetchParts();
@@ -95,37 +97,44 @@ const Shop = () => {
         </div>
 
         {/* Product Cards */}
-        <div className="card w-3/5 flex flex-wrap">
-          <div className="cards grid grid-cols-3">
-            {partsData.map((data) => (
-              <div key={data.id} className="Card h-[350px] m-4 shadow-xl w-72 bg-white flex justify-center border-none rounded">
-                <div className='card ml-4'>
-                  <Image src={data.img} width={250} height={100} className='border-none rounded hover:scale-105 transition-all' alt='' />
-                  <div className="content flex flex-col items-center">
-                    <p className='text-xl font-bold mt-2 hover:text-accent'>{data.name}</p>
-                    <p className='text-bold text-xl flex items-center gap-2 font-semibold mt-1 text-accent'>
-                      <FaRupeeSign /> {data.price}
-                    </p>
-                    <div className="buttons flex gap-2">
-                      <Link href={`/details/${data.id}`}>
-                        <button className='theme-btn max-w-32 h-9 mt-2 flex items-center justify-center gap-1'>
-                          <FaRegEye /> Details
-                        </button>
-                      </Link>
-                      <button
-                        onClick={() => handleAddToCart(data)}
-                        className='theme-btn max-w-64 h-9 mt-2 flex items-center justify-center'>
-                        <HiOutlineShoppingCart className='text-xl' /> Add to Cart
-                      </button>
+        <div className="card w-3/5 flex flex-wrap ">
+          {loading ? (
+                    <div className="flex justify-center items-center h-64">
+                        <p className="text-xl">Loading...</p>
                     </div>
+
+        ):(
+          <div className="cards grid grid-cols-3">
+          {partsData.map((data) => (
+            <div key={data.id} className="Card h-[350px] m-4 shadow-xl w-72 bg-white flex justify-center border-none rounded">
+              <div className='card ml-4'>
+                <Image src={data.img} width={250} height={100} className='border-none rounded hover:scale-105 transition-all' alt='' />
+                <div className="content flex flex-col items-center">
+                  <p className='text-xl font-bold mt-2 hover:text-accent'>{data.name}</p>
+                  <p className='text-bold text-xl flex items-center gap-2 font-semibold mt-1 text-accent'>
+                    <FaRupeeSign /> {data.price}
+                  </p>
+                  <div className="buttons flex gap-2">
+                    <Link href={`/details/${data.id}`}>
+                      <button className='theme-btn max-w-32 h-9 mt-2 flex items-center justify-center gap-1'>
+                        <FaRegEye /> Details
+                      </button>
+                    </Link>
+                    <button
+                      onClick={() => handleAddToCart(data)}
+                      className='theme-btn max-w-64 h-9 mt-2 flex items-center justify-center'>
+                      <HiOutlineShoppingCart className='text-xl' /> Add to Cart
+                    </button>
                   </div>
                 </div>
               </div>
-            ))}
-            {partsData.length === 0 && (
-              <p className='col-span-3 text-center mt-10'>No products found.</p>
-            )}
-          </div>
+            </div>
+          ))}
+          {partsData.length === 0 && (
+            <p className='col-span-3 text-center mt-10'>No products found.</p>
+          )}
+        </div>
+        )}
         </div>
       </div>
     </>
