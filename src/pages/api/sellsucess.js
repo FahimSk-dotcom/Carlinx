@@ -6,10 +6,7 @@ let cachedClient = null;
 async function connectToDatabase() {
   if (cachedClient) return cachedClient;
 
-  const client = new MongoClient(process.env.MONGODB_URI1, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  const client = new MongoClient(process.env.MONGODB_URI1);
 
   try {
     await client.connect();

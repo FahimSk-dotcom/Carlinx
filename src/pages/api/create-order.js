@@ -18,8 +18,8 @@ export default async function handler(req, res) {
 
     // Validate required fields
     if (!amount || !currency) {
-      return res.status(400).json({ 
-        message: 'Missing required fields' 
+      return res.status(400).json({
+        message: 'Missing required fields'
       });
     }
 
@@ -41,28 +41,35 @@ export default async function handler(req, res) {
 
     // Create order using Razorpay
     const order = await razorpay.orders.create(options);
-
+    let id=order.id;
+    let amount_data =order.amount;
+    let status =order.status;
+    let c_name=userDetails.name;
+    let c_no=userDetails.phone;
     // You might want to save order details to your database here
     // await saveOrderToDatabase({ ...order, items, userDetails });
     await client.connect();
     const db = client.db(process.env.DB_NAME);
     const usersCollection = db.collection('Orders');
     const result = await usersCollection.insertOne({
-     items,
-     userDetails
+      id,
+      amount_data,
+      status,
+      c_name,
+      c_no
     });
 
     res.status(200).json({
       id: order.id,
       currency: order.currency,
       amount: order.amount,
-      message:"Order saved sucessfully", order:result
+      message: "Order saved sucessfully", order: result
     });
   } catch (error) {
     console.error('Error creating order:', error);
-    res.status(500).json({ 
+    res.status(500).json({
       message: 'Error creating order',
-      error: error.message 
+      error: error.message
     });
   }
 }

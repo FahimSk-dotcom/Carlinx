@@ -24,7 +24,7 @@ export default async function handler(req, res) {
         if (maxPrice) query.price.$lte = parseInt(maxPrice, 10);
       }
       if (req.query.id) {
-        query.id = parseInt(req.query.id, 10);
+        query.item_id = parseInt(req.query.id, 10);
       }
 
 

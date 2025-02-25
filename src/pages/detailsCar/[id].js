@@ -13,7 +13,7 @@ export default function ProductDetails() {
   useEffect(() => {
     if (id) {
       axios
-        .get(`/api/inventory`, { params: { id } })
+        .get(`/api/inventory`, { params: { id} })
         .then((response) => {
           if (response.data && response.data.length > 0) {
             setProduct(response.data[0]);
@@ -33,7 +33,6 @@ export default function ProductDetails() {
   return (
     <div className="p-6 max-w-screen-lg mx-auto mt-32">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {console.log(product)}
         {product.image ? (
           <Image
             src={product.image}

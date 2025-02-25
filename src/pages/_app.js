@@ -5,6 +5,7 @@ import "../styles/globals.css";
 import store from "../Redux/store";
 import { Provider } from "react-redux";
 import Loader from "@/Components/layouts/loader";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -30,6 +31,9 @@ function MyApp({ Component, pageProps }) {
   if (noLayoutRoutes.includes(router.pathname)) {
     return (
       <Provider store={store}>
+        <Head>
+        <title>Carlinx - A website for buying and selling of car</title>
+        </Head>
         {loading && <Loader />}
         <Component {...pageProps} />
       </Provider>
@@ -38,6 +42,9 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <Provider store={store}>
+      <Head>
+          <title>Carlinx - A website for buying and selling of car</title>
+        </Head>
       {loading && <Loader />}
       <Layout>
         <Component {...pageProps} />

@@ -106,7 +106,7 @@ const Shop = () => {
         ):(
           <div className="cards grid grid-cols-3">
           {partsData.map((data) => (
-            <div key={data.id} className="Card h-[350px] m-4 shadow-xl w-72 bg-white flex justify-center border-none rounded">
+            <div key={data.item_id} className="Card h-[350px] m-4 shadow-xl w-72 bg-white flex justify-center border-none rounded">
               <div className='card ml-4'>
                 <Image src={data.img} width={250} height={100} className='border-none rounded hover:scale-105 transition-all' alt='' />
                 <div className="content flex flex-col items-center">
@@ -115,7 +115,7 @@ const Shop = () => {
                     <FaRupeeSign /> {data.price}
                   </p>
                   <div className="buttons flex gap-2">
-                    <Link href={`/details/${data.id}`}>
+                    <Link href={`/details/${data.item_id}`}>
                       <button className='theme-btn max-w-32 h-9 mt-2 flex items-center justify-center gap-1'>
                         <FaRegEye /> Details
                       </button>

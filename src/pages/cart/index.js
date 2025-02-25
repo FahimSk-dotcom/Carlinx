@@ -17,7 +17,7 @@ const Cart = () => {
     dispatch(clearCart());
   };
   const handleQuantityChange = (id, type) => {
-    const item = cartItems.find((item) => item.id === id);
+    const item = cartItems.find((item) => item.item_id === id);
     if (item) {
 
 
@@ -59,9 +59,6 @@ const Cart = () => {
       }
     }
   };
-  const handleBuyNow = () => {
-    setShowPaymentForm(true);
-  };
   if (cartItems.length === 0) {
     return <p className="text-center mt-32 mb-20 text-5xl font-bold">Your cart is empty</p>;
   }
@@ -80,20 +77,20 @@ const Cart = () => {
         </div>
 
         {cartItems.map((item) => (
-          <div key={item.id} className="details grid grid-cols-5 gap-4 items-center text-black text-lg font-semibold p-3 border-b">
+          <div key={item.item_id} className="details grid grid-cols-5 gap-4 items-center text-black text-lg font-semibold p-3 border-b">
             <Image src={item.img || '/jpgs/default.jpg'} alt={item.name} width={100} height={80} className="rounded" />
             <p className="truncate">{item.name}</p>
             <p className="flex items-center gap-1"><FaRupeeSign /> {item.price}</p>
             <div className="flex gap-2 items-center relative">
               <button
-                onClick={() => handleQuantityChange(item.id, "decrease")}
+                onClick={() => handleQuantityChange(item.item_id, "decrease")}
                 className="px-2 py-1 bg-gray-300 rounded"
               >
                 -
               </button>
               <p>{item.quantity}</p>
               <button
-                onClick={() => handleQuantityChange(item.id, "increase")}
+                onClick={() => handleQuantityChange(item.item_id, "increase")}
                 className={`px-2 py-1 rounded ${item.quantity >= item.Stock ? "bg-gray-400 cursor-not-allowed" : "bg-gray-300"}`}
                 disabled={item.quantity >= item.Stock}
               >
@@ -101,19 +98,19 @@ const Cart = () => {
               </button>
 
               {/* Popup Message */}
-              {messages[item.id] && (
+              {messages[item.item_id] && (
                 <div
                   className="popup-message absolute bg-red-500 text-white p-2 rounded-md shadow-md z-50"
-                  style={{ left: `${messages[item.id].position.left}px` }}
+                  style={{ left: `${messages[item.item_id].position.left}px` }}
                 >
                   {/* Arrow */}
                   <div className="arrow absolute left-1/2 -translate-x-1/2 bottom-[-10px] w-0 h-0 border-l-10 border-r-10 border-t-10 border-transparent border-t-red-500"></div>
-                  <p>{messages[item.id].message}</p>
+                  <p>{messages[item.item_id].message}</p>
                 </div>
               )}
             </div>
             <p className="flex items-center gap-1"><FaRupeeSign /> {item.quantity * item.price}</p>
-            <button onClick={() => handleRemove(item.id)} className="text-red-500 text-right col-span-1">Remove</button>
+            <button onClick={() => handleRemove(item.item_id)} className="text-red-500 text-right col-span-1">Remove</button>
           </div>
         ))}
 

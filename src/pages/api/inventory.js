@@ -30,7 +30,9 @@ export default async function handler(req, res) {
         const [minPrice, maxPrice] = price.split('-').map((p) => parseInt(p.replace(/[^0-9]/g, ''), 10));
         query.price = { $gte: minPrice, $lte: maxPrice };
       }
-
+      if (req.query.id) {
+        query.item_id = parseInt(req.query.id, 10);
+      }
       // Fetch filtered data
       const inventory = await inventoryCollection.find(query).toArray();
 

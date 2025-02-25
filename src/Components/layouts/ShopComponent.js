@@ -45,17 +45,23 @@ const FormFields = memo(({ formData, handleInputChange, handleImageChange, loadi
         </div>
       </>
     )}
-        <div>
-      <label className="block text-sm font-medium mb-1">id</label>
+    
+    {/* Hidden default _id field */}
+    <input type="hidden" name="_id" value={formData._id} />
+
+    {/* Visible custom item_id field */}
+    <div>
+      <label className="block text-sm font-medium mb-1">ID</label>
       <input
-        type="number"
-        name="id"
-        value={formData.id}
+        type="text"
+        name="item_id"
+        value={formData.item_id}
         onChange={handleInputChange}
         className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         required
       />
     </div>
+    
     <div>
       <label className="block text-sm font-medium mb-1">Name</label>
       <input
@@ -108,9 +114,11 @@ const FormFields = memo(({ formData, handleInputChange, handleImageChange, loadi
         className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
       />
     </div>
+    
     {error && (
       <div className="text-red-500 text-sm mt-2">{error}</div>
     )}
+    
     <div className="flex gap-4">
       <button
         type="submit"
@@ -188,6 +196,7 @@ const ShopSection = ({ dashboardData = { ShopDetails: [] }, fetchData }) => {
     setSelectedItem(item);
     setFormData({
       id: item.id,
+      item_id : item.item_id,
       status: item.status || 'active',
       name: item.name,
       description: item.description || '',
@@ -247,6 +256,7 @@ const ShopSection = ({ dashboardData = { ShopDetails: [] }, fetchData }) => {
 
       // Append form fields
       formDataToSend.append('id', formData.id.toString());
+      formDataToSend.append('item_id', formData.item_id.toString());
       formDataToSend.append('name', formData.name.trim());
       formDataToSend.append('description', formData.description.trim());
       formDataToSend.append('price', formData.price.toString());
@@ -284,6 +294,7 @@ const ShopSection = ({ dashboardData = { ShopDetails: [] }, fetchData }) => {
       setShowAddModal(false);
       setFormData({
         id: '',
+        item_id : '',
         status: 'active',
         name: '',
         description: '',

@@ -20,10 +20,7 @@ const upload = multer({
 
 const connectDB = async () => {
   if (mongoose.connections[0].readyState !== 1) {
-    await mongoose.connect(process.env.MONGODB_URI1, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(process.env.MONGODB_URI1);
   }
 };
 

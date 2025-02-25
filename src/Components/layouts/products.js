@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import ScrollTrigger from 'react-scroll-trigger';
 import Image from 'next/image';
-
 import { RiStarFill } from "react-icons/ri";
 import { IoStarHalfSharp } from "react-icons/io5";
 import { GiRoad } from "react-icons/gi";
@@ -10,7 +9,6 @@ import { TbSteeringWheel } from "react-icons/tb";
 import { LuFuel } from "react-icons/lu";
 import { FaRegEye } from "react-icons/fa";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-
 import car1 from '../../../Assets/jpgs/car01.jpg';
 import car2 from '../../../Assets/jpgs/car02.jpg';
 import car3 from '../../../Assets/jpgs/car03.jpg';
@@ -22,7 +20,7 @@ import car8 from '../../../Assets/jpgs/car08.jpg';
 import Link from 'next/link';
 const DefaultData = [
   {
-    id: 1,
+    item_id: 1,
     name: 'Mercedes Benz Car',
     price: '$45,620',
     image: car1,
@@ -35,7 +33,7 @@ const DefaultData = [
     fuel: 'Hybrid',
   },
   {
-    id: 2,
+    item_id: 2,
     name: 'Yellow Ferrari 458',
     price: '$90,000',
     image: car2,
@@ -48,7 +46,7 @@ const DefaultData = [
     fuel: 'Hybrid',
   },
   {
-    id: 3,
+    item_id: 3,
     name: 'Black Audi Q7',
     price: '$44,350',
     image: car3,
@@ -61,7 +59,7 @@ const DefaultData = [
     fuel: 'Premium Gas',
   },
   {
-    id: 4,
+    item_id: 4,
     name: 'BMW Sports Car',
     price: '$78,760',
     image: car4,
@@ -74,7 +72,7 @@ const DefaultData = [
     fuel: 'Petrol',
   },
   {
-    id: 5,
+    item_id: 5,
     name: 'White Tesla Car',
     price: '$64,230',
     image: car5,
@@ -87,7 +85,7 @@ const DefaultData = [
     fuel: 'Hybrid',
   },
   {
-    id: 6,
+    item_id: 6,
     name: 'White Nissan Car',
     price: '$34,540',
     image: car6,
@@ -100,7 +98,7 @@ const DefaultData = [
     fuel: 'Diesel',
   },
   {
-    id: 7,
+    item_id: 7,
     name: 'Mercedes Benz SUV',
     price: '$60,500',
     image: car7,
@@ -113,7 +111,7 @@ const DefaultData = [
     fuel: 'Hybrid',
   },
   {
-    id: 8,
+    item_id: 8,
     name: 'Red Hyundai Car',
     price: '$25,620',
     image: car8,
@@ -134,7 +132,6 @@ const Products = ({ filteredData = DefaultData }) => {
   const handleMouseEnter = (CardID) => {
     setIsHovered(CardID);
   };
-
   const handleMouseLeave = () => {
     setIsHovered(null);
   };
@@ -142,9 +139,9 @@ const Products = ({ filteredData = DefaultData }) => {
     <ScrollTrigger onEnter={() => setIsEntered(true)} onExit={() => setIsEntered(false)}>
       <div className={`container flex flex-wrap justify-center ${isEntered ? 'animate-fadeup' : ''}`}>
         {filteredData.map((car) => (
-          <div key={car.id} className="Card h-[400px] m-4 shadow-white shadow-xl w-72 bg-white flex justify-center border-none rounded">
+          <div key={car?.item_id} className="Card h-[400px] m-4 shadow-white shadow-xl w-72 bg-white flex justify-center border-none rounded">
             <div className="card ml-4">
-              <div onMouseEnter={() => handleMouseEnter(car.id)} onMouseLeave={handleMouseLeave}>
+              <div onMouseEnter={() => handleMouseEnter(car?.item_id)} onMouseLeave={handleMouseLeave}>
                 <div className="flex">
                   <p className="text-white font-semibold inline p-1 border-none rounded relative bg-accent top-10 left-2 z-10">{car.condition}</p>
                   <div
@@ -188,7 +185,7 @@ const Products = ({ filteredData = DefaultData }) => {
               <hr className="mt-4" />
               <div className="price-details flex gap-10">
                 <p className="price text-accent font-bold text-xl mt-4">{car.price}</p>
-                <Link href={`/detailsCar/${car.id}`}>
+                <Link href={`/detailsCar/${car.item_id}`}>
                 <button  className="theme-btn max-w-64 h-10 mt-2 flex items-center justify-center gap-1">
                   <FaRegEye />
                   Details

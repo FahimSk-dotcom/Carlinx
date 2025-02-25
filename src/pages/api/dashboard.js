@@ -5,10 +5,7 @@ let cachedClient = null;
 async function connectToDatabase() {
   if (cachedClient) return cachedClient;
 
-  const client = new MongoClient(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  const client = new MongoClient(process.env.MONGODB_URI);
 
   await client.connect();
   cachedClient = client;
@@ -31,15 +28,15 @@ export default async function handler(req, res) {
             const ordersCollection = db.collection('Orders');
             let payments = [];
             try {
-              payments = await ordersCollection.find().sort({ created_at: -1 }).limit(5).toArray();
+              payments = await ordersCollection.find().sort({ created_at: -1 }).toArray();
               data = {
                 paymentDetails: payments.map(payment => ({
                   id: payment._id.toString(),
                   transaction: payment.id || 'N/A',
-                  amount: payment.amount ? `₹${(payment.amount / 100).toLocaleString()}` : 'N/A',
+                  amount: payment.amount_data ? `₹${(payment.amount_data / 100).toLocaleString()}` : 'N/A',
                   status: payment.status ? payment.status.toUpperCase() : 'N/A',
-                  customerName: payment.userDetails?.name || 'N/A',
-                  contact: payment.userDetails?.phone || 'N/A'
+                  customerName: payment.c_name || 'N/A',
+                  contact: payment.c_no || 'N/A'
                 }))
               };
             } catch (error) {
@@ -63,27 +60,6 @@ export default async function handler(req, res) {
               status: drive.status || 'Pending' // Default status if not set
             }));
             break;
-
-            // case 'Shop':
-              const ShopCollection = db.collection('ShopPartsData');
-              let items = [];
-              try {
-                  items = await ShopCollection.find().sort({ created_at: -1 }).toArray();
-                  data = {
-                      ShopDetails: items.map(item => ({
-                          id: item._id.toString(),
-                          name: item.name,
-                          description: item.Description,
-                          price: item.price ? `₹${(item.price).toLocaleString()}` : 'N/A',
-                          img: item.img,
-                          stock: item.Stock
-                      }))
-                  };
-              } catch (error) {
-                  console.error('Error fetching data:', error);
-                  data = { ShopDetails: [] };
-              }
-              break;
           default:
             return res.status(400).json({ message: 'Invalid section specified' });
         }

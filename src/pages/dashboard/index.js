@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useRouter } from 'next/router';
 import { FaArrowLeft } from "react-icons/fa";
-import Image from 'next/image';
 import ShopSection from "@/Components/layouts/ShopComponent";
+import InventorySection from '@/Components/layouts/InventoryComponent'
+import CustomerSection from "@/Components/layouts/customersection";
+import VehicleSellSection from "@/Components/VehicleSellSection";
 // Static graph data
 const graphData = [
     { name: "Jan", value: 400 },
@@ -22,12 +24,14 @@ export default function AdminDashboard() {
         paymentDetails: [],
         testDrives: [],
         inventory: [],
-        ShopDetails:[]
+        ShopDetails: [],
+        customers_data: [],
+        sell_req :[]
     });
     const [loading, setLoading] = useState(true);
     const [updatingStatus, setUpdatingStatus] = useState(false);
     const [editableStatuses, setEditableStatuses] = useState({});
-    const menuItems = ["Dashboard", "Inventory", "Shop", "Test Drive", "Customer Contact", "Back to Application"];
+    const menuItems = ["Dashboard", "Inventory", "Shop", "Test Drive", "Sell Request", "Customer Contact", "Back to Application"];
 
     useEffect(() => {
         fetchData();
@@ -61,14 +65,43 @@ export default function AdminDashboard() {
                     });
                     setEditableStatuses(statusObj);
                 }
-            } 
+            }
             else if (selected === "Shop") {
                 const response = await fetch(`/api/shopadmin?section=Shop`);
                 const result = await response.json();
                 if (result.success) {
                     setDashboardData(prevData => ({
                         ...prevData,
-                        ShopDetails:  result.data.ShopDetails || []
+                        ShopDetails: result.data.ShopDetails || []
+                    }));
+                }
+            }
+            else if (selected === "Inventory") {
+                const response = await fetch(`/api/inventoryadmin?section=Inventory`);
+                const result = await response.json();
+                if (result.success) {
+                    setDashboardData(prevData => ({
+                        ...prevData,
+                        inventory: result.data.Inventory || []
+                    }));
+                }
+            }
+            else if (selected === "Customer Contact") {
+                const response = await fetch(`/api/customeradmin?section=customer`);
+                const result = await response.json();
+                if (result.success) {
+                    setDashboardData(prevData => ({
+                        ...prevData,
+                        customers_data: result.data || []
+                    }));
+                }
+            } else if (selected === "Sell Request") {
+                const response = await fetch(`/api/selladmin?section=sellrequest`);
+                const result = await response.json();
+                if (result.success) {
+                    setDashboardData(prevData => ({
+                        ...prevData,
+                        sell_req: result.data.SellReqDetails || []
                     }));
                 }
             }
@@ -170,8 +203,8 @@ export default function AdminDashboard() {
                                     onClick={() => handleStatusChange(appointment.id)}
                                     disabled={updatingStatus || editableStatuses[appointment.id] === appointment.status}
                                     className={`px-4 py-1 rounded ${editableStatuses[appointment.id] === appointment.status
-                                            ? 'bg-gray-300 cursor-not-allowed'
-                                            : 'bg-accent hover:bg-red-700 text-white'
+                                        ? 'bg-gray-300 cursor-not-allowed'
+                                        : 'bg-accent hover:bg-red-700 text-white'
                                         }`}
                                 >
                                     {updatingStatus ? 'Updating...' : 'Update'}
@@ -228,8 +261,18 @@ export default function AdminDashboard() {
 
     const renderShopSection = () => (
         <ShopSection dashboardData={dashboardData} fetchData={fetchData} />
-      );
+    );
 
+    const renderInventorySection = () => (
+        <InventorySection dashboardData={dashboardData} fetchData={fetchData} />
+    );
+
+    const renderCustomerSection = () => (
+        <CustomerSection dashboardData={dashboardData} fetchData={fetchData} />
+    );
+    const renderVehliceSellSection=()=>(
+        <VehicleSellSection dashboardData={dashboardData} fetchData={fetchData} />
+    )
     return (
         <div className="flex h-screen">
             {/* Sidebar */}
@@ -268,6 +311,9 @@ export default function AdminDashboard() {
                         {selected === "Dashboard" && renderDashboardSection()}
                         {selected === "Test Drive" && renderTestDriveSection()}
                         {selected === "Shop" && renderShopSection()}
+                        {selected === 'Inventory' && renderInventorySection()}
+                        {selected === 'Customer Contact' && renderCustomerSection()}
+                        {selected === 'Sell Request' && renderVehliceSellSection()}
                     </>
                 )}
             </div>
