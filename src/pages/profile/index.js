@@ -18,7 +18,7 @@ const ProfilePage = () => {
   // New state for profile image
   const [newProfileImage, setNewProfileImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
-  
+
   // New states for password change
   const [passwordData, setPasswordData] = useState({
     currentPassword: "",
@@ -27,7 +27,7 @@ const ProfilePage = () => {
   });
   const [passwordFeedback, setPasswordFeedback] = useState("");
   const [changingPassword, setChangingPassword] = useState(false);
-  
+
   // New states for preferences
   const [preferences, setPreferences] = useState({
     emailNotifications: true,
@@ -66,7 +66,7 @@ const ProfilePage = () => {
         const data = await response.json();
         setUserData(data.user);
         setUpdatedData(data.user);
-        
+
         // Initialize preferences if they exist in the user data
         if (data.user.preferences) {
           setPreferences(data.user.preferences);
@@ -151,21 +151,21 @@ const ProfilePage = () => {
 
     try {
       setChangingPassword(true);
-  
+
       const response = await fetch("/api/user/user", {
-        method: "POST",  
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email: userData.email,
-          oldPassword: passwordData.currentPassword, 
+          oldPassword: passwordData.currentPassword,
           newPassword: passwordData.newPassword
         }),
       });
-  
+
       const result = await response.json();
-  
+
       if (response.ok) {
         setPasswordFeedback("Password updated successfully!");
         setPasswordData({
@@ -572,7 +572,7 @@ const ProfilePage = () => {
                   <h3 className="text-lg font-semibold mb-4">Change Password</h3>
                   <p className="text-gray-600 mb-4">
                     To change your password, please fill out the form below. For security reasons,
-                    you'll need to enter your current password.
+                    you&apos;ll need to enter your current password.
                   </p>
 
                   {passwordFeedback && (
