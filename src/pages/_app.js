@@ -9,7 +9,7 @@ import Head from "next/head";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
-  const noLayoutRoutes = ["/login", "/register", "/dashboard"];
+  const noLayoutRoutes = ["/login", "/register", "/dashboard" ,"/forgotpassword"];
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

@@ -77,7 +77,6 @@ export default async function handler(req, res) {
           updateData.profileImage = profileImageUrl;
         }
       }
-      console.log(updateData)
       const result = await usersCollection.updateOne(
         { email },
         { $set: updateData }

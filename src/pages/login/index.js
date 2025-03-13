@@ -4,7 +4,6 @@ import Link from 'next/link';
 import logo from '../../../Assets/jpgs/logo-navbar.jpg';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
-
 const Login = () => {
   const router = useRouter();
   const [email, setemail] = useState('');
@@ -112,12 +111,12 @@ const Login = () => {
           <button type="submit" className="theme-btn w-full">
             Login
           </button>
-          <button
-            type="button"
+          <Link
+          href='/forgotpassword'
             className="w-full mt-4 h-10 underline text-center hover:text-accent"
           >
-            Forgot your password?
-          </button>
+            
+          </Link>
           <p className="font-bold">
             Don&apos;t have an account?
             <Link href="/register" className="w-2/6 mt-2 h-10 underline ml-2 hover:text-red-500">
