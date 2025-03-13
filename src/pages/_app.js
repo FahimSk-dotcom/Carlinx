@@ -9,7 +9,7 @@ import Head from "next/head";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
-  const noLayoutRoutes = ["/login", "/register" ,"/dashboard"]; // Add other routes if needed
+  const noLayoutRoutes = ["/login", "/register", "/dashboard"];
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -27,13 +27,33 @@ function MyApp({ Component, pageProps }) {
     };
   }, [router]);
 
-  // Conditionally render the page with or without layout
+  const HeadComponent = () => (
+    <Head>
+      {/* Standard favicon */}
+      <link rel="icon" href="/favicon.ico" sizes="any" />
+
+      {/* PNG favicons for different sizes */}
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+
+      {/* Apple Touch Icon for iOS */}
+      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+      {/* Android Chrome Icons */}
+      <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
+      <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png" />
+
+      {/* Web App Manifest */}
+      <link rel="manifest" href="/site.webmanifest" />
+
+      <title>Carlinx - A website for buying and selling of car</title>
+    </Head>
+  );
+
   if (noLayoutRoutes.includes(router.pathname)) {
     return (
       <Provider store={store}>
-        <Head>
-        <title>Carlinx - A website for buying and selling of car</title>
-        </Head>
+        <HeadComponent />
         {loading && <Loader />}
         <Component {...pageProps} />
       </Provider>
@@ -42,9 +62,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <Provider store={store}>
-      <Head>
-          <title>Carlinx - A website for buying and selling of car</title>
-        </Head>
+      <HeadComponent />
       {loading && <Loader />}
       <Layout>
         <Component {...pageProps} />

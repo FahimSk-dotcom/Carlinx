@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import logo from '../../../Assets/jpgs/logo-navbar.jpg';
 import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 const Login = () => {
   const router = useRouter();
@@ -11,36 +12,58 @@ const Login = () => {
   const [feedback, setfeedback] = useState('');
   const [countdown, setCountdown] = useState(null);
   const [isSubmited, setSubmited] = useState(false);
+  const [redirectDestination, setRedirectDestination] = useState('/home');
   
   // State to control password visibility
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch('/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const data = await res.json();
-    if (res.ok) {
-      setfeedback('Login successful');
-      setCountdown(3);
-      setSubmited(true);
-      const timer = setInterval(() => {
-        setCountdown((prev) => {
-          if (prev === 2) {
-            router.push('/home');// Redirect to homepage after countdown
-            clearInterval(timer);
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    } else {
-      setfeedback('Please check Email and Password again');
+      const data = await res.json();
+      
+      if (res.ok) {
+        // Determine if user is admin based on email
+        const isAdmin = email.includes('admin');
+        
+        // Store user info in a cookie
+        Cookies.set('user', JSON.stringify({
+          email,
+          isAdmin
+        }), { expires: 7 });
+        
+        // Set redirect destination based on admin status
+        const destination = isAdmin ? '/dashboard' : '/home';
+        setRedirectDestination(destination);
+        
+        // Start countdown and feedback
+        setfeedback(`Login successful! Redirecting to ${isAdmin ? 'Admin Dashboard' : 'Homepage'}`);
+        setCountdown(3);
+        setSubmited(true);
+        
+        const timer = setInterval(() => {
+          setCountdown((prev) => {
+            if (prev === 2) {
+              router.push(destination);
+              clearInterval(timer);
+            }
+            return prev - 1;
+          });
+        }, 1000);
+      } else {
+        setfeedback('Please check Email and Password again');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setfeedback('An error occurred. Please try again.');
     }
   };
 
@@ -49,7 +72,7 @@ const Login = () => {
       <div className="bg-[rgba(255,255,255,0.5)] shadow-md rounded-lg p-8 max-w-md w-full">
         <Image src={logo} height={50} alt="Carlinx Logo" className="w-4/5 ml-9 mb-2 rounded" />
         <h1 className="text-2xl font-bold mb-6 text-center">
-          {`${isSubmited ? `Redirecting to Homepage in ${countdown}` : 'Log in to Carlinx'}`}
+          {`${isSubmited ? `Redirecting to ${redirectDestination.includes('admin') ? 'Admin Dashboard' : 'Homepage'} in ${countdown}` : 'Log in to Carlinx'}`}
         </h1>
         {feedback && <p className="text-2xl mt-[-15px] text-accent font-black">{feedback}</p>}
         <form onSubmit={handleSubmit}>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Link from 'next/link';
 import Cart from '../../../Assets/svgs/Cart.svg';
@@ -26,21 +27,19 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    useEffect(() => {
-        const storedLoginStatus = sessionStorage.getItem('isLoggedIn');
-        setIsLoggedIn(storedLoginStatus === 'true'); // Respect stored login status
-    }, []);
-
-    const handleLogin = () => {
-        setIsLoggedIn(true);
-        sessionStorage.setItem('isLoggedIn', 'true'); // Persist login status
-    };
 
     const handleLogout = async () => {
         setIsLoggedIn(false);
-        sessionStorage.setItem('isLoggedIn', 'false'); 
-        await fetch('/api/auth/logout', { method: 'POST' });
-      };
+        Cookies.remove('user');
+    };
+    useEffect(() => {
+    const userCookie = Cookies.get('user'); 
+    if (userCookie) {
+        setIsLoggedIn(true);
+    } else {
+        setIsLoggedIn(false);
+    }
+    },[])
     return (
         <div>
             <div className="header">
@@ -59,9 +58,9 @@ const Navbar = () => {
                             <>
                                 <span className="transition-opacity duration-300 hover:opacity-40 flex justify-center">
                                     <Image height={24} src={loginicon} alt="Login icon" className="h-6 ml-10 z-10" />
-                                    <button onClick={handleLogin}>
+                                    {/* <button onClick={handleLogin}> */}
                                         <Link className="text-white cursor-pointer z-10 ml-1" href="login">Login</Link>
-                                    </button>
+                                    {/* </button> */}
                                 </span>
                                 <span className="transition-opacity duration-300 hover:opacity-40 flex justify-center">
                                     <Image height={24} src={usericon} alt="Register icon" className="h-6 ml-6 z-10" />
@@ -78,7 +77,7 @@ const Navbar = () => {
                                 </span>
                                 <span className="transition-opacity duration-300 hover:opacity-40 flex justify-center">
                                     <Image height={24} src={usericon} alt="Profile icon" className="h-6 ml-6 z-10" />
-                                    <Link className="text-white cursor-pointer z-10" href="/shop">Profile</Link>
+                                    <Link className="text-white cursor-pointer z-10" href="/profile">Profile</Link>
                                 </span>
                             </>
                         )}
@@ -112,7 +111,7 @@ const Navbar = () => {
                             <Image height={24} src={Cart} alt="cart icon" />
                         </Link>
                         <span className="inline-flex mr-40 items-center justify-center bg-red-50 w-6 h-6 ml-2 rounded-full text-xs font-medium text-red-600 ring-1 shadow-[0_0_15px_1px_rgba(220,38,38)] ring-inset ring-red-600/10">
-                           {totalCount}
+                            {totalCount}
                         </span>
                     </div>
                 </div>
