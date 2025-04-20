@@ -7,16 +7,16 @@ import Link from 'next/link';
 export default function PaymentSuccess() {
   const dispatch = useDispatch();
   const router = useRouter();
-  
+
   useEffect(() => {
     // Clear the cart on component mount
     dispatch(clearCart());
-    
+
     // Confetti effect (optional)
     const confettiScript = document.createElement('script');
     confettiScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.6.0/confetti.browser.min.js';
     document.body.appendChild(confettiScript);
-    
+
     confettiScript.onload = () => {
       window.confetti({
         particleCount: 100,
@@ -24,7 +24,7 @@ export default function PaymentSuccess() {
         origin: { y: 0.6 }
       });
     };
-    
+
     return () => {
       document.body.removeChild(confettiScript);
     };
@@ -38,14 +38,14 @@ export default function PaymentSuccess() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
           </svg>
         </div>
-        
+
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Payment Successful!</h1>
         <div className="h-1 w-16 bg-green-500 mx-auto my-4"></div>
-        
+
         <p className="text-gray-600 mb-6">
           Your transaction has been completed successfully. A confirmation email with your purchase details has been sent to your registered email address.
         </p>
-        
+
         <div className="mb-8 bg-gray-50 p-4 rounded-lg">
           <div className="flex items-center justify-center mb-2">
             <svg className="w-5 h-5 text-gray-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -54,10 +54,11 @@ export default function PaymentSuccess() {
             <p className="text-gray-700 font-medium">Check your email for the invoice</p>
           </div>
           <p className="text-sm text-gray-500">
-            If you don't see it in your inbox, please check your spam folder.
+            If you don&apos;t see it in your inbox, please check your spam folder.
           </p>
+
         </div>
-        
+
         <div className="grid grid-cols-2 gap-4">
           <Link href="/orders" className="py-3 px-4 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700 font-medium transition duration-200">
             View Orders
@@ -66,7 +67,7 @@ export default function PaymentSuccess() {
             Continue Shopping
           </Link>
         </div>
-        
+
         <div className="mt-8 text-sm text-gray-500">
           <p>Need help? <a href="/contact" className="text-red-600 hover:text-red-700">Contact our support team</a></p>
         </div>
