@@ -46,6 +46,8 @@ export const config = {
     '/cart',
     '/profile',
     '/testdrive',
-    '/sell'
+    '/sell',
+    '/payment-success',
+    '/payment-failed'
   ]
 };

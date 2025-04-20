@@ -115,7 +115,7 @@ const Login = () => {
           href='/forgotpassword'
             className="w-full mt-4 h-10 underline text-center hover:text-accent"
           >
-            
+          Forgot your password?
           </Link>
           <p className="font-bold">
             Don&apos;t have an account?

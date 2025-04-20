@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from "next/router";
 import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,6 +19,7 @@ const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const totalCount = useSelector((state) => state.cart.totalCount);
+    const router = useRouter();
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 48);
@@ -29,8 +31,15 @@ const Navbar = () => {
 
 
     const handleLogout = async () => {
+        router.push("/login")
         setIsLoggedIn(false);
         Cookies.remove('user');
+    };
+    const handleLogIn = ( )=> {
+        router.push("/login")
+    };
+    const handleregister = ( )=> {
+        router.push("/register")
     };
     useEffect(() => {
     const userCookie = Cookies.get('user'); 
@@ -58,13 +67,15 @@ const Navbar = () => {
                             <>
                                 <span className="transition-opacity duration-300 hover:opacity-40 flex justify-center">
                                     <Image height={24} src={loginicon} alt="Login icon" className="h-6 ml-10 z-10" />
-                                    {/* <button onClick={handleLogin}> */}
-                                        <Link className="text-white cursor-pointer z-10 ml-1" href="login">Login</Link>
-                                    {/* </button> */}
+                                    <button onClick={handleLogIn}>
+                                        <span className="text-white cursor-pointer z-10 ml-1" >Login</span>
+                                    </button>
                                 </span>
                                 <span className="transition-opacity duration-300 hover:opacity-40 flex justify-center">
                                     <Image height={24} src={usericon} alt="Register icon" className="h-6 ml-6 z-10" />
-                                    <Link className="text-white cursor-pointer z-10" href="register">Register</Link>
+                                    <button onClick={handleregister}>
+                                        <span className="text-white cursor-pointer z-10 ml-1" >Register</span>
+                                    </button>
                                 </span>
                             </>
                         ) : (
@@ -72,7 +83,7 @@ const Navbar = () => {
                                 <span className="transition-opacity duration-300 hover:opacity-40 flex justify-center">
                                     <LuLogOut className="text-white h-8 w-5 ml-10 z-10 mr-1" />
                                     <button onClick={handleLogout}>
-                                        <Link className="text-white cursor-pointer z-10 ml-1" href="login">Logout</Link>
+                                        <span className="text-white cursor-pointer z-10 ml-1">Logout</span>
                                     </button>
                                 </span>
                                 <span className="transition-opacity duration-300 hover:opacity-40 flex justify-center">
