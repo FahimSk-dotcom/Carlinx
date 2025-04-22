@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Assistant from '@/Components/GeminiChat';
 import Image from 'next/image';
 import {
   createUserWithEmailAndPassword,
@@ -16,6 +17,7 @@ const CustomAlert = ({ message, isVisible, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <Assistant/>
       <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full mx-4">
         <div className="text-center">
           <p className="text-gray-700 mb-4">{message}</p>

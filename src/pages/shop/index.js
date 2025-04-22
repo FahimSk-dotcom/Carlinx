@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Breadcrumb from '@/Components/layouts/BreadCrumb';
+import Assistant from '@/Components/GeminiChat';
 import { IoIosSearch } from "react-icons/io";
 import { FaRupeeSign } from "react-icons/fa";
 import Image from 'next/image';
@@ -17,6 +18,7 @@ const Shop = () => {
   const [maxValue, setMaxValue] = useState(100000);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
+  
   // Fetch parts data from the API
   useEffect(() => {
     const fetchParts = async () => {
@@ -57,6 +59,7 @@ const Shop = () => {
       <div className='h-[380px]'>
         <h1 className='text-white absolute left-[46vw] top-60 z-20 text-5xl font-bold'>Shop</h1>
         <Breadcrumb />
+        <Assistant/>
       </div>
       <div className="Container w-screen flex justify-center">
         {/* Sidebar */}
@@ -97,44 +100,52 @@ const Shop = () => {
         </div>
 
         {/* Product Cards */}
-        <div className="card w-3/5 flex flex-wrap ">
+        <div className="card w-3/5 flex flex-wrap">
           {loading ? (
-                    <div className="flex justify-center items-center h-64">
-                        <p className="text-xl">Loading...</p>
-                    </div>
-
-        ):(
-          <div className="cards grid grid-cols-3">
-          {partsData.map((data) => (
-            <div key={data.item_id} className="Card h-[350px] m-4 shadow-xl w-72 bg-white flex justify-center border-none rounded">
-              <div className='card ml-4'>
-                <Image src={data.img} width={250} height={100} className='border-none rounded hover:scale-105 transition-all' alt='' />
-                <div className="content flex flex-col items-center">
-                  <p className='text-xl font-bold mt-2 hover:text-accent'>{data.name}</p>
-                  <p className='text-bold text-xl flex items-center gap-2 font-semibold mt-1 text-accent'>
-                    <FaRupeeSign /> {data.price}
-                  </p>
-                  <div className="buttons flex gap-2">
-                    <Link href={`/details/${data.item_id}`}>
-                      <button className='theme-btn max-w-32 h-9 mt-2 flex items-center justify-center gap-1'>
-                        <FaRegEye /> Details
-                      </button>
-                    </Link>
-                    <button
-                      onClick={() => handleAddToCart(data)}
-                      className='theme-btn max-w-64 h-9 mt-2 flex items-center justify-center'>
-                      <HiOutlineShoppingCart className='text-xl' /> Add to Cart
-                    </button>
-                  </div>
+            <div className="flex justify-center items-center w-full h-64">
+              {/* Enhanced Attractive Loader */}
+              <div className="relative">
+                <div className="w-16 h-16 border-4 border-gray-200 rounded-full"></div>
+                <div className="w-16 h-16 border-4 border-transparent border-t-[#ef1d26] rounded-full animate-spin absolute top-0 left-0"></div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#ef1d26" className="w-8 h-8">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
                 </div>
               </div>
             </div>
-          ))}
-          {partsData.length === 0 && (
-            <p className='col-span-3 text-center mt-10'>No products found.</p>
+          ) : (
+            <div className="cards grid grid-cols-3">
+              {partsData.map((data) => (
+                <div key={data.item_id} className="Card h-[350px] m-4 shadow-xl w-72 bg-white flex justify-center border-none rounded">
+                  <div className='card ml-4'>
+                    <Image src={data.img} width={250} height={100} className='border-none rounded hover:scale-105 transition-all' alt='' />
+                    <div className="content flex flex-col items-center">
+                      <p className='text-xl font-bold mt-2 hover:text-accent'>{data.name}</p>
+                      <p className='text-bold text-xl flex items-center gap-2 font-semibold mt-1 text-accent'>
+                        <FaRupeeSign /> {data.price}
+                      </p>
+                      <div className="buttons flex gap-2">
+                        <Link href={`/details/${data.item_id}`}>
+                          <button className='theme-btn max-w-32 h-9 mt-2 flex items-center justify-center gap-1'>
+                            <FaRegEye /> Details
+                          </button>
+                        </Link>
+                        <button
+                          onClick={() => handleAddToCart(data)}
+                          className='theme-btn max-w-64 h-9 mt-2 flex items-center justify-center'>
+                          <HiOutlineShoppingCart className='text-xl' /> Add to Cart
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {partsData.length === 0 && (
+                <p className='col-span-3 text-center mt-10'>No products found.</p>
+              )}
+            </div>
           )}
-        </div>
-        )}
         </div>
       </div>
     </>
