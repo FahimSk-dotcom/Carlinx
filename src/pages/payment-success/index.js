@@ -59,10 +59,10 @@ export default function PaymentSuccess() {
 
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <Link href="/orders" className="py-3 px-4 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700 font-medium transition duration-200">
+        <div className="grid grid-cols-1 gap-4">
+          {/* <Link href="/orders" className="py-3 px-4 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700 font-medium transition duration-200">
             View Orders
-          </Link>
+          </Link> */}
           <Link href="/shop" className="py-3 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium transition duration-200">
             Continue Shopping
           </Link>

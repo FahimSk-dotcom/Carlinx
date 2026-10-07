@@ -74,8 +74,10 @@ body {
 }
 
 /* Crousel */
+/* Carousel base styles */
 .embla {
   overflow: hidden;
+  width: 100%;
 }
 
 .embla__container {
@@ -85,133 +87,155 @@ body {
 .embla__slide {
   flex: 0 0 100%;
   min-width: 0;
+  position: relative;
+}
+
+/* Hero background styles */
+.hero-single, .hero-single1 {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-single::before, .hero-single1::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: #01060F;
+  opacity: 0.75;
+  z-index: 1;
 }
 
 .hero-single {
   background-image: url('/slider-1bg.jpg');
-  object-fit: cover;
-  overflow: hidden;
-  z-index: 10;
 }
 
-.hero-single::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: -0.5px;
-  top: 0;
-  background: #01060F;
-  opacity: 0.75;
-  z-index: -2;
-}
-
-.hero-single-left {
-  position: relative;
-  left: 200px;
-  top: 200px;
-  font-size: larger;
-}
-
-.hero-single-left-txt1 {
-  position: relative;
-  font-weight: bolder;
-  letter-spacing: 0.5rem;
-  bottom: 30px;
-}
-
-.hero-single-left-txt2 {
-  position: relative;
-  bottom: 20px;
-  font-weight: bolder;
-  line-height: 3.5rem;
-  font-size: 3.5rem;
-}
-
-.heroimg-1 {
-  position: relative;
-  left: 600px;
-  z-index: -1;
-  bottom: 80px;
-  width: 800px;
-}
-
-.imagebgcolor {
-  content: "";
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  background: var(--theme-color);
-  right: 400px;
-  bottom: 200px;
-  border-radius: 50%;
-  filter: blur(150px);
-  z-index: -1;
-}
-
-/* Slide2 */
 .hero-single1 {
   background-image: url('/slider-2bg.jpg') !important;
-  overflow: hidden;
-  z-index: -2;
 }
 
-.hero-single1::before {
-  content: "";
+/* Content positioning */
+.hero-content-wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+/* Text color styles */
+.text-accent {
+  color: #ff3131; /* Adjust to match the red color from the image */
+}
+
+/* Navigation buttons */
+.carousel-navigation {
   position: absolute;
+  z-index: 10;
   width: 100%;
   height: 100%;
-  top: 0;
-  background: #01060F;
-  opacity: 0.75;
-  z-index: -2;
+  pointer-events: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.hero-single-left1 {
-  position: relative;
-  left: 200px;
-  top: 200px;
-  font-size: larger;
-}
-
-.hero-single-left1-txt1 {
-  position: relative;
-  font-weight: bolder;
-  letter-spacing: 0.5rem;
-  bottom: 30px;
-  z-index: 1;
-}
-
-.hero-single-left1-txt2 {
-
-  position: relative;
-  bottom: 20px;
-  font-weight: bolder;
-  line-height: 3.5rem;
-  font-size: 3.5rem;
-  z-index: 1;
-}
-
-.imagebgcolor1 {
-  content: "";
-  position: relative;
-  width: 500px;
-  height: 500px;
-  background: var(--theme-color);
-  bottom: 80px;
-  left: 626px;
+.nav-button {
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  filter: blur(150px);
-  z-index: -1;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  pointer-events: all;
+  margin: 0 20px;
 }
 
-.heroimg-2 {
+.nav-button:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+
+/* Car image styles */
+.car-image-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+}
+
+.car-image-wrapper::after {
+  content: "";
   position: absolute;
-  z-index: 1;
-  bottom: 140px;
-  left: 142%;
-  width: 800px;
+  width: 400px;
+  height: 400px;
+  background: #ff3131;
+  border-radius: 50%;
+  filter: blur(120px);
   z-index: -1;
+  opacity: 0.6;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-content-wrapper {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  .hero-image-container {
+    margin-top: 2rem;
+  }
+  
+  .car-image-wrapper::after {
+    width: 200px;
+    height: 200px;
+    filter: blur(80px);
+  }
+  
+  .nav-button {
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+  }
+}
+
+@media (max-width: 640px) {
+  .embla__container {
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  .carousel-navigation {
+    bottom: 20px;
+    top: auto;
+    height: auto;
+    justify-content: center;
+    gap: 20px;
+  }
+}
+
+/* Ensure the slide content is always visible and properly centered */
+@media (max-height: 700px) {
+  .embla__container {
+    height: auto;
+    min-height: 100vh;
+  }
+}
+
+/* For extremely small screens */
+@media (max-width: 360px) {
+  .hero-content-wrapper {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
 }
 
 /* Search section */
