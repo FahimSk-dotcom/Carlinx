@@ -29,7 +29,6 @@
 body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
 }
 .header-bottom{
   box-shadow: var(--box-shadow2);
@@ -211,6 +210,7 @@ body {
   .embla__container {
     height: auto;
     min-height: 100vh;
+    min-height: 100svh;
   }
   
   .carousel-navigation {
@@ -227,6 +227,7 @@ body {
   .embla__container {
     height: auto;
     min-height: 100vh;
+    min-height: 100svh;
   }
 }
 
@@ -240,8 +241,9 @@ body {
 
 /* Search section */
 .Search {
-  height: 340px;
-  width: 80vw;
+  min-height: 340px;
+  width: 92%;
+  max-width: 1300px;
   margin: auto;
   z-index: 10;
   border-radius: 10px;
@@ -349,11 +351,6 @@ body {
   height: 4px;
 }
 
-Image {
-  height: auto;
-  width: auto;
-}
-
 @keyframes heading-move {
   0% {
     transform: translateX(-1px);
@@ -382,11 +379,18 @@ Image {
   -webkit-text-fill-color: transparent;
 }
 
+@media (max-width: 768px) {
+  .choose-count {
+    font-size: 44px;
+  }
+}
+
 /* Swiper */
 
 .swiper {
-  width: 70%;
-  height: 60%;
+  width: 90%;
+  max-width: 1200px;
+  height: auto;
 }
 
 .swiper-slide {
@@ -421,14 +425,17 @@ Image {
 }
 .copyright {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
+  gap: 10px;
   position: relative;
-  padding: 20px 0;
+  padding: 20px;
   margin-top: 82px;
   background: var(--footer-bg2);
   z-index: 1;
   font-weight: bold;
+  text-align: center;
 }
 .copyright::before {
   content: "";
@@ -451,8 +458,8 @@ Image {
 .breadcrumb::before{
     content: "";
     position: absolute;
-    height: 510px;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     top: 0;
     left: 0;
     background: var(--hero-overlay-color);
@@ -460,7 +467,13 @@ Image {
     z-index: 1;
 }
 .content{
-  height: 384px;
+  min-height: 384px;
+  height: auto;
+}
+@media (max-width: 768px) {
+  .content{
+    min-height: 260px;
+  }
 }
 /* Contact */
 .ContactFrom{
@@ -471,8 +484,8 @@ Image {
 }
 ::placeholder{
   color: var(--body-text-color);
-  padding-left: 20px;
-  font-size: larger;
+  padding-left: 12px;
+  font-size: 15px;
 }
 /* Login */
 .login{
@@ -499,6 +512,12 @@ Image {
   border-bottom: 3px solid var(--theme-color);
   margin-top: 30px;
   left: 190px;
+}
+
+@media (max-width: 640px) {
+  .shop-widget-title::after {
+    display: none;
+  }
 }
 
 input[type="checkbox"] {

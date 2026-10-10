@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-const Breadcrumb = () => {
+const Breadcrumb = ({ title }) => {
   const { pathname } = useRouter();
   // Split the pathname into parts and remove any empty strings
   const pathParts = pathname.split('/').filter(part => part);
@@ -20,11 +20,16 @@ const Breadcrumb = () => {
   });
 
   return (
-    <nav className='breadcrumb w-screen  text-white  mt-20 '>
-    <div className="content flex relative justify-center items-center h-full font-bold text-xl z-10">
-      <Link prefetch={true} href="/" className=' hover:text-accent'>Home</Link>
-      {' >> '}
-      {breadcrumbs}
+    <nav className='breadcrumb w-full text-white mt-[100px] md:mt-20'>
+      <div className="content relative flex flex-col justify-center items-center h-full z-10 px-4 text-center gap-3">
+        {title && (
+          <h1 className='text-3xl sm:text-4xl md:text-5xl font-bold'>{title}</h1>
+        )}
+        <div className='flex flex-wrap gap-y-1 justify-center items-center font-bold text-sm sm:text-base md:text-xl'>
+          <Link prefetch={true} href="/" className=' hover:text-accent'>Home</Link>
+          {' >> '}
+          {breadcrumbs}
+        </div>
       </div>
     </nav>
   );

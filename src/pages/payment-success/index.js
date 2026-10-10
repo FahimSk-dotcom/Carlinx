@@ -69,7 +69,7 @@ export default function PaymentSuccess() {
         </div>
 
         <div className="mt-8 text-sm text-gray-500">
-          <p>Need help? <a href="/contact" className="text-red-600 hover:text-red-700">Contact our support team</a></p>
+          <p>Need help? <Link href="/contactus" className="text-red-600 hover:text-red-700">Contact our support team</Link></p>
         </div>
       </div>
     </div>

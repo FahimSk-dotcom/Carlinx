@@ -338,19 +338,20 @@ const ProfilePage = () => {
           {/* Profile Header */}
           <div className="relative">
             {/* Background Banner */}
-            <div className="h-48 bg-gradient-to-r from-black to-red-600"></div>
+            <div className="h-40 md:h-48 bg-gradient-to-r from-black to-red-600"></div>
 
             {/* Profile Image and Basic Info */}
-            <div className="absolute bottom-0 left-0 transform translate-y-1/2 ml-8 flex items-end">
-              <div className="relative">
+            <div className="absolute bottom-0 left-0 right-0 px-4 sm:px-8 pb-3 flex items-end justify-between gap-3">
+              <div className="flex items-end gap-3 sm:gap-4 min-w-0">
+              <div className="relative flex-shrink-0">
                 {editMode && (imagePreview || newProfileImage) ? (
                   <img
                     src={imagePreview}
                     alt="Profile Preview"
-                    className="w-32 h-32 rounded-full border-4 border-white object-cover"
+                    className="w-20 h-20 sm:w-32 sm:h-32 rounded-full border-4 border-white object-cover"
                   />
                 ) : (
-                  <div className="w-32 h-32 rounded-full border-4 border-white overflow-hidden bg-gray-200">
+                  <div className="w-20 h-20 sm:w-32 sm:h-32 rounded-full border-4 border-white overflow-hidden bg-gray-200">
                     {userData.profileImage ? (
                       <img
                         src={userData.profileImage}
@@ -380,17 +381,17 @@ const ProfilePage = () => {
                 )}
               </div>
 
-              <div className="ml-4 pb-2">
-                <h1 className="text-2xl font-bold text-white">{userData.name}</h1>
-                <p className="text-blue-100">{userData.email}</p>
+              <div className="pb-2 min-w-0">
+                <h1 className="text-lg sm:text-2xl font-bold text-white truncate">{userData.name}</h1>
+                <p className="text-blue-100 text-sm truncate">{userData.email}</p>
               </div>
-            </div>
+              </div>
 
             {/* Edit Profile Button */}
-            <div className="absolute bottom-0 right-0 transform translate-y-1/2 mr-8">
+            <div className="flex-shrink-0">
               <button
                 onClick={toggleEditMode}
-                className={`px-4 py-2 rounded-full font-medium ${editMode
+                className={`px-3 sm:px-4 py-2 rounded-full font-medium text-sm sm:text-base whitespace-nowrap ${editMode
                   ? "bg-gray-200 text-gray-700 hover:bg-gray-300"
                   : "bg-white text-accent border border-accent hover:bg-accent hover:text-white"
                   }`}
@@ -398,14 +399,15 @@ const ProfilePage = () => {
                 {editMode ? "Cancel" : "Edit Profile"}
               </button>
             </div>
+            </div>
           </div>
 
           {/* Profile Tabs */}
-          <div className="mt-20 px-8">
-            <div className="flex border-b">
+          <div className="mt-8 px-4 sm:px-8">
+            <div className="flex border-b overflow-x-auto">
               <button
                 onClick={() => setActiveTab("profile")}
-                className={`py-4 px-6 font-medium ${activeTab === "profile"
+                className={`py-4 px-4 sm:px-6 font-medium text-sm sm:text-base whitespace-nowrap ${activeTab === "profile"
                   ? "text-accent border-b-2 border-accent"
                   : "text-gray-500 hover:text-gray-700"
                   }`}
@@ -414,7 +416,7 @@ const ProfilePage = () => {
               </button>
               <button
                 onClick={() => setActiveTab("security")}
-                className={`py-4 px-6 font-medium ${activeTab === "security"
+                className={`py-4 px-4 sm:px-6 font-medium text-sm sm:text-base whitespace-nowrap ${activeTab === "security"
                   ? "text-accent border-b-2 border-accent"
                   : "text-gray-500 hover:text-gray-700"
                   }`}
@@ -423,7 +425,7 @@ const ProfilePage = () => {
               </button>
               <button
                 onClick={() => setActiveTab("preferences")}
-                className={`py-4 px-6 font-medium ${activeTab === "preferences"
+                className={`py-4 px-4 sm:px-6 font-medium text-sm sm:text-base whitespace-nowrap ${activeTab === "preferences"
                   ? "text-accent border-b-2 border-accent"
                   : "text-gray-500 hover:text-gray-700"
                   }`}
@@ -434,7 +436,7 @@ const ProfilePage = () => {
           </div>
 
           {/* Profile Content */}
-          <div className="p-8">
+          <div className="p-4 sm:p-8">
             {feedback && (
               <div className={`mb-6 p-4 rounded-lg ${feedback.includes("success") ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>
                 {feedback}
@@ -657,7 +659,7 @@ const ProfilePage = () => {
                 <div>
                   <h3 className="text-lg font-semibold mb-4">Account Security</h3>
                   <div className="bg-gray-50 p-6 rounded-lg">
-                    <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-start sm:items-center justify-between gap-4 mb-4">
                       <div>
                         <h4 className="font-medium">Two-Factor Authentication</h4>
                         <p className="text-gray-600 text-sm">
@@ -668,7 +670,7 @@ const ProfilePage = () => {
                         Set Up
                       </button>
                     </div>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-start sm:items-center justify-between gap-4">
                       <div>
                         <h4 className="font-medium">Login Activity</h4>
                         <p className="text-gray-600 text-sm">
@@ -690,7 +692,7 @@ const ProfilePage = () => {
                   <h3 className="text-lg font-semibold mb-4">Notification Settings</h3>
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <div className="space-y-4">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-start sm:items-center justify-between gap-4">
                         <div>
                           <h4 className="font-medium">Email Notifications</h4>
                           <p className="text-gray-600 text-sm">
@@ -703,7 +705,7 @@ const ProfilePage = () => {
                         </label>
                       </div>
 
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-start sm:items-center justify-between gap-4">
                         <div>
                           <h4 className="font-medium">SMS Notifications</h4>
                           <p className="text-gray-600 text-sm">
@@ -716,7 +718,7 @@ const ProfilePage = () => {
                         </label>
                       </div>
 
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-start sm:items-center justify-between gap-4">
                         <div>
                           <h4 className="font-medium">Service Reminders</h4>
                           <p className="text-gray-600 text-sm">
@@ -738,7 +740,7 @@ const ProfilePage = () => {
                     <div className="space-y-4">
                       <div>
                         <h4 className="font-medium mb-2">Display Mode</h4>
-                        <div className="flex gap-4">
+                        <div className="flex flex-wrap gap-4">
                           <button className="px-4 py-2 bg-white text-gray-800 rounded-lg border border-gray-300 flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />

@@ -83,28 +83,29 @@ const About = () => {
   
   return (
     <>
-      <h1 className='text-white absolute left-[44vw] top-60 z-20 text-5xl font-bold'>About us</h1>
-      <Breadcrumb />
+      <div className='relative'>
+        <Breadcrumb title="About Us" />
+      </div>
       <ScrollTrigger onEnter={() => setIsEntered(true)} onExit={() => setIsEntered(false)}>
-        <div className="about-experience h-3/4 flex mt-32 mb-8">
-          <div className={`about-exp-left ml-[170px] top-8 ${isEntered ? 'animate-fadeinleft' : ''}`}>
+        <div className="about-experience flex flex-col md:flex-row md:items-center gap-8 mt-16 md:mt-32 mb-8 px-4 max-w-7xl mx-auto">
+          <div className={`about-exp-left relative top-8 ${isEntered ? 'animate-fadeinleft' : ''}`}>
             <div className="qualityexp bg-black flex items-center gap-1 border-none rounded-xl h-16  w-60 absolute">
               <p className='bg-accent h-14 w-14 border-none rounded-xl m-2 flex items-center justify-center'>
                 <Image alt="Car Repair Icon" src={carrepairicon} className='h-10 w-10 ' />
               </p>
-              <p className='text-white font-bold'>30 Years Of Quality Service</p>
+              <p className='text-white font-bold text-sm'>30 Years Of Quality Service</p>
             </div>
-            <Image alt="After about car" src={aftaboutcar} />
+            <Image alt="After about car" src={aftaboutcar} height={600} width={700} className='max-w-full h-auto object-contain' />
           </div>
-          <div className={`about-exp-right ml-14 ${isEntered ? 'animate-fadeinright' : ''}`}>
+          <div className={`about-exp-right ${isEntered ? 'animate-fadeinright' : ''}`}>
             <span className='text-accent flex  gap-2 items-center text-xl font-semibold'>
               <IoCarSportSharp /> About US
             </span>
-            <p className='text-[3rem] font-bold w-[65%]'>
+            <p className='text-4xl lg:text-[3rem] font-bold w-full lg:w-[65%] leading-tight'>
               World Largest <span className='text-accent'> Car Dealer</span> Marketplace.
             </p>
             <p className='text-bodytextcolor'>
-              The world&#8217;s largest car dealer marketplace offers a vast selection of new <br /> and used vehicles, connecting buyers with dealerships globally.
+              The world&#8217;s largest car dealer marketplace offers a vast selection of new <br className='hidden md:block' /> and used vehicles, connecting buyers with dealerships globally.
             </p>
             <p className='text-accent flex text-center font-semibold text-base mt-4 gap-2'>
               <span className='mt-1'><FaCheckCircle /></span>
@@ -131,35 +132,35 @@ const About = () => {
         <Counter />
       </div>
       <Testimonals />
-      <div className="team h-[80vh] flex flex-col items-center">
+      <div className="team py-16 flex flex-col items-center">
         <p className='text-accent tracking-widest text-xl font-medium mt-10'>TEAM</p>
-        <p className='text-5xl font-bold mt-2 mb-4'>
+        <p className='text-3xl md:text-5xl font-bold mt-2 mb-4 text-center'>
           Meet With Our <span className='text-accent'>Team</span>
         </p>
         <div className="divider"></div>
-        <div className="cards flex gap-10">
+        <div className="cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 max-w-7xl mx-auto w-full mt-8">
           {teamdata.map((data) => (
-            <div key={data.id} className="Card h-[25rem] w-72 border-none rounded-xl">
-              <Image src={data.img} height={300} width={260} className='border-none rounded-xl ml-4 mt-4' alt={`${data.Name}&apos;s photo`} />
-              <p className='text-2xl font-semibold ml-4 text-center mt-2 hover:text-accent'>{data.Name}</p>
-              <p className='text-accent ml-4 text-xl mb-2 text-center tracking-wider'>{data.role}</p>
+            <div key={data.id} className="Card border-none rounded-xl p-4 flex flex-col items-center">
+              <Image src={data.img} height={300} width={260} className='border-none rounded-xl w-full max-w-[260px] h-auto object-cover' alt={`${data.Name}'s photo`} />
+              <p className='text-2xl font-semibold text-center mt-2 hover:text-accent'>{data.Name}</p>
+              <p className='text-accent text-xl mb-2 text-center tracking-wider'>{data.role}</p>
             </div>
           ))}
         </div>
       </div>
-      <div className="Brands h-[70vh] flex flex-col items-center">
+      <div className="Brands py-16 flex flex-col items-center">
         <div className="heading1 flex mt-5 items-center font-semibold text-accent text-2xl tracking-widest">
           <IoIosCar />Popular Brands
         </div>
-        <div className="heading2 mt-2 mb-3 text-5xl font-bold">
+        <div className="heading2 mt-2 mb-3 text-3xl md:text-5xl font-bold text-center">
           Our Top Quality <span className='text-accent'>Brands</span>
         </div>
         <div className="divider"></div>
-        <div className="brandscard flex mt-5">
+        <div className="brandscard flex flex-wrap justify-center gap-4 sm:gap-5 mt-8 px-4">
           {branddata.map((data) => (
-            <div key={data.id} className={`${data.id} bg-themebglight mr-5 w-52 h-48 flex flex-col justify-center border-none rounded-xl items-center mt-10 hover:animate-fadeup`}>
-              <Image src={data.img} alt={data.text} height={156} width={156} />
-              <p className=' text-xl font-semibold  hover:text-accent'>{data.text}</p>
+            <div key={data.id} className={`${data.id} bg-themebglight w-40 sm:w-52 p-3 flex flex-col justify-center border-none rounded-xl items-center hover:animate-fadeup`}>
+              <Image src={data.img} alt={data.text} height={156} width={156} className='w-full h-auto object-contain' />
+              <p className=' text-xl font-semibold  hover:text-accent text-center'>{data.text}</p>
             </div>
           ))}
         </div>

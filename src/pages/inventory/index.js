@@ -72,21 +72,22 @@ const Inventory = () => {
 
   return (
     <>
-      <h1 className='text-white absolute left-[43vw] top-60 z-20 text-5xl font-bold'>Inventory</h1>
-      <Breadcrumb />
-      <Assistant/>
-      <div className="results">
-        <p className='Card text-2xl font-semibold p-8 border-none rounded-xl mt-5 mb-10 ml-20 mr-20'>
+      <div className='relative'>
+        <Breadcrumb title="Inventory" />
+        <Assistant/>
+      </div>
+      <div className="results w-full max-w-7xl mx-auto px-4">
+        <p className='Card text-xl sm:text-2xl font-semibold p-6 sm:p-8 border-none rounded-xl mt-5 mb-10'>
           Showing {filteredData.length} Results
         </p>
       </div>
       <div key={"Search"} className="Search bg-white shadow-lg mt-10">
-        <p className='text-black font-semibold text-2xl pt-5 pl-6 pb-3 tracking-widest'>Let&#8217;s Find Your Perfect Car</p>
-        <hr className='border-solid ml-6 mr-6' />
-        <div className='Form-search grid grid-cols-3'>
+        <p className='text-black font-semibold text-xl sm:text-2xl pt-5 px-4 sm:pl-6 pb-3 tracking-widest'>Let&#8217;s Find Your Perfect Car</p>
+        <hr className='border-solid mx-4 sm:mx-6' />
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-6 pb-8'>
           {Object.keys(filterOptions).map((filterName) => (
-            <form key={filterName} className="max-w-64 ml-10">
-              <label htmlFor={filterName} className="block mb-2 mt-10 text-sm font-medium text-gray-900 dark:text-white">
+            <form key={filterName} className="w-full">
+              <label htmlFor={filterName} className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white">
                 {filterName.charAt(0).toUpperCase() + filterName.slice(1)}
               </label>
               <select
@@ -103,9 +104,11 @@ const Inventory = () => {
               </select>
             </form>
           ))}
-          <button onClick={handleDefault} className='theme-btn max-w-64 mt-16 ml-4 h-15 flex items-center justify-center gap-1 '>
-            Default Result
-          </button>
+          <div className='flex items-end'>
+            <button onClick={handleDefault} className='theme-btn w-full mt-4 h-15 flex items-center justify-center gap-1'>
+              Default Result
+            </button>
+          </div>
         </div>
       </div>
       

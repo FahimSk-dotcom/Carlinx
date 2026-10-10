@@ -6,8 +6,8 @@ const Modal = memo(({ isOpen, onClose, title, children }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center z-50 p-4 overflow-y-auto">
+      <div className="bg-white rounded-lg p-6 w-full max-w-md my-8">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-semibold">{title}</h3>
           <button
@@ -17,7 +17,9 @@ const Modal = memo(({ isOpen, onClose, title, children }) => {
             ×
           </button>
         </div>
-        {children}
+        <div className="max-h-[calc(100vh-160px)] overflow-y-auto">
+          {children}
+        </div>
       </div>
     </div>
   );
@@ -247,7 +249,7 @@ const VehicleSellSection = ({ dashboardData = { sell_req: [] }, fetchData }) => 
         </div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse border border-gray-300">
+          <table className="w-full min-w-[1000px] border-collapse border border-gray-300">
             <thead>
               <tr className="bg-accent text-white">
                 <th className="border border-gray-300 px-4 py-2">ID</th>

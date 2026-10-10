@@ -81,9 +81,9 @@ const Dealers = () => {
   ]
   return (
     <ScrollTrigger onEnter={() => setIsEntered(true)} onExit={() => setIsEntered(false)}>
-      <div className="new-arrival h-[120px] w-screen flex flex-col items-center mt-10 ">
+      <div className="new-arrival w-full flex flex-col items-center mt-10 px-4 ">
         <span className='text-accent text-xl flex items-center gap-2 font-bold tracking-widest'> <IoIosCar />Car Dealers</span>
-        <span className='text-5xl font-bold tracking-wide'>Best Dealers In  <span className='text-accent'>Your City</span></span>
+        <span className='text-center text-3xl sm:text-5xl font-bold tracking-wide'>Best Dealers In  <span className='text-accent'>Your City</span></span>
         <div className="divider"></div>
       </div>
       <div className={`container flex mb-20 flex-wrap justify-center ${isEntered ? 'animate-fadeup' : ''}`}>

@@ -433,7 +433,7 @@ const InventorySection = ({ dashboardData = { inventory: [] }, fetchData }) => {
             </div>
 
             <div className="overflow-x-auto">
-                <table className="w-full border-collapse border border-gray-300">
+                <table className="w-full min-w-[800px] border-collapse border border-gray-300">
                     <thead>
                         <tr className="bg-accent text-white">
                             <th className="border border-gray-300 px-4 py-2">Image</th>

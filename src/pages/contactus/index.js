@@ -62,30 +62,31 @@ const Contactus = () => {
 
   return (
     <>
-      <h1 className='text-white absolute left-[42vw] top-60 z-20 text-5xl font-bold'>Contact us</h1>
-      <Breadcrumb />
-      <div className="cards h-80 flex justify-evenly mt-20">
+      <div className='relative'>
+        <Breadcrumb title="Contact Us" />
+      </div>
+      <div className="w-full max-w-7xl mx-auto px-4 mt-16 flex flex-wrap justify-center gap-6">
         {/* Cards for Contact Information */}
         {[
           { icon: FaMapMarkedAlt, title: 'Office Address', text: 'Located at 178 Cst Road, Mumbai, India' },
-          { icon: LuPhoneCall, title: 'Call Us', text: '+91 12 6405 7898' },
+          { icon: LuPhoneCall, title: 'Call Us', text: '+1 12 6405 7898' },
           { icon: MdOutlineMarkEmailRead, title: 'Email Us', text: 'info@carlinx.com' },
           { icon: IoAlarmOutline, title: 'Open Time', text: 'Mon-Fri(09AM-8PM)' },
         ].map((card, index) => (
-          <div key={index} className="Card h-52 w-64 flex flex-col gap-2 items-center border-none rounded-xl hover:animate-fadeup2">
-            <li className='flex justify-center items-center bg-accent text-white h-20 w-20 mt-3 border-none rounded-full text-5xl list-none'>
+          <div key={index} className="Card w-full sm:w-64 min-h-52 p-4 flex flex-col gap-2 items-center border-none rounded-xl hover:animate-fadeup2">
+            <li className='flex justify-center items-center bg-accent text-white h-20 w-20 mt-3 border-none rounded-full text-4xl list-none'>
               <card.icon />
             </li>
-            <li className='list-none text-center text-xl font-bold'>{card.title}</li>
-            <li className='list-none text-center text-lg text-balance'>{card.text}</li>
+            <li className='list-none text-center text-lg sm:text-xl font-bold'>{card.title}</li>
+            <li className='list-none text-center text-base sm:text-lg text-balance'>{card.text}</li>
           </div>
         ))}
       </div>
-      <div className="Form h-[700px] Card w-[80vw] ml-[10%] mb-32 flex border-none rounded-lg">
-        <Image src={FormCover} height={600} width={600} className='ContactForm p-8' alt="Contact Us" />
-        <div className='flex flex-col'>
-          <h1 className='text-4xl font-bold mt-6 ml-5'>Get In Touch</h1>
-          <p className='text text-balance mt-5 ml-5'>
+      <div className="Form w-full max-w-6xl mx-auto mb-32 flex flex-col md:flex-row border-none rounded-lg overflow-hidden">
+        <Image src={FormCover} height={600} width={600} className='ContactForm p-4 md:p-8 w-full md:w-1/2 h-auto object-contain' alt="Contact Us" />
+        <div className='flex flex-col p-4 md:p-6 md:w-1/2'>
+          <h1 className='text-3xl md:text-4xl font-bold mt-2'>Get In Touch</h1>
+          <p className='text text-balance mt-4'>
             Have any questions or need assistance? We&apos;re here to help! Feel free to reach out, and our team will get back to you as soon as possible.
           </p>
           <form onSubmit={handleSubmit}>
@@ -98,7 +99,7 @@ const Contactus = () => {
                     name={field}
                     value={formData[field]}
                     onChange={handleChange}
-                    className={`ml-5 mt-10 border-[2px] rounded-xl h-12 ${field === 'subject' ? 'w-[35rem]' : 'w-64'} focus:ring-none`}
+                    className={`mt-4 border-[2px] rounded-xl h-12 w-full focus:ring-none`}
                     style={{ borderColor: '#ced4da', outline: 'none' }}
                     onFocus={(e) => (e.target.style.borderColor = '#EF1D26')}
                     onBlur={(e) => (e.target.style.borderColor = '#ced4da')}
@@ -110,7 +111,7 @@ const Contactus = () => {
                     placeholder="Write Your Message"
                     value={formData[field]}
                     onChange={handleChange}
-                    className="ml-5 pt-2 mt-8 border-[2px] rounded-xl h-60 w-[35rem] focus:ring-none"
+                    className="mt-4 pt-2 border-[2px] rounded-xl h-40 w-full focus:ring-none"
                     style={{ borderColor: '#ced4da', outline: 'none' }}
                     onFocus={(e) => (e.target.style.borderColor = '#EF1D26')}
                     onBlur={(e) => (e.target.style.borderColor = '#ced4da')}
@@ -121,12 +122,12 @@ const Contactus = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`theme-btn max-w-48 ml-5 mt-8 h-15 flex items-center justify-center gap-1 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`theme-btn max-w-48 mt-6 h-15 flex items-center justify-center gap-1 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
               {isSubmitting ? 'Sending...' : 'Send Message'}
               <IoIosSend className='text-white' />
             </button>
-            {feedback && <p className=" text-xl mt-[-40px] ml-60 text-red-500">{feedback}</p>}
+            {feedback && <p className="text-lg mt-3 text-red-500">{feedback}</p>}
           </form>
         </div>
       </div>

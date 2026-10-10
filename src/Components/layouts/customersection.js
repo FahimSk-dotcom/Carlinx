@@ -175,12 +175,12 @@ const CustomerSection = ({ dashboardData, fetchData }) => {
         </div>
       )}
 
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
         <h2 className="text-lg font-semibold">Customer Management</h2>
         <input
           type="text"
           placeholder="Search customers..."
-          className="border rounded p-2"
+          className="border rounded p-2 w-full sm:w-64"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -237,7 +237,8 @@ const CustomerSection = ({ dashboardData, fetchData }) => {
         </div>
       ) : null}
 
-      <table className="w-full border-collapse border border-gray-300">
+      <div className="overflow-x-auto">
+      <table className="w-full min-w-[700px] border-collapse border border-gray-300">
         <thead>
           <tr className="bg-accent text-white">
             <th className="border border-gray-300 px-4 py-2">Name</th>
@@ -282,6 +283,7 @@ const CustomerSection = ({ dashboardData, fetchData }) => {
           )}
         </tbody>
       </table>
+      </div>
     </div>
   );
 };

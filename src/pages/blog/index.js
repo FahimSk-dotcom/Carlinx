@@ -4,8 +4,7 @@ import Breadcrumb from '@/Components/layouts/BreadCrumb'
 const Blog = () => {
   return (
     <>
-    <h1 className='text-white absolute left-[46vw] top-60 z-20 text-5xl font-bold'>Blog</h1>
-    <Breadcrumb/>
+    <Breadcrumb title="Blog" />
     <BlogComponent />
     </>
   )

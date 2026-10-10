@@ -46,17 +46,21 @@ const swiper = () => {
 
     return (
         <>
-            <div className="Testimonals h-[80vh] flex flex-col items-center bg-themebglight w-screen">
+            <div className="Testimonals min-h-[80vh] flex flex-col items-center bg-themebglight w-full px-4">
                 <div className="heading1 flex mt-5 items-center font-semibold text-accent text-2xl tracking-widest">
                     <AiOutlineCar />Testimonals
                 </div>
-                <div className="heading2 mt-2 mb-3 text-5xl font-bold">What Our Client <span className='text-accent'>Say&apos;s</span>
+                <div className="heading2 mt-2 mb-3 text-center text-3xl sm:text-5xl font-bold">What Our Client <span className='text-accent'>Say&apos;s</span>
                 </div>
                 <div className="divider mb-10"></div>
             <Swiper
-                slidesPerView={4}
+                slidesPerView={1}
                 spaceBetween={30}
                 loop={true}
+                breakpoints={{
+                    640: { slidesPerView: 2 },
+                    1024: { slidesPerView: 4 },
+                }}
                 pagination={{
                     clickable: true, // Enables clickable dots
                     el: '.swiper-pagination', // Ensure dots appear where you want them

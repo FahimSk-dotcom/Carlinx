@@ -34,17 +34,17 @@ const blogComponent = () => {
     ]
     return (
         <>
-            <div className="Blog h-[80%] flex flex-col items-center w-screen">
-                <div className="heading1 flex gap-2 mt-24 items-center font-semibold text-accent text-2xl tracking-widest">
+            <div className="Blog h-[80%] flex flex-col items-center w-full px-4">
+                <div className="heading1 flex gap-2 mt-16 sm:mt-24 items-center font-semibold text-accent text-2xl tracking-widest">
                     <AiOutlineCar />OUR BLOG
                 </div>
-                <div className="heading2 mt-2 mb-2 text-5xl font-bold">Latest News & <span className='text-accent'>Blog</span></div>
+                <div className="heading2 mt-2 mb-2 text-center text-3xl sm:text-5xl font-bold">Latest News & <span className='text-accent'>Blog</span></div>
                 <div className="divider"></div>
-                <div className="Cards flex justify-evenly w-[80vw]">
+                <div className="Cards flex flex-wrap justify-center w-full max-w-6xl">
                     {
                         authordata.map((data) => (
-                            <ul key={data.id} className='Card h-[500px]  m-4 shadow-white shadow-xl w-80  flex flex-col border-none rounded'>
-                                <li className='m-2 hover:scale-110 transition-all p-2 '><Image src={data.img} height={200} width={280} className='border-none rounded' alt="" ></Image></li>
+                            <ul key={data.id} className='Card h-[500px] m-2 sm:m-4 shadow-white shadow-xl w-80 max-w-full flex flex-col border-none rounded'>
+                                <li className='m-2 hover:scale-110 transition-all p-2 overflow-hidden'><Image src={data.img} height={200} width={280} className='border-none rounded w-full h-auto' alt="" ></Image></li>
                                 <li className='flex items-center gap-2 mt-2 ml-2'><span className='text-accent'><FaRegCircleUser /></span>{data.Name}<span className='text-accent'><SlCalender /></span>{data.date}</li>
                                 <li className='mt-2  font-medium text-xl ml-2 hover:text-accent'>{data.desc}</li>
                                 <hr className='mt-2 ' />

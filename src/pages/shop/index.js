@@ -56,29 +56,30 @@ const Shop = () => {
 
   return (
     <>
-      <div className='h-[380px]'>
-        <h1 className='text-white absolute left-[46vw] top-60 z-20 text-5xl font-bold'>Shop</h1>
-        <Breadcrumb />
+      <div className='relative'>
+        <Breadcrumb title="Shop" />
         <Assistant/>
       </div>
-      <div className="Container w-screen flex justify-center">
+      <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-6 px-4 mt-10">
         {/* Sidebar */}
-        <div className="sidebar w-3/12">
-          <div className="search Card h-40 w-80 mt-10 border rounded-xl flex flex-col p-5">
-            <h4 className='text-xl ml-2 font-semibold'>Search</h4>
-            <input
-              type='text'
-              placeholder='Search Item'
-              onChange={handleSearch}
-              className='relative top-10 border-[2px] rounded-xl h-12 w-64 focus:ring-none'
-              style={{ borderColor: '#ced4da', outline: 'none' }}
-              onFocus={(e) => (e.target.style.borderColor = '#EF1D26')}
-              onBlur={(e) => (e.target.style.borderColor = '#ced4da')}
-            />
-            <IoIosSearch className='text-accent h-8 w-8 relative left-[208px]' />
+        <div className="sidebar w-full lg:w-3/12">
+          <div className="search Card mt-10 border rounded-xl flex flex-col p-5">
+            <h4 className='text-xl font-semibold'>Search</h4>
+            <div className='relative mt-4'>
+              <input
+                type='text'
+                placeholder='Search Item'
+                onChange={handleSearch}
+                className='border-[2px] rounded-xl h-12 w-full pr-10 focus:ring-none'
+                style={{ borderColor: '#ced4da', outline: 'none' }}
+                onFocus={(e) => (e.target.style.borderColor = '#EF1D26')}
+                onBlur={(e) => (e.target.style.borderColor = '#ced4da')}
+              />
+              <IoIosSearch className='text-accent h-6 w-6 absolute right-3 top-1/2 -translate-y-1/2' />
+            </div>
           </div>
-          <div className="price Card h-40 w-80 mt-10 mb-5 border rounded-xl flex flex-col p-5">
-            <h4 className='text-xl ml-2 font-semibold'>Price Range</h4>
+          <div className="price Card mt-6 border rounded-xl flex flex-col p-5">
+            <h4 className='text-xl font-semibold'>Price Range</h4>
             <div className="mt-2">₹{minValue} - ₹{maxValue}</div>
             <input
               type="range"
@@ -87,6 +88,7 @@ const Shop = () => {
               max="100000"
               value={minValue}
               onChange={handlePriceChange}
+              className='w-full mt-2'
             />
             <input
               type="range"
@@ -95,12 +97,13 @@ const Shop = () => {
               max="100000"
               value={maxValue}
               onChange={handlePriceChange}
+              className='w-full mt-2'
             />
           </div>
         </div>
 
         {/* Product Cards */}
-        <div className="card w-3/5 flex flex-wrap">
+        <div className="w-full lg:w-9/12 flex flex-wrap">
           {loading ? (
             <div className="flex justify-center items-center w-full h-64">
               {/* Enhanced Attractive Loader */}
@@ -115,34 +118,32 @@ const Shop = () => {
               </div>
             </div>
           ) : (
-            <div className="cards grid grid-cols-3">
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
               {partsData.map((data) => (
-                <div key={data.item_id} className="Card h-[350px] m-4 shadow-xl w-72 bg-white flex justify-center border-none rounded">
-                  <div className='card ml-4'>
-                    <Image src={data.img} width={250} height={100} className='border-none rounded hover:scale-105 transition-all' alt='' />
-                    <div className="content flex flex-col items-center">
-                      <p className='text-xl font-bold mt-2 hover:text-accent'>{data.name}</p>
-                      <p className='text-bold text-xl flex items-center gap-2 font-semibold mt-1 text-accent'>
-                        <FaRupeeSign /> {data.price}
-                      </p>
-                      <div className="buttons flex gap-2">
-                        <Link href={`/details/${data.item_id}`}>
-                          <button className='theme-btn max-w-32 h-9 mt-2 flex items-center justify-center gap-1'>
-                            <FaRegEye /> Details
-                          </button>
-                        </Link>
-                        <button
-                          onClick={() => handleAddToCart(data)}
-                          className='theme-btn max-w-64 h-9 mt-2 flex items-center justify-center'>
-                          <HiOutlineShoppingCart className='text-xl' /> Add to Cart
+                <div key={data.item_id} className="Card shadow-xl bg-white flex flex-col border-none rounded overflow-hidden">
+                  <Image src={data.img} width={250} height={100} className='w-full h-40 object-cover border-none rounded hover:scale-105 transition-all' alt='' />
+                  <div className="content flex flex-col items-center p-4">
+                    <p className='text-lg xl:text-xl font-bold mt-2 hover:text-accent text-center'>{data.name}</p>
+                    <p className='text-bold text-lg xl:text-xl flex items-center gap-2 font-semibold mt-1 text-accent'>
+                      <FaRupeeSign /> {data.price}
+                    </p>
+                    <div className="buttons flex flex-wrap justify-center gap-2">
+                      <Link href={`/details/${data.item_id}`}>
+                        <button className='theme-btn max-w-32 h-9 mt-2 flex items-center justify-center gap-1'>
+                          <FaRegEye /> Details
                         </button>
-                      </div>
+                      </Link>
+                      <button
+                        onClick={() => handleAddToCart(data)}
+                        className='theme-btn max-w-64 h-9 mt-2 flex items-center justify-center'>
+                        <HiOutlineShoppingCart className='text-xl' /> Add to Cart
+                      </button>
                     </div>
                   </div>
                 </div>
               ))}
               {partsData.length === 0 && (
-                <p className='col-span-3 text-center mt-10'>No products found.</p>
+                <p className='col-span-full text-center mt-10'>No products found.</p>
               )}
             </div>
           )}

@@ -139,14 +139,14 @@ const Products = ({ filteredData = DefaultData }) => {
     <ScrollTrigger onEnter={() => setIsEntered(true)} onExit={() => setIsEntered(false)}>
       <div className={`container flex flex-wrap justify-center ${isEntered ? 'animate-fadeup' : ''}`}>
         {filteredData.map((car) => (
-          <div key={car?.item_id} className="Card h-[400px] m-4 shadow-white shadow-xl w-72 bg-white flex justify-center border-none rounded">
+          <div key={car?.item_id} className="Card h-auto min-h-[400px] m-4 shadow-white shadow-xl w-72 max-w-full bg-white flex justify-center border-none rounded">
             <div className="card ml-4">
               <div onMouseEnter={() => handleMouseEnter(car?.item_id)} onMouseLeave={handleMouseLeave}>
                 <div className="flex">
                   <p className="text-white font-semibold inline p-1 border-none rounded relative bg-accent top-10 left-2 z-10">{car.condition}</p>
                   <div
-                    className={`text-white font-semibold bg-accent h-8 w-8 flex justify-center items-center border-none rounded-full relative top-10 opacity-0 z-10 hover:text-white hover:bg-black ${
-                      isHovered === car.id ? 'left-[69%] z-10 opacity-100 animate-fadein' : 'opacity-0 z-0'
+                    className={`text-white font-semibold bg-accent h-8 w-8 flex justify-center items-center border-none rounded-full relative top-10 left-2 lg:left-[69%] z-10 hover:text-white hover:bg-black ${
+                      isHovered === car.id ? 'z-10 lg:animate-fadein' : 'lg:opacity-0'
                     }`}
                   >
                     <FavoriteBorderOutlinedIcon />
@@ -164,12 +164,12 @@ const Products = ({ filteredData = DefaultData }) => {
                   {car.rating} ({car.reviews} Review)
                 </span>
               </p>
-              <ul className="grid grid-cols-2">
+              <ul className="grid grid-cols-2 gap-x-3">
                 <li className="text-accent mt-2 flex gap-2 items-center">
                   <TbSteeringWheel />
                   <span className="text-bodytextcolor">{car.transmission}</span>
                 </li>
-                <li className="text-accent mt-2 flex ml-[-1rem] items-center">
+                <li className="text-accent mt-2 flex items-center">
                   <GiRoad />
                   <span className="text-bodytextcolor">{car.mileage}</span>
                 </li>
@@ -195,7 +195,7 @@ const Products = ({ filteredData = DefaultData }) => {
           </div>
         ))}
       </div>
-      <div className="loadmore h-20 w-screen justify-center flex mt-10">
+      <div className="loadmore justify-center flex mt-10">
        
       </div>
     </ScrollTrigger>

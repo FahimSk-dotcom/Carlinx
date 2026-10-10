@@ -61,11 +61,15 @@ const Navbar = () => {
         }
     }, [])
 
+    useEffect(() => {
+        setMobileMenuOpen(false);
+    }, [router.asPath])
+
     return (
         <div>
-            {/* Top Header Section - Preserving exact desktop appearance */}
-            <div className="header-top poly flex justify-between items-center h-12 bg-black relative top-0 bottom-0 z-50 mb-1">
-                <div className="header-top-left hidden md:flex items-center h-10 ml-28">
+            {/* Top Header Section - desktop only */}
+            <div className="header-top poly hidden md:flex justify-between items-center h-12 bg-black relative top-0 bottom-0 z-50 mb-1">
+                <div className="header-top-left flex items-center h-10 ml-[6vw]">
                     <Image height={24} src={mail} alt="Mail icon" className="h-6 ml-10 z-10" />
                     <a className="text-white cursor-pointer z-10" href="mailto:info@carlinx.com">info@carlinx.com</a>
                     <Image height={20} src={phone} alt="Phone icon" className="h-5 ml-2" />
@@ -73,7 +77,7 @@ const Navbar = () => {
                     <Image height={24} src={clock} alt="Clock icon" className="h-6 ml-3 w-5 z-10" />
                     <a className="text-white cursor-pointer" href="">Mon-Fri(09AM-8PM)</a>
                 </div>
-                <div className="header-top-right hidden md:flex items-center h-10">
+                <div className="header-top-right flex items-center h-10">
                     {!isLoggedIn ? (
                         <>
                             <span className="transition-opacity duration-300 hover:opacity-40 flex justify-center">
@@ -111,13 +115,13 @@ const Navbar = () => {
                         <Image height={24} src={instaicon} alt="Instagram icon" className="h-6 z-10 ml-2 mr-2 cursor-pointer" />
                     </span>
                     <span className="transition-opacity duration-300 hover:opacity-40 flex justify-center">
-                        <Image height={24} src={linkedicon} alt="LinkedIn icon" className="h-6 z-10 ml-2 mr-40 cursor-pointer" />
+                        <Image height={24} src={linkedicon} alt="LinkedIn icon" className="h-6 z-10 ml-2 mr-[6vw] cursor-pointer" />
                     </span>
                 </div>
             </div>
 
-            {/* Mobile Top Bar - Only shows on mobile */}
-            <div className="md:hidden flex justify-between items-center py-2 px-4 bg-[#EF1D26] text-white">
+            {/* Mobile Top Bar - fixed above the header on mobile */}
+            <div className="md:hidden fixed top-0 left-0 right-0 z-50 h-9 flex justify-between items-center px-4 bg-[#EF1D26] text-white">
                 <div className="flex items-center">
                     <Image height={16} width={16} src={phone} alt="Phone icon" className="mr-1" />
                     <a href="tel:+21236547898" className="text-sm">+2 123 654 7898</a>
@@ -130,27 +134,27 @@ const Navbar = () => {
             </div>
 
             {/* Bottom Header Section - Exactly as original for desktop */}
-            <div className={`header-bottom fixed top-0 left-0 right-0 z-40 flex md:justify-between md:items-center transition-all duration-500 ${isScrolled ? 'h-16 md:h-20 pt-0' : 'h-16 md:h-32 md:pt-14'} bg-white`}>
-                <div className="container  md:mx-0 flex justify-between items-center md:items-stretch md:flex-none">
+            <div className={`header-bottom fixed top-9 md:top-0 left-0 right-0 z-40 flex md:justify-between md:items-center transition-all duration-500 ${isScrolled ? 'h-16 md:h-20 pt-0' : 'h-16 md:h-32 md:pt-14'} bg-white`}>
+                <div className="container flex justify-between items-center md:items-stretch md:flex-none">
                     {/* Logo - Same for both mobile and desktop but responsive */}
-                    <Link href="/home" className="ml-2 md:ml-44">
-                        <Image src={logo} height={70} alt="Carlinx Logo" className="w-32 md:w-56" />
+                    <Link href="/home" className="ml-2 md:ml-8 xl:ml-44">
+                        <Image src={logo} height={70} alt="Carlinx Logo" className="w-32 md:w-44 xl:w-56" />
                     </Link>
 
                     {/* Desktop Navigation Links - Preserved exactly as original */}
-                    <div className="hidden  md:flex md:items-center md:space-x-8 md:justify-between md:w-[950px]">
-                        <Link href="/home" className="text-black font-semibold cursor-pointer hover:text-[#EF1D26]">Home</Link>
-                        <Link href="/about" className="text-black font-semibold cursor-pointer hover:text-[#EF1D26]">About</Link>
-                        <Link href="/inventory" className="text-black font-semibold cursor-pointer hover:text-[#EF1D26]">Inventory</Link>
-                        <Link href="/shop" className="text-black font-semibold cursor-pointer hover:text-[#EF1D26]">Shop</Link>
-                        <Link href="/blog" className="text-black font-semibold cursor-pointer hover:text-[#EF1D26]">Blog</Link>
-                        <Link href="/contactus" className="text-black font-semibold cursor-pointer hover:text-[#EF1D26]">Contact us</Link>
+                    <div className="hidden md:flex md:flex-1 md:items-center md:justify-between md:gap-4 lg:gap-6 xl:gap-8 md:mx-6 xl:mx-10">
+                        <Link href="/home" className="text-black text-sm lg:text-base font-semibold cursor-pointer hover:text-[#EF1D26]">Home</Link>
+                        <Link href="/about" className="text-black text-sm lg:text-base font-semibold cursor-pointer hover:text-[#EF1D26]">About</Link>
+                        <Link href="/inventory" className="text-black text-sm lg:text-base font-semibold cursor-pointer hover:text-[#EF1D26]">Inventory</Link>
+                        <Link href="/shop" className="text-black text-sm lg:text-base font-semibold cursor-pointer hover:text-[#EF1D26]">Shop</Link>
+                        <Link href="/blog" className="text-black text-sm lg:text-base font-semibold cursor-pointer hover:text-[#EF1D26]">Blog</Link>
+                        <Link href="/contactus" className="text-black text-sm lg:text-base font-semibold cursor-pointer hover:text-[#EF1D26]">Contact us</Link>
                         <div className="flex items-center hover:text-[#EF1D26]">
-                            <Link href="/cart" className="flex items-center text-black font-semibold cursor-pointer hover:text-[#EF1D26]">
+                            <Link href="/cart" className="flex items-center text-black text-sm lg:text-base font-semibold cursor-pointer hover:text-[#EF1D26]">
                                 Cart
                                 <Image height={24} src={Cart} alt="cart icon" />
                             </Link>
-                            <span className="inline-flex mr-40 items-center justify-center bg-red-50 w-6 h-6 ml-2 rounded-full text-xs font-medium text-red-600 ring-1 shadow-[0_0_15px_1px_rgba(220,38,38)] ring-inset ring-red-600/10">
+                            <span className="inline-flex items-center justify-center bg-red-50 w-6 h-6 ml-2 rounded-full text-xs font-medium text-red-600 ring-1 shadow-[0_0_15px_1px_rgba(220,38,38)] ring-inset ring-red-600/10">
                                 {totalCount}
                             </span>
                         </div>
@@ -180,7 +184,7 @@ const Navbar = () => {
 
             {/* Mobile Menu - Only shows when toggled */}
             {mobileMenuOpen && (
-                <div className="md:hidden fixed top-16 left-0 right-0 bottom-0 bg-white z-30 overflow-y-auto">
+                <div className="md:hidden fixed top-[100px] left-0 right-0 bottom-0 bg-white z-30 overflow-y-auto" onClick={() => setMobileMenuOpen(false)}>
                     <div className="p-4">
                         <nav className="mb-6">
                             <Link href="/home" className="block py-3 border-b hover:text-[#EF1D26]">Home</Link>

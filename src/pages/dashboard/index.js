@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useRouter } from 'next/router';
 import { FaArrowLeft } from "react-icons/fa";
+import { GiHamburgerMenu } from 'react-icons/gi';
+import { IoMdClose } from 'react-icons/io';
 import ShopSection from "@/Components/layouts/ShopComponent";
 import InventorySection from '@/Components/layouts/InventoryComponent'
 import CustomerSection from "@/Components/layouts/customersection";
@@ -20,6 +22,7 @@ const STATUS_OPTIONS = ['Pending', 'Confirmed', 'In Progress', 'Completed', 'Can
 export default function AdminDashboard() {
     const router = useRouter();
     const [selected, setSelected] = useState("Dashboard");
+    const [sidebarOpen, setSidebarOpen] = useState(false);
     const [dashboardData, setDashboardData] = useState({
         paymentDetails: [],
         testDrives: [],
@@ -156,64 +159,66 @@ export default function AdminDashboard() {
     const renderTestDriveSection = () => (
         <div className="bg-white p-5 rounded shadow-md">
             <h2 className="text-lg font-semibold mb-3">Test Drive Appointments</h2>
-            <table className="w-full border-collapse border border-gray-300">
-                <thead>
-                    <tr className="bg-accent text-white">
-                        <th className="border border-gray-300 px-4 py-2">Customer Name</th>
-                        <th className="border border-gray-300 px-4 py-2">Phone</th>
-                        <th className="border border-gray-300 px-4 py-2">City</th>
-                        <th className="border border-gray-300 px-4 py-2">Brand</th>
-                        <th className="border border-gray-300 px-4 py-2">Model</th>
-                        <th className="border border-gray-300 px-4 py-2">Date</th>
-                        <th className="border border-gray-300 px-4 py-2">Location</th>
-                        <th className="border border-gray-300 px-4 py-2">Status</th>
-                        <th className="border border-gray-300 px-4 py-2">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {dashboardData.testDrives.map((appointment) => (
-                        <tr key={appointment.id} className="text-center">
-                            <td className="border border-gray-300 px-4 py-2">{appointment.customerName}</td>
-                            <td className="border border-gray-300 px-4 py-2">{appointment.phoneNumber}</td>
-                            <td className="border border-gray-300 px-4 py-2">{appointment.city}</td>
-                            <td className="border border-gray-300 px-4 py-2">{appointment.brand}</td>
-                            <td className="border border-gray-300 px-4 py-2">{appointment.model}</td>
-                            <td className="border border-gray-300 px-4 py-2">
-                                {new Date(appointment.date).toLocaleDateString()}
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2">{appointment.location}</td>
-                            <td className="border border-gray-300 px-4 py-2">
-                                <select
-                                    value={editableStatuses[appointment.id] || 'Pending'}
-                                    onChange={(e) => setEditableStatuses(prev => ({
-                                        ...prev,
-                                        [appointment.id]: e.target.value
-                                    }))}
-                                    className="w-full p-1 border rounded"
-                                >
-                                    {STATUS_OPTIONS.map(status => (
-                                        <option key={status} value={status}>
-                                            {status}
-                                        </option>
-                                    ))}
-                                </select>
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2">
-                                <button
-                                    onClick={() => handleStatusChange(appointment.id)}
-                                    disabled={updatingStatus || editableStatuses[appointment.id] === appointment.status}
-                                    className={`px-4 py-1 rounded ${editableStatuses[appointment.id] === appointment.status
-                                        ? 'bg-gray-300 cursor-not-allowed'
-                                        : 'bg-accent hover:bg-red-700 text-white'
-                                        }`}
-                                >
-                                    {updatingStatus ? 'Updating...' : 'Update'}
-                                </button>
-                            </td>
+            <div className="overflow-x-auto">
+                <table className="w-full min-w-[900px] border-collapse border border-gray-300">
+                    <thead>
+                        <tr className="bg-accent text-white">
+                            <th className="border border-gray-300 px-4 py-2">Customer Name</th>
+                            <th className="border border-gray-300 px-4 py-2">Phone</th>
+                            <th className="border border-gray-300 px-4 py-2">City</th>
+                            <th className="border border-gray-300 px-4 py-2">Brand</th>
+                            <th className="border border-gray-300 px-4 py-2">Model</th>
+                            <th className="border border-gray-300 px-4 py-2">Date</th>
+                            <th className="border border-gray-300 px-4 py-2">Location</th>
+                            <th className="border border-gray-300 px-4 py-2">Status</th>
+                            <th className="border border-gray-300 px-4 py-2">Actions</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {dashboardData.testDrives.map((appointment) => (
+                            <tr key={appointment.id} className="text-center">
+                                <td className="border border-gray-300 px-4 py-2">{appointment.customerName}</td>
+                                <td className="border border-gray-300 px-4 py-2">{appointment.phoneNumber}</td>
+                                <td className="border border-gray-300 px-4 py-2">{appointment.city}</td>
+                                <td className="border border-gray-300 px-4 py-2">{appointment.brand}</td>
+                                <td className="border border-gray-300 px-4 py-2">{appointment.model}</td>
+                                <td className="border border-gray-300 px-4 py-2">
+                                    {new Date(appointment.date).toLocaleDateString()}
+                                </td>
+                                <td className="border border-gray-300 px-4 py-2">{appointment.location}</td>
+                                <td className="border border-gray-300 px-4 py-2">
+                                    <select
+                                        value={editableStatuses[appointment.id] || 'Pending'}
+                                        onChange={(e) => setEditableStatuses(prev => ({
+                                            ...prev,
+                                            [appointment.id]: e.target.value
+                                        }))}
+                                        className="w-full p-1 border rounded"
+                                    >
+                                        {STATUS_OPTIONS.map(status => (
+                                            <option key={status} value={status}>
+                                                {status}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </td>
+                                <td className="border border-gray-300 px-4 py-2">
+                                    <button
+                                        onClick={() => handleStatusChange(appointment.id)}
+                                        disabled={updatingStatus || editableStatuses[appointment.id] === appointment.status}
+                                        className={`px-4 py-1 rounded ${editableStatuses[appointment.id] === appointment.status
+                                            ? 'bg-gray-300 cursor-not-allowed'
+                                            : 'bg-accent hover:bg-red-700 text-white'
+                                            }`}
+                                    >
+                                        {updatingStatus ? 'Updating...' : 'Update'}
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 
@@ -233,28 +238,30 @@ export default function AdminDashboard() {
 
             <div className="bg-white p-5 rounded shadow-md">
                 <h2 className="text-lg font-semibold mb-3">Payment Details</h2>
-                <table className="w-full border-collapse border border-gray-300">
-                    <thead>
-                        <tr className="bg-accent text-white">
-                            <th className="border border-gray-300 px-4 py-2">Transaction</th>
-                            <th className="border border-gray-300 px-4 py-2">Amount</th>
-                            <th className="border border-gray-300 px-4 py-2">Status</th>
-                            <th className="border border-gray-300 px-4 py-2">Customer Name</th>
-                            <th className="border border-gray-300 px-4 py-2">Contact No</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {dashboardData.paymentDetails.map((payment) => (
-                            <tr key={payment.id} className="text-center">
-                                <td className="border border-gray-300 px-4 py-2">{payment.transaction}</td>
-                                <td className="border border-gray-300 px-4 py-2">{payment.amount}</td>
-                                <td className="border border-gray-300 px-4 py-2">{payment.status}</td>
-                                <td className="border border-gray-300 px-4 py-2">{payment.customerName}</td>
-                                <td className="border border-gray-300 px-4 py-2">{payment.contact}</td>
+                <div className="overflow-x-auto">
+                    <table className="w-full min-w-[700px] border-collapse border border-gray-300">
+                        <thead>
+                            <tr className="bg-accent text-white">
+                                <th className="border border-gray-300 px-4 py-2">Transaction</th>
+                                <th className="border border-gray-300 px-4 py-2">Amount</th>
+                                <th className="border border-gray-300 px-4 py-2">Status</th>
+                                <th className="border border-gray-300 px-4 py-2">Customer Name</th>
+                                <th className="border border-gray-300 px-4 py-2">Contact No</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {dashboardData.paymentDetails.map((payment) => (
+                                <tr key={payment.id} className="text-center">
+                                    <td className="border border-gray-300 px-4 py-2">{payment.transaction}</td>
+                                    <td className="border border-gray-300 px-4 py-2">{payment.amount}</td>
+                                    <td className="border border-gray-300 px-4 py-2">{payment.status}</td>
+                                    <td className="border border-gray-300 px-4 py-2">{payment.customerName}</td>
+                                    <td className="border border-gray-300 px-4 py-2">{payment.contact}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </>
     );
@@ -274,10 +281,24 @@ export default function AdminDashboard() {
         <VehicleSellSection dashboardData={dashboardData} fetchData={fetchData} />
     )
     return (
-        <div className="flex h-screen">
+        <div className="flex h-screen overflow-hidden">
+            {/* Mobile Top Bar */}
+            <div className="lg:hidden fixed top-0 inset-x-0 z-40 h-14 bg-gray-900 text-white flex items-center justify-between px-4">
+                <button onClick={() => setSidebarOpen(true)} aria-label="Open menu" className="flex items-center gap-2">
+                    <GiHamburgerMenu className="h-6 w-6" />
+                </button>
+                <h2 className="text-lg font-bold">Admin Panel</h2>
+                <span className="w-6"></span>
+            </div>
+
             {/* Sidebar */}
-            <div className="w-1/4 bg-gray-900 text-white p-5">
-                <h2 className="text-xl font-bold mb-4">Admin Panel</h2>
+            <aside className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-gray-900 text-white p-5 transform transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 overflow-y-auto`}>
+                <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-xl font-bold">Admin Panel</h2>
+                    <button onClick={() => setSidebarOpen(false)} aria-label="Close menu" className="lg:hidden">
+                        <IoMdClose className="h-6 w-6" />
+                    </button>
+                </div>
                 <div className="space-y-2">
                     {menuItems.map((item) => (
                         <button
@@ -285,9 +306,11 @@ export default function AdminDashboard() {
                             className={`w-full text-left px-4 py-2 rounded ${selected === item ? "bg-accent" : "bg-gray-800"}`}
                             onClick={() => {
                                 if (item === "Back to Application") {
+                                    setSidebarOpen(false);
                                     router.push('/home');
                                 } else {
                                     setSelected(item);
+                                    setSidebarOpen(false);
                                 }
                             }}
                         >
@@ -297,10 +320,15 @@ export default function AdminDashboard() {
                         </button>
                     ))}
                 </div>
-            </div>
+            </aside>
+
+            {/* Overlay */}
+            {sidebarOpen && (
+                <div className="lg:hidden fixed inset-0 bg-black/50 z-40" onClick={() => setSidebarOpen(false)} />
+            )}
 
             {/* Main Content */}
-            <div className="w-3/4 p-6 bg-gray-100 overflow-y-auto">
+            <div className="w-full lg:flex-1 p-4 sm:p-6 pt-20 lg:pt-6 bg-gray-100 overflow-y-auto">
                 <h1 className="text-2xl font-semibold mb-4">{selected}</h1>
                 {loading ? (
                     <div className="flex justify-center items-center h-64">

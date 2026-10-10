@@ -56,7 +56,7 @@ export default function GeminiChatWidget() {
   };
 
   return (
-    <div className="fixed bottom-8 right-8 z-50 font-sans">
+    <div className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-50 font-sans">
       {/* Chat button */}
       <div className="relative">
         <button
@@ -82,7 +82,7 @@ export default function GeminiChatWidget() {
 
       {/* Chat sidebar */}
       {isOpen && (
-        <div className="absolute bottom-20 right-0 w-80 md:w-96 bg-white rounded-lg shadow-xl border border-gray-200 flex flex-col transition-all duration-300 ease-in-out">
+        <div className="absolute bottom-20 right-0 w-80 max-w-[calc(100vw-2rem)] md:w-96 bg-white rounded-lg shadow-xl border border-gray-200 flex flex-col transition-all duration-300 ease-in-out">
           {/* Header */}
           <div className="bg-accent text-white p-4 rounded-t-lg flex justify-between items-center">
             <h3 className="font-medium">Carlinx Assistant</h3>
@@ -96,7 +96,7 @@ export default function GeminiChatWidget() {
           {/* Messages container */}
           <div 
             id="chat-messages"
-            className="p-4 h-96 overflow-y-auto flex flex-col gap-3"
+            className="p-4 h-64 sm:h-96 max-h-[calc(100vh-180px)] overflow-y-auto flex flex-col gap-3"
           >
             {messages.length === 0 ? (
               <div className="text-center text-gray-500 mt-32">
