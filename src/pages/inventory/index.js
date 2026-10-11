@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Breadcrumb from '../../Components/layouts/BreadCrumb';
-import Assistant from '@/Components/GeminiChat';
 import Products from '../../Components/layouts/products';
 import { FaArrowRotateRight } from "react-icons/fa6";
 import axios from 'axios';
@@ -74,7 +73,6 @@ const Inventory = () => {
     <>
       <div className='relative'>
         <Breadcrumb title="Inventory" />
-        <Assistant/>
       </div>
       <div className="results w-full max-w-7xl mx-auto px-4">
         <p className='Card text-xl sm:text-2xl font-semibold p-6 sm:p-8 border-none rounded-xl mt-5 mb-10'>

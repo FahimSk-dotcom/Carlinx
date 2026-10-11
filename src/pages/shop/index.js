@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Breadcrumb from '@/Components/layouts/BreadCrumb';
-import Assistant from '@/Components/GeminiChat';
 import { IoIosSearch } from "react-icons/io";
 import { FaRupeeSign } from "react-icons/fa";
 import Image from 'next/image';
@@ -58,7 +57,6 @@ const Shop = () => {
     <>
       <div className='relative'>
         <Breadcrumb title="Shop" />
-        <Assistant/>
       </div>
       <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-6 px-4 mt-10">
         {/* Sidebar */}
